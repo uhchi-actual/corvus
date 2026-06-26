@@ -46,6 +46,20 @@ succeeds or fails.
 The analysis route is `POST /analysis/session/{session_id}` because it writes a
 finding row.
 
+## Power BI
+
+Phase 4 exports a Power BI-ready report pack from `data/seed/corvus.db`:
+
+- CSV tables in `powerbi/export/`
+- report layout manifest in `powerbi/report_manifest.json`
+- uhchi theme in `powerbi/corvus_powerbi_theme.json`
+- DAX measures in `powerbi/measures/`
+- preview screenshots in `powerbi/screenshots/`
+
+Power BI Desktop is required to save the final `powerbi/corvus.pbix` binary.
+Desktop is not installed in this environment, so the repo carries the tested
+source pack and a reproducible export script.
+
 ## Read-Only OBD-II Scope
 
 Allowed modes:

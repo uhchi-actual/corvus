@@ -1,0 +1,11 @@
+Average Health Score =
+AVERAGE ( health_scores[health_score] )
+
+Total Telemetry Samples =
+SUM ( session_overview[telemetry_samples] )
+
+Logged DTC Events =
+SUM ( session_overview[dtc_events] )
+
+Directional Score Label =
+"Directional editable scoring config"

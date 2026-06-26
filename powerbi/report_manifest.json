@@ -1,0 +1,28 @@
+{
+  "name": "Corvus Power BI v1",
+  "source": "data/seed/corvus.db",
+  "exports": "powerbi/export",
+  "theme": "powerbi/corvus_powerbi_theme.json",
+  "pages": [
+    {
+      "name": "Drive health",
+      "tables": ["session_overview", "health_scores", "baseline_deviation"],
+      "visuals": ["health score cards", "session row counts", "baseline deviation table"]
+    },
+    {
+      "name": "Fuel trim",
+      "tables": ["fuel_trim_drift", "telemetry_samples"],
+      "visuals": ["LTFT rolling SQL output line", "telemetry detail table"]
+    },
+    {
+      "name": "DTC evidence",
+      "tables": ["dtc_events", "dtc_telemetry_correlation", "findings"],
+      "visuals": ["DTC list", "telemetry window table", "traced finding detail"]
+    }
+  ],
+  "guardrails": [
+    "All numeric analysis comes from SQLite queries or exported SQL output.",
+    "Performance scoring uses data/health_score_config.json and is directional.",
+    "Power BI Desktop is required to export the final .pbix file from this report pack."
+  ]
+}

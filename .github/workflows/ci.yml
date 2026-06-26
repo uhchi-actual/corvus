@@ -18,7 +18,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install backend dependencies
-        run: pip install -e ./backend
+        run: pip install -e "./backend[dev]"
 
       - name: Check scaffold paths and guardrails
         run: python scripts/check_phase0.py
@@ -31,6 +31,9 @@ jobs:
 
       - name: Check Huginn and Muninn graph
         run: python scripts/check_phase3.py
+
+      - name: Check Power BI report pack
+        run: python scripts/check_phase4.py
 
   backend:
     name: Backend lint and test

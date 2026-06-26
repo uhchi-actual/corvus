@@ -1,0 +1,31 @@
+{
+  "name": "Corvus Uhchi",
+  "dataColors": ["#CC2936", "#1F7F78", "#EADBC6", "#CBBCA9", "#6F7775"],
+  "background": "#2D2D2D",
+  "foreground": "#EADBC6",
+  "tableAccent": "#1F7F78",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [
+          {
+            "color": { "solid": { "color": "#EADBC6" } },
+            "fontFace": "Segoe UI Semibold"
+          }
+        ],
+        "labels": [
+          {
+            "color": { "solid": { "color": "#EADBC6" } },
+            "fontFace": "Segoe UI"
+          }
+        ],
+        "background": [
+          {
+            "color": { "solid": { "color": "#242424" } },
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}

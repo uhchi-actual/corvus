@@ -1,0 +1,4 @@
+vehicle_id,vin,make,model,year,engine,notes
+1,DEMO-CORVUS-LS1,Chevrolet,Corvette,2002,LS1 5.7L V8,Synthetic demo vehicle; not a real VIN.
+2,DEMO-CORVUS-LS1,Chevrolet,Corvette,2002,LS1 5.7L V8,Synthetic demo vehicle; not a real VIN.
+3,,Seat,Leon,,,Public KIT Automotive OBD-II Dataset sample; DOI 10.35097/1130.

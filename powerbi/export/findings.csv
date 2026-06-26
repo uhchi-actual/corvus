@@ -1,0 +1,1 @@
+finding_id,session_id,severity,category,metric_or_code,observed,expected_range,likely_cause,recommended_fix,confidence,evidence_json,agent_trace_id,created_at

@@ -10,7 +10,7 @@ to explain SQL output in plain language.
 
 ## Current Status
 
-Phase 3 agent graph is in place:
+Phase 4 Power BI report pack is in place:
 
 - Backend FastAPI health scaffold.
 - Frontend Next.js 15 static shell with uhchi design tokens.
@@ -28,9 +28,10 @@ Phase 3 agent graph is in place:
   scoring config.
 - Huginn and Muninn LangGraph flow that explains SQL output and writes traced
   findings.
+- Power BI-ready report pack against the seeded SQLite database.
+- Smooth v1 shell with warm off-white accents and reduced-motion support.
 
-The Power BI report and real dashboard are intentionally reserved for later
-phases.
+The real static dashboard is reserved for Phase 5.
 
 ## Guardrails
 
@@ -85,6 +86,7 @@ python scripts/check_phase0.py
 python scripts/check_phase1.py
 python scripts/check_phase2.py
 python scripts/check_phase3.py
+python scripts/check_phase4.py
 cd backend && pytest -q && ruff check src tests
 cd frontend && npm run lint && npm run build
 ```
@@ -120,7 +122,8 @@ See [docs/DOCKER_WSL2_DISK_CAP.md](docs/DOCKER_WSL2_DISK_CAP.md).
 - `data/health_score_config.json` - editable directional scoring defaults.
 - `data/seed/` - synthetic sample logs and seeded SQLite database.
 - `docs/DATASETS.md` - public OBD-II source attribution and refresh notes.
-- `powerbi/` - Phase 4 report and screenshots.
+- `docs/ACCESS_MANIFEST.md` - exact runtime entry points and OBD-II read scope.
+- `powerbi/` - Phase 4 report pack, exports, theme, measures, and screenshots.
 - `docs/` - guardrails, design notes, and deployment notes.
 
 ## Source Of Truth

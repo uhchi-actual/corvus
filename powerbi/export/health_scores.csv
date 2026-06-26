@@ -1,0 +1,4 @@
+dtc_count,dtc_penalty_points,ended_at,health_score,metric_penalty_points,score_basis,session_id,started_at,telemetry_samples
+1,10.0,2026-06-01T09:00:11Z,80.0,10.0,directional editable scoring config,1,2026-06-01T09:00:00Z,12
+1,18.0,2026-06-02T18:30:11Z,74.0,8.0,directional editable scoring config,2,2026-06-02T18:30:00Z,12
+0,0.0,2018-03-29T16:50:29.059Z,88.0,12.0,directional editable scoring config,3,2018-03-29T16:45:10.700Z,240

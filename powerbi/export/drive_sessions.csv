@@ -1,0 +1,4 @@
+session_id,vehicle_id,make,model,year,engine,started_at,ended_at,source,ambient_c,notes
+1,1,Chevrolet,Corvette,2002,LS1 5.7L V8,2026-06-01T09:00:00Z,2026-06-01T09:00:11Z,csv,21.0,Synthetic Torque/Car Scanner style CSV for offline development.
+2,2,Chevrolet,Corvette,2002,LS1 5.7L V8,2026-06-02T18:30:00Z,2026-06-02T18:30:11Z,emulator,22.0,Synthetic ELM327-emulator scenario exported as CSV.
+3,3,Seat,Leon,,,2018-03-29T16:45:10.700Z,2018-03-29T16:50:29.059Z,csv,,Normalized public OBD-II CSV slice from KIT/RADAR under CC BY 4.0.

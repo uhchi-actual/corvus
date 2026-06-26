@@ -22,6 +22,7 @@ live = [
 ]
 dev = [
     "httpx>=0.27",
+    "pillow>=10",
     "pytest>=8.0",
     "ruff>=0.8",
 ]

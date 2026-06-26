@@ -1,0 +1,3 @@
+dtc_id,session_id,ts,code,status,description
+1,1,2026-06-01T09:00:05Z,P0171,pending,System Too Lean Bank 1
+2,2,2026-06-02T18:30:05Z,P0301,stored,Cylinder 1 Misfire Detected

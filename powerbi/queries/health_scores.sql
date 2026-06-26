@@ -1,0 +1,4 @@
+-- Generated for Power BI by scripts/export_powerbi_dataset.py.
+-- The exporter runs data/queries/session_health_score.sql once per session
+-- with values from data/health_score_config.json.
+-- Import powerbi/export/health_scores.csv into Power BI.

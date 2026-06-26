@@ -1,0 +1,4 @@
+context,metric,out_of_range_samples,pct_out_of_range,sample_count,session_id
+warm,coolant_temp_c,0,0.0,12,1
+warm,coolant_temp_c,2,16.7,12,2
+warm,coolant_temp_c,240,100.0,240,3

@@ -17,3 +17,13 @@ backing letter with the darker teal as an outline, not as a filled block shadow.
 Supporting type should use a smooth rounded system stack, heavy weights, and
 rounded controls. Phase 5 should apply the same direction to the real dashboard
 while keeping performance thresholds visibly labeled as directional defaults.
+
+## V1 Motion
+
+The interface should feel smooth and calm:
+
+- one entrance motion per surface
+- warm off-white accents, not sterile white
+- no placeholder or coming-soon panels
+- no motion that hides data or blocks interaction
+- `prefers-reduced-motion` support on every animated surface

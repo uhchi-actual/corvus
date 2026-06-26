@@ -19,6 +19,7 @@ Python:
 ```bash
 cd backend
 pip install -e ".[dev]"
+pip install py7zr openpyxl pillow
 ```
 
 Frontend:

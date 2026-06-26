@@ -160,6 +160,23 @@ def _replace_seeded_finding(conn: sqlite3.Connection, session_id: int) -> None:
     conn.commit()
 
 
+def _public_source_entries(conn: sqlite3.Connection) -> list[str]:
+    rows = conn.execute(
+        """
+        SELECT
+          substr(
+            s.notes,
+            instr(s.notes, 'source_file=') + length('source_file='),
+            instr(s.notes, '; drive_label=') - instr(s.notes, 'source_file=') - length('source_file=')
+          ) AS source_file
+        FROM drive_sessions s
+        WHERE s.source = 'public'
+        ORDER BY s.session_id
+        """
+    ).fetchall()
+    return [str(row["source_file"]) for row in rows]
+
+
 def _dashboard_payload(
     conn: sqlite3.Connection,
     focus_session_id: int,
@@ -278,17 +295,26 @@ def _dashboard_payload(
             },
         ],
         "dataSource": {
-            "name": "KIT/RADAR Automotive OBD-II Dataset",
-            "vehicle": "Seat Leon",
-            "entries": [
-                "2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv",
-                "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
-                "2018-02-18_Seat_Leon_RT_KA_Stau.csv",
+            "summary": "Three real OBD-II vehicles from public archives.",
+            "sources": [
+                {
+                    "name": "KIT/RADAR Automotive OBD-II Dataset",
+                    "license": "CC BY 4.0",
+                    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/deed.en",
+                    "url": "https://doi.org/10.35097/1130",
+                },
+                {
+                    "name": "Vehicle Energy Dataset (VED)",
+                    "license": "Apache-2.0",
+                    "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0",
+                    "url": "https://github.com/gsoh/VED",
+                },
             ],
-            "note": "Three real drive entries are used for the public dashboard. Public v1 charts mass air flow because these source files do not include fuel-trim fields.",
-            "doi": "https://doi.org/10.35097/1130",
-            "license": "CC BY 4.0",
-            "licenseUrl": "https://creativecommons.org/licenses/by/4.0/deed.en",
+            "entries": _public_source_entries(conn),
+            "note": (
+                "Public v1 charts mass air flow. KIT rows omit fuel-trim fields. "
+                "VED rows include fuel trim from Ann Arbor, Michigan week logs."
+            ),
         },
         "inspiration": {
             "label": "F-Type P340 / Mustang GT 5.0",

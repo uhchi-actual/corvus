@@ -24,9 +24,21 @@ TELEMETRY_COLUMNS = (
 
 COLUMN_ALIASES = {
     "ts": ("ts", "timestamp", "time", "datetime"),
-    "rpm": ("rpm", "engine rpm", "engine rpm(rpm)", "engine rpm (rpm)"),
-    "speed_kph": ("speed_kph", "speed", "speed (km/h)", "vehicle speed(km/h)"),
-    "engine_load_pct": ("engine_load_pct", "engine load", "engine load(%)", "engine load (%)"),
+    "rpm": ("rpm", "engine rpm", "engine rpm(rpm)", "engine rpm (rpm)", "engine rpm[rpm]"),
+    "speed_kph": (
+        "speed_kph",
+        "speed",
+        "speed (km/h)",
+        "vehicle speed(km/h)",
+        "vehicle speed[km/h]",
+    ),
+    "engine_load_pct": (
+        "engine_load_pct",
+        "engine load",
+        "engine load(%)",
+        "engine load (%)",
+        "absolute load[%]",
+    ),
     "coolant_temp_c": (
         "coolant_temp_c",
         "coolant temp",
@@ -34,10 +46,20 @@ COLUMN_ALIASES = {
         "engine coolant temperature(c)",
     ),
     "intake_temp_c": ("intake_temp_c", "intake temp", "intake air temp(c)"),
-    "maf_gps": ("maf_gps", "maf", "maf(g/s)", "mass air flow(g/s)"),
+    "maf_gps": ("maf_gps", "maf", "maf(g/s)", "mass air flow(g/s)", "maf[g/sec]"),
     "throttle_pct": ("throttle_pct", "throttle position(%)", "throttle position"),
-    "stft_b1_pct": ("stft_b1_pct", "short fuel trim bank 1(%)", "short fuel trim 1"),
-    "ltft_b1_pct": ("ltft_b1_pct", "long fuel trim bank 1(%)", "long fuel trim 1"),
+    "stft_b1_pct": (
+        "stft_b1_pct",
+        "short fuel trim bank 1(%)",
+        "short fuel trim 1",
+        "short term fuel trim bank 1[%]",
+    ),
+    "ltft_b1_pct": (
+        "ltft_b1_pct",
+        "long fuel trim bank 1(%)",
+        "long fuel trim 1",
+        "long term fuel trim bank 1[%]",
+    ),
     "timing_adv_deg": ("timing_adv_deg", "timing advance", "timing advance(deg)"),
     "fuel_press_kpa": ("fuel_press_kpa", "fuel pressure(kpa)", "fuel pressure"),
     "o2_b1s1_v": ("o2_b1s1_v", "o2 b1s1(v)", "o2_b1s1", "bank 1 sensor 1 voltage(v)"),

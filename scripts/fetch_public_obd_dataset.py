@@ -13,9 +13,7 @@ DATASET_URL = "https://www.radar-service.eu/radar-backend/archives/bCtGxdTklQlfQ
 ARCHIVE_MD5 = "22d9aac00d1a2b4c97aa35fd7a103ba4"
 SOURCE_FILE = "2018-03-29_Seat_Leon_KA_RT_Stau.csv"
 PUBLIC_SEED_SOURCES = {
-    "public_obd_kit_acceleration.csv": "2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv",
     "public_obd_kit_normal.csv": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
-    "public_obd_kit_traffic.csv": "2018-02-18_Seat_Leon_RT_KA_Stau.csv",
 }
 
 SOURCE_COLUMNS = {

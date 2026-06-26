@@ -20,19 +20,51 @@ from src.ingest.emulator_adapter import ingest_emulator_csv  # noqa: E402
 
 PUBLIC_DRIVE_SOURCES = [
     {
-        "seed_file": "public_obd_kit_acceleration.csv",
-        "source_file": "2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv",
-        "label": "free-road acceleration",
-    },
-    {
         "seed_file": "public_obd_kit_normal.csv",
         "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
         "label": "normal commuter drive",
+        "vehicle": VehicleMetadata(
+            vin=None,
+            make="Seat",
+            model="Leon",
+            year=None,
+            engine=None,
+            notes="Public KIT Automotive OBD-II Dataset sample; DOI 10.35097/1130.",
+        ),
+        "dataset": "KIT/RADAR Automotive OBD-II Dataset",
+        "license": "CC BY 4.0",
     },
     {
-        "seed_file": "public_obd_kit_traffic.csv",
-        "source_file": "2018-02-18_Seat_Leon_RT_KA_Stau.csv",
-        "label": "traffic drive",
+        "seed_file": "public_obd_ved_6l_v8.csv",
+        "source_file": "VED_171101_week.csv",
+        "source_detail": "VehId=108; Trip=784",
+        "label": "Ann Arbor week log",
+        "vehicle": VehicleMetadata(
+            vin=None,
+            make="VED",
+            model="ICE 6.0L V8",
+            year=None,
+            engine="8-4V/FI 6.0L",
+            notes="Public VED OBD-II slice; Apache 2.0; de-identified participant vehicle.",
+        ),
+        "dataset": "Vehicle Energy Dataset (VED)",
+        "license": "Apache-2.0",
+    },
+    {
+        "seed_file": "public_obd_ved_car_1p5l.csv",
+        "source_file": "VED_171101_week.csv",
+        "source_detail": "VehId=8; Trip=708",
+        "label": "Ann Arbor week log",
+        "vehicle": VehicleMetadata(
+            vin=None,
+            make="VED",
+            model="Car 1.5L",
+            year=None,
+            engine="4-FI 1.5L",
+            notes="Public VED OBD-II slice; Apache 2.0; de-identified participant vehicle.",
+        ),
+        "dataset": "Vehicle Energy Dataset (VED)",
+        "license": "Apache-2.0",
     },
 ]
 
@@ -75,27 +107,21 @@ def main() -> None:
         )
         insert_demo_baselines(conn, emulator_result.vehicle_id)
 
-        public_vehicle = VehicleMetadata(
-            vin=None,
-            make="Seat",
-            model="Leon",
-            year=None,
-            engine=None,
-            notes="Public KIT Automotive OBD-II Dataset sample; DOI 10.35097/1130.",
-        )
         public_results = []
         for source in PUBLIC_DRIVE_SOURCES:
+            source_detail = source.get("source_detail", "")
+            detail_suffix = f"; {source_detail}" if source_detail else ""
             public_result = ingest_drive_csv(
                 conn,
                 ROOT / "data" / "seed" / source["seed_file"],
-                public_vehicle,
+                source["vehicle"],
                 SessionMetadata(
                     source="public",
                     notes=(
-                        "KIT/RADAR real OBD-II entry; "
-                        f"source_file={source['source_file']}; "
+                        f"{source['dataset']} real OBD-II entry; "
+                        f"source_file={source['source_file']}{detail_suffix}; "
                         f"drive_label={source['label']}; "
-                        "license=CC BY 4.0."
+                        f"license={source['license']}."
                     ),
                 ),
             )
@@ -110,7 +136,7 @@ def main() -> None:
         "Rows: "
         f"csv telemetry={csv_result.telemetry_rows}, csv dtcs={csv_result.dtc_rows}; "
         f"emulator telemetry={emulator_result.telemetry_rows}, emulator dtcs={emulator_result.dtc_rows}; "
-        f"public telemetry={public_telemetry_rows}, public dtcs={public_dtc_rows}"
+        f"public telemetry={public_telemetry_rows}, public dtc_rows={public_dtc_rows}"
     )
 
 

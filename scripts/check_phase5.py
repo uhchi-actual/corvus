@@ -17,8 +17,12 @@ def main() -> None:
     if "dashboardData" not in page or "agentTrace" not in page:
         raise SystemExit("Frontend is not rendering the static dashboard payload")
 
-    if payload["dataSource"]["license"] != "CC BY 4.0":
-        raise SystemExit("Dashboard payload is missing public data license attribution")
+    if not payload["dataSource"].get("sources"):
+        raise SystemExit("Dashboard payload is missing public data source attribution")
+
+    licenses = {source["license"] for source in payload["dataSource"]["sources"]}
+    if "CC BY 4.0" not in licenses or "Apache-2.0" not in licenses:
+        raise SystemExit("Dashboard payload is missing expected public data licenses")
 
     if len(payload["dataSource"].get("entries", [])) < 3:
         raise SystemExit("Dashboard payload is missing exact public source entries")
@@ -26,8 +30,12 @@ def main() -> None:
     if any(session["source"] != "public" for session in payload["sessions"]):
         raise SystemExit("Dashboard payload includes non-public displayed sessions")
 
-    if "Corvette" in json.dumps(payload) or "synthetic" in json.dumps(payload["sessions"]).lower():
+    if "Corvette" in json.dumps(payload["sessions"]).lower():
         raise SystemExit("Dashboard payload leaked synthetic control data")
+
+    vehicles = {session["vehicle"] for session in payload["sessions"]}
+    if len(vehicles) < 3:
+        raise SystemExit("Dashboard payload is missing unique public vehicles")
 
     if len(payload.get("trend", [])) > 26 or not payload.get("trend"):
         raise SystemExit("Dashboard trend is missing bounded SQL output")

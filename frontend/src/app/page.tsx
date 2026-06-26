@@ -72,13 +72,15 @@ type DashboardData = {
     body: string;
   }>;
   dataSource: {
-    name: string;
-    vehicle: string;
+    summary: string;
+    sources: Array<{
+      name: string;
+      license: string;
+      licenseUrl: string;
+      url: string;
+    }>;
     entries: string[];
     note: string;
-    doi: string;
-    license: string;
-    licenseUrl: string;
   };
   inspiration: {
     label: string;
@@ -112,15 +114,16 @@ export default function Home() {
           </h1>
           <p className="statement">{dashboard.statement}</p>
           <p className="sourceLine">
-            Data:{" "}
-            <a href={dashboard.dataSource.doi}>{dashboard.dataSource.name}</a>
-            {" / "}
-            <a href={dashboard.dataSource.licenseUrl}>{dashboard.dataSource.license}</a>
+            {dashboard.dataSource.sources.map((source, index) => (
+              <span key={source.name}>
+                {index > 0 ? " / " : "Data: "}
+                <a href={source.url}>{source.name}</a>
+                {" "}
+                <a href={source.licenseUrl}>{source.license}</a>
+              </span>
+            ))}
           </p>
-          <p className="sourceDetail">
-            Public dashboard rows use real {dashboard.dataSource.vehicle} drive entries from
-            the KIT/RADAR archive.
-          </p>
+          <p className="sourceDetail">{dashboard.dataSource.summary}</p>
         </div>
         <figure className="inspirationPlate" aria-label={dashboard.inspiration.label}>
           <img src={dashboard.inspiration.image} alt={dashboard.inspiration.label} />
@@ -282,11 +285,19 @@ export default function Home() {
             <h2>Provenance</h2>
           </div>
           <div className="provenanceBlock">
-            <strong>{dashboard.dataSource.name}</strong>
             <p>{dashboard.dataSource.note}</p>
             <ul>
               {dashboard.dataSource.entries.map((entry) => (
                 <li key={entry}>{entry}</li>
+              ))}
+            </ul>
+            <ul className="sourceAttributionList">
+              {dashboard.dataSource.sources.map((source) => (
+                <li key={source.name}>
+                  <a href={source.url}>{source.name}</a>
+                  {" / "}
+                  <a href={source.licenseUrl}>{source.license}</a>
+                </li>
               ))}
             </ul>
           </div>

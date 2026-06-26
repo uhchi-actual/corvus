@@ -21,7 +21,7 @@ Phase 5 static dashboard is in place:
 - CSV and emulator CSV ingestion paths.
 - Read-only live python-OBD adapter scaffold.
 - Synthetic seed logs and a seeded SQLite database.
-- Public KIT/RADAR OBD-II dashboard entries from a CC BY 4.0 dataset.
+- Public dashboard entries from KIT/RADAR (CC BY 4.0) and VED (Apache 2.0).
 - Showcase SQL for baseline deviation, fuel-trim drift, and DTC-to-telemetry
   correlation.
 - Deterministic session health score computed in SQL from editable directional
@@ -31,9 +31,9 @@ Phase 5 static dashboard is in place:
 - Power BI-ready report pack against the seeded SQLite database.
 - Smooth v1 dashboard with warm off-white accents, car inspiration material,
   and reduced-motion support.
-- Public v1 mass-air-flow trend from real KIT/RADAR telemetry.
-- Synthetic rows remain internal control data. Public dashboard rows are real
-  KIT/RADAR Seat Leon entries with exact source filenames shown in the UI.
+- Public v1 mass-air-flow trend from real public OBD-II telemetry.
+- Synthetic rows remain internal control data. Public dashboard rows are three
+  real vehicles with exact source filenames and trip identifiers in the UI.
 
 ## Guardrails
 

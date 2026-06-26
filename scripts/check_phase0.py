@@ -55,8 +55,11 @@ def main() -> None:
 
     dashboard = json.loads((ROOT / "frontend/src/data/dashboard.json").read_text(encoding="utf-8"))
     data_source = dashboard["dataSource"]
-    if data_source["license"] != "CC BY 4.0" or "KIT/RADAR" not in data_source["name"]:
-        raise SystemExit("Frontend public data attribution is missing")
+    licenses = {source["license"] for source in data_source.get("sources", [])}
+    if "CC BY 4.0" not in licenses:
+        raise SystemExit("Frontend public data attribution is missing KIT/RADAR license")
+    if "Apache-2.0" not in licenses:
+        raise SystemExit("Frontend public data attribution is missing VED license")
 
     compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")
     if "disk=40GB" not in compose:

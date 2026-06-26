@@ -1,7 +1,7 @@
 # Corvus Power BI Report Pack
 
 This folder contains the Phase 4 report assets for Power BI.
-The exported report data is scoped to the real public KIT/RADAR Seat Leon entries.
+The exported report data is scoped to the real public dashboard sessions.
 
 Power BI Desktop is not installed in this development environment, so the binary
 `.pbix` export cannot be produced here. The report pack is still built against

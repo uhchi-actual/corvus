@@ -1,39 +1,44 @@
 # Datasets
 
-Corvus ships synthetic seed logs plus a small normalized slice from a public
-OBD-II dataset.
+Corvus ships synthetic seed logs plus normalized slices from public OBD-II archives.
 
-## Public OBD-II Seed
+## KIT/RADAR Automotive OBD-II Dataset
 
-- Source: Marc Weber, Automotive OBD-II Dataset, Karlsruhe Institute of
-  Technology, 2023
+- Source: Marc Weber, Automotive OBD-II Dataset, Karlsruhe Institute of Technology, 2023
 - DOI: https://doi.org/10.35097/1130
 - Repository page: https://www.radar-service.eu/radar/en/dataset/bCtGxdTklQlfQcAq
 - License: CC BY 4.0
-- Dashboard source vehicle: Seat Leon
-- Dashboard source files:
-  - `2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv`
-  - `2018-03-21_Seat_Leon_KA_RT_Normal.csv`
-  - `2018-02-18_Seat_Leon_RT_KA_Stau.csv`
-- Legacy seed source file: `2018-03-29_Seat_Leon_KA_RT_Stau.csv`
+- Dashboard vehicle: Seat Leon
+- Dashboard source file: `2018-03-21_Seat_Leon_KA_RT_Normal.csv`
 
-The upstream archive contains OBD Auto Doctor CSV logs with ten OBD-II signals.
-`scripts/fetch_public_obd_dataset.py` downloads the archive, extracts selected
-source CSV files, forward-fills staggered PID rows, and writes tracked Corvus
-seed slices under `data/seed/`.
+`scripts/fetch_public_obd_dataset.py` downloads the archive, extracts the source CSV,
+forward-fills staggered PID rows, and writes `data/seed/public_obd_kit_normal.csv`.
 
-The script does not interpolate sensor values. It only carries forward the last
-reported PID value so the row-oriented Corvus schema can ingest the log.
+## Vehicle Energy Dataset (VED)
 
-The public dashboard displays only real public entries. Synthetic rows remain in
-the database as internal control data for tests and baseline behavior.
-The selected public files include mass air flow, RPM, speed, coolant, intake
-temperature, and throttle. They do not include fuel-trim fields, so public v1
-charts mass air flow instead of filling missing trim values.
+- Source: Geunseob Oh, David J. LeBlanc, Huei Peng, Vehicle Energy Dataset (VED)
+- Paper: https://doi.org/10.1109/TITS.2020.3035596
+- Repository: https://github.com/gsoh/VED
+- License: Apache 2.0
+- Dashboard vehicles: VED ICE 6.0L V8 (VehId 108), VED Car 1.5L (VehId 8)
+- Dashboard source file: `VED_171101_week.csv` with trip identifiers in session notes
 
-Refresh the public seed:
+`scripts/fetch_ved_dataset.py` clones the VED repository, extracts one week CSV from
+Part 1, and writes tracked seed slices under `data/seed/`.
+
+VED participant vehicles are de-identified. Corvus stores engine configuration labels
+from the published static metadata, not owner make or model names.
+
+## Refresh public seeds
 
 ```bash
 python scripts/fetch_public_obd_dataset.py --all-dashboard-seeds
+python scripts/fetch_ved_dataset.py --all-dashboard-seeds
 python scripts/seed_database.py
 ```
+
+The public dashboard displays only real public entries. Synthetic rows remain in the
+database as internal control data for tests and baseline behavior.
+
+Public v1 charts mass air flow. KIT rows omit fuel-trim fields. VED rows include
+fuel trim from the published week logs.

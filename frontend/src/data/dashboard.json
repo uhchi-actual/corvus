@@ -3,10 +3,10 @@
   "version": "v1",
   "statement": "OBD-II telemetry analyzed in SQL",
   "focus": {
-    "session_id": 4,
+    "session_id": 3,
     "vehicle": "Seat Leon",
     "source": "public",
-    "notes": "KIT/RADAR real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=normal commuter drive; license=CC BY 4.0.",
+    "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=normal commuter drive; license=CC BY 4.0.",
     "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
     "drive_label": "normal commuter drive",
     "started_at": "2018-03-21T19:09:16.713Z",
@@ -28,21 +28,7 @@
       "session_id": 3,
       "vehicle": "Seat Leon",
       "source": "public",
-      "notes": "KIT/RADAR real OBD-II entry; source_file=2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv; drive_label=free-road acceleration; license=CC BY 4.0.",
-      "source_file": "2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv",
-      "drive_label": "free-road acceleration",
-      "health_score": "100.0",
-      "health_score_width": "100.0%",
-      "telemetry_samples": "240",
-      "dtc_count": "0",
-      "pct_out_of_range": "0.0",
-      "baseline_width": "0.0%"
-    },
-    {
-      "session_id": 4,
-      "vehicle": "Seat Leon",
-      "source": "public",
-      "notes": "KIT/RADAR real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=normal commuter drive; license=CC BY 4.0.",
+      "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=normal commuter drive; license=CC BY 4.0.",
       "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
       "drive_label": "normal commuter drive",
       "health_score": "88.0",
@@ -53,18 +39,32 @@
       "baseline_width": "100.0%"
     },
     {
-      "session_id": 5,
-      "vehicle": "Seat Leon",
+      "session_id": 4,
+      "vehicle": "VED ICE 6.0L V8",
       "source": "public",
-      "notes": "KIT/RADAR real OBD-II entry; source_file=2018-02-18_Seat_Leon_RT_KA_Stau.csv; drive_label=traffic drive; license=CC BY 4.0.",
-      "source_file": "2018-02-18_Seat_Leon_RT_KA_Stau.csv",
-      "drive_label": "traffic drive",
-      "health_score": "88.0",
-      "health_score_width": "88.0%",
+      "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; VehId=108; Trip=784; drive_label=Ann Arbor week log; license=Apache-2.0.",
+      "source_file": "VED_171101_week.csv; VehId=108; Trip=784",
+      "drive_label": "Ann Arbor week log",
+      "health_score": "96.2",
+      "health_score_width": "96.2%",
       "telemetry_samples": "240",
       "dtc_count": "0",
-      "pct_out_of_range": "100.0",
-      "baseline_width": "100.0%"
+      "pct_out_of_range": "0.0",
+      "baseline_width": "0.0%"
+    },
+    {
+      "session_id": 5,
+      "vehicle": "VED Car 1.5L",
+      "source": "public",
+      "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; VehId=8; Trip=708; drive_label=Ann Arbor week log; license=Apache-2.0.",
+      "source_file": "VED_171101_week.csv; VehId=8; Trip=708",
+      "drive_label": "Ann Arbor week log",
+      "health_score": "95.0",
+      "health_score_width": "95.0%",
+      "telemetry_samples": "240",
+      "dtc_count": "0",
+      "pct_out_of_range": "0.0",
+      "baseline_width": "0.0%"
     }
   ],
   "trend": [
@@ -238,7 +238,7 @@
     "expected_range": "directional editable scoring config",
     "likely_cause": "No DTC rows were logged for this session.",
     "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
-    "agent_trace_id": "agent-644e04924f53452c8f15a0ce8eadba2a"
+    "agent_trace_id": "agent-35e9fd1543394dd08c52bb30b5e8979d"
   },
   "agentTrace": [
     {
@@ -290,7 +290,7 @@
       "summary": "Wrote finding row with agent_trace_id."
     }
   ],
-  "agentTraceId": "agent-644e04924f53452c8f15a0ce8eadba2a",
+  "agentTraceId": "agent-35e9fd1543394dd08c52bb30b5e8979d",
   "disclaimer": "Directional diagnostic guidance based on logged data - not a substitute for inspection by a certified technician.",
   "method": [
     "SQL computes score, trend, deviation, and diagnostic windows.",
@@ -317,17 +317,27 @@
     }
   ],
   "dataSource": {
-    "name": "KIT/RADAR Automotive OBD-II Dataset",
-    "vehicle": "Seat Leon",
-    "entries": [
-      "2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv",
-      "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
-      "2018-02-18_Seat_Leon_RT_KA_Stau.csv"
+    "summary": "Three real OBD-II vehicles from public archives.",
+    "sources": [
+      {
+        "name": "KIT/RADAR Automotive OBD-II Dataset",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/deed.en",
+        "url": "https://doi.org/10.35097/1130"
+      },
+      {
+        "name": "Vehicle Energy Dataset (VED)",
+        "license": "Apache-2.0",
+        "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0",
+        "url": "https://github.com/gsoh/VED"
+      }
     ],
-    "note": "Three real drive entries are used for the public dashboard. Public v1 charts mass air flow because these source files do not include fuel-trim fields.",
-    "doi": "https://doi.org/10.35097/1130",
-    "license": "CC BY 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/deed.en"
+    "entries": [
+      "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+      "VED_171101_week.csv; VehId=108; Trip=784",
+      "VED_171101_week.csv; VehId=8; Trip=708"
+    ],
+    "note": "Public v1 charts mass air flow. KIT rows omit fuel-trim fields. VED rows include fuel trim from Ann Arbor, Michigan week logs."
   },
   "inspiration": {
     "label": "F-Type P340 / Mustang GT 5.0",

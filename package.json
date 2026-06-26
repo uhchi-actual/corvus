@@ -8,7 +8,9 @@
     "check:phase2": "python scripts/check_phase2.py",
     "check:phase3": "python scripts/check_phase3.py",
     "check:phase4": "python scripts/check_phase4.py",
+    "check:phase5": "python scripts/check_phase5.py",
     "check:all": "python scripts/check_all.py",
+    "export:dashboard": "python scripts/export_frontend_dashboard.py --refresh-db",
     "dev:frontend": "npm --prefix frontend run dev",
     "dev:backend": "cd backend && uvicorn src.main:app --reload --port 8000",
     "install:frontend": "npm install --prefix frontend"

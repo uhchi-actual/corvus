@@ -13,6 +13,7 @@ COMMANDS = [
     [sys.executable, "scripts/check_phase2.py"],
     [sys.executable, "scripts/check_phase3.py"],
     [sys.executable, "scripts/check_phase4.py"],
+    [sys.executable, "scripts/check_phase5.py"],
     [sys.executable, "-m", "ruff", "check", "backend/src", "backend/tests", "scripts"],
     [sys.executable, "-m", "pytest", "-q"],
     ["npm", "run", "lint"],

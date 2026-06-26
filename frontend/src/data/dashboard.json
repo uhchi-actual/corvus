@@ -1,0 +1,271 @@
+{
+  "project": "corvus",
+  "version": "v1",
+  "statement": "OBD-II telemetry analyzed in SQL",
+  "focus": {
+    "session_id": 2,
+    "vehicle": "Chevrolet Corvette",
+    "source": "emulator",
+    "started_at": "2026-06-02T18:30:00Z",
+    "ended_at": "2026-06-02T18:30:11Z",
+    "health_score": "74.0",
+    "health_score_width": "74.0%",
+    "metric_penalty_points": "8.0",
+    "dtc_penalty_points": "18.0",
+    "dtc_count": "1",
+    "telemetry_samples": "12",
+    "score_basis": "directional editable scoring config",
+    "pct_out_of_range": "16.7",
+    "baseline_width": "16.7%",
+    "out_of_range_samples": "2",
+    "sample_count": "12"
+  },
+  "sessions": [
+    {
+      "session_id": 1,
+      "vehicle": "Chevrolet Corvette",
+      "source": "csv",
+      "health_score": "80.0",
+      "health_score_width": "80.0%",
+      "telemetry_samples": "12",
+      "dtc_count": "1",
+      "pct_out_of_range": "0.0",
+      "baseline_width": "0.0%"
+    },
+    {
+      "session_id": 2,
+      "vehicle": "Chevrolet Corvette",
+      "source": "emulator",
+      "health_score": "74.0",
+      "health_score_width": "74.0%",
+      "telemetry_samples": "12",
+      "dtc_count": "1",
+      "pct_out_of_range": "16.7",
+      "baseline_width": "16.7%"
+    },
+    {
+      "session_id": 3,
+      "vehicle": "Seat Leon",
+      "source": "csv",
+      "health_score": "88.0",
+      "health_score_width": "88.0%",
+      "telemetry_samples": "240",
+      "dtc_count": "0",
+      "pct_out_of_range": "100.0",
+      "baseline_width": "100.0%"
+    }
+  ],
+  "drift": [
+    {
+      "ts": "2026-06-02T18:30:00Z",
+      "ltft_b1_pct": "2.0",
+      "ltft_30s": "2.00",
+      "height_pct": "51.9%"
+    },
+    {
+      "ts": "2026-06-02T18:30:01Z",
+      "ltft_b1_pct": "2.2",
+      "ltft_30s": "2.10",
+      "height_pct": "53.8%"
+    },
+    {
+      "ts": "2026-06-02T18:30:02Z",
+      "ltft_b1_pct": "2.5",
+      "ltft_30s": "2.23",
+      "height_pct": "56.3%"
+    },
+    {
+      "ts": "2026-06-02T18:30:03Z",
+      "ltft_b1_pct": "3.1",
+      "ltft_30s": "2.45",
+      "height_pct": "60.5%"
+    },
+    {
+      "ts": "2026-06-02T18:30:04Z",
+      "ltft_b1_pct": "3.8",
+      "ltft_30s": "2.72",
+      "height_pct": "65.6%"
+    },
+    {
+      "ts": "2026-06-02T18:30:05Z",
+      "ltft_b1_pct": "4.6",
+      "ltft_30s": "3.03",
+      "height_pct": "71.5%"
+    },
+    {
+      "ts": "2026-06-02T18:30:06Z",
+      "ltft_b1_pct": "5.2",
+      "ltft_30s": "3.34",
+      "height_pct": "77.4%"
+    },
+    {
+      "ts": "2026-06-02T18:30:07Z",
+      "ltft_b1_pct": "5.0",
+      "ltft_30s": "3.55",
+      "height_pct": "81.3%"
+    },
+    {
+      "ts": "2026-06-02T18:30:08Z",
+      "ltft_b1_pct": "4.5",
+      "ltft_30s": "3.66",
+      "height_pct": "83.4%"
+    },
+    {
+      "ts": "2026-06-02T18:30:09Z",
+      "ltft_b1_pct": "4.0",
+      "ltft_30s": "3.69",
+      "height_pct": "84.0%"
+    },
+    {
+      "ts": "2026-06-02T18:30:10Z",
+      "ltft_b1_pct": "3.4",
+      "ltft_30s": "3.66",
+      "height_pct": "83.4%"
+    },
+    {
+      "ts": "2026-06-02T18:30:11Z",
+      "ltft_b1_pct": "2.8",
+      "ltft_30s": "3.59",
+      "height_pct": "82.1%"
+    }
+  ],
+  "dtcEvidence": [
+    {
+      "code": "P0301",
+      "status": "stored",
+      "description": "Cylinder 1 Misfire Detected",
+      "fault_ts": "2026-06-02T18:30:05Z",
+      "ts": "2026-06-02T18:30:00Z",
+      "rpm": "690",
+      "engine_load_pct": "21.0",
+      "coolant_temp_c": "80.0"
+    },
+    {
+      "code": "P0301",
+      "status": "stored",
+      "description": "Cylinder 1 Misfire Detected",
+      "fault_ts": "2026-06-02T18:30:05Z",
+      "ts": "2026-06-02T18:30:01Z",
+      "rpm": "730",
+      "engine_load_pct": "22.0",
+      "coolant_temp_c": "81.0"
+    },
+    {
+      "code": "P0301",
+      "status": "stored",
+      "description": "Cylinder 1 Misfire Detected",
+      "fault_ts": "2026-06-02T18:30:05Z",
+      "ts": "2026-06-02T18:30:02Z",
+      "rpm": "1280",
+      "engine_load_pct": "33.0",
+      "coolant_temp_c": "83.0"
+    },
+    {
+      "code": "P0301",
+      "status": "stored",
+      "description": "Cylinder 1 Misfire Detected",
+      "fault_ts": "2026-06-02T18:30:05Z",
+      "ts": "2026-06-02T18:30:03Z",
+      "rpm": "1840",
+      "engine_load_pct": "41.0",
+      "coolant_temp_c": "85.0"
+    },
+    {
+      "code": "P0301",
+      "status": "stored",
+      "description": "Cylinder 1 Misfire Detected",
+      "fault_ts": "2026-06-02T18:30:05Z",
+      "ts": "2026-06-02T18:30:04Z",
+      "rpm": "2260",
+      "engine_load_pct": "48.0",
+      "coolant_temp_c": "87.0"
+    },
+    {
+      "code": "P0301",
+      "status": "stored",
+      "description": "Cylinder 1 Misfire Detected",
+      "fault_ts": "2026-06-02T18:30:05Z",
+      "ts": "2026-06-02T18:30:05Z",
+      "rpm": "2710",
+      "engine_load_pct": "57.0",
+      "coolant_temp_c": "89.0"
+    }
+  ],
+  "finding": {
+    "severity": "info",
+    "category": "session",
+    "metric_or_code": "sql_analysis",
+    "expected_range": "directional editable scoring config",
+    "likely_cause": "Logged DTC rows are available. Use their source descriptions and SQL evidence.",
+    "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
+    "agent_trace_id": "agent-77ad2ecccc264475818cbd7c33ec776b"
+  },
+  "agentTrace": [
+    {
+      "agent": "corvus",
+      "node": "agent_trace",
+      "kind": "deterministic",
+      "summary": "Trace created before analysis output."
+    },
+    {
+      "agent": "huginn",
+      "node": "ingest_normalizer",
+      "kind": "deterministic",
+      "summary": "Loaded an existing normalized session from SQLite."
+    },
+    {
+      "agent": "huginn",
+      "node": "sql_deviation",
+      "kind": "deterministic",
+      "summary": "Ran SQL deviation, drift, correlation, and health-score queries."
+    },
+    {
+      "agent": "huginn",
+      "node": "dtc_interpreter",
+      "kind": "deterministic",
+      "summary": "Interpreted DTC rows from logged data."
+    },
+    {
+      "agent": "muninn",
+      "node": "baseline_recall",
+      "kind": "deterministic",
+      "summary": "Loaded stored baseline rows for the session vehicle."
+    },
+    {
+      "agent": "muninn",
+      "node": "correlation",
+      "kind": "deterministic",
+      "summary": "Summarized SQL DTC-to-telemetry correlation output."
+    },
+    {
+      "agent": "muninn",
+      "node": "recommendation",
+      "kind": "deterministic",
+      "summary": "Prepared recommendations from SQL output."
+    },
+    {
+      "agent": "corvus",
+      "node": "report_writer",
+      "kind": "deterministic",
+      "summary": "Wrote finding row with agent_trace_id."
+    }
+  ],
+  "agentTraceId": "agent-77ad2ecccc264475818cbd7c33ec776b",
+  "disclaimer": "Directional diagnostic guidance based on logged data - not a substitute for inspection by a certified technician.",
+  "method": [
+    "SQL computes score, drift, deviation, and DTC windows.",
+    "Huginn reads the current session facts.",
+    "Muninn recalls stored baselines.",
+    "Trace IDs tie each finding to its evidence."
+  ],
+  "dataSource": {
+    "name": "KIT/RADAR Automotive OBD-II Dataset",
+    "doi": "https://doi.org/10.35097/1130",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/deed.en"
+  },
+  "inspiration": {
+    "label": "F-Type P340 / Mustang GT 5.0",
+    "image": "inspiration/f-type-mustang.jpg"
+  }
+}

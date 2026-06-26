@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -52,8 +53,9 @@ def main() -> None:
     if "SQL does the numeric work" not in methodology or "agent_trace_id" not in methodology:
         raise SystemExit("Methodology doc is incomplete")
 
-    frontend = (ROOT / "frontend/src/app/page.tsx").read_text(encoding="utf-8")
-    if "KIT/RADAR OBD-II" not in frontend or "CC BY 4.0" not in frontend:
+    dashboard = json.loads((ROOT / "frontend/src/data/dashboard.json").read_text(encoding="utf-8"))
+    data_source = dashboard["dataSource"]
+    if data_source["license"] != "CC BY 4.0" or "KIT/RADAR" not in data_source["name"]:
         raise SystemExit("Frontend public data attribution is missing")
 
     compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")

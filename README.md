@@ -10,10 +10,10 @@ to explain SQL output in plain language.
 
 ## Current Status
 
-Phase 4 Power BI report pack is in place:
+Phase 5 static dashboard is in place:
 
 - Backend FastAPI health scaffold.
-- Frontend Next.js 15 static shell with uhchi design tokens.
+- Frontend Next.js 15 static dashboard with uhchi design tokens.
 - Docker Compose wrappers for local development.
 - GitHub Actions for CI and GitHub Pages static export.
 - Environment example, security notes, and phase guardrails.
@@ -29,7 +29,8 @@ Phase 4 Power BI report pack is in place:
 - Huginn and Muninn LangGraph flow that explains SQL output and writes traced
   findings.
 - Power BI-ready report pack against the seeded SQLite database.
-- Smooth v1 shell with warm off-white accents and reduced-motion support.
+- Smooth v1 dashboard with warm off-white accents, car inspiration material,
+  and reduced-motion support.
 
 ## Guardrails
 
@@ -91,6 +92,12 @@ Run local checks:
 python scripts/check_all.py
 ```
 
+Export static dashboard data:
+
+```bash
+python scripts/export_frontend_dashboard.py --refresh-db
+```
+
 Seed the demo database:
 
 ```bash
@@ -116,13 +123,15 @@ See [docs/DOCKER_WSL2_DISK_CAP.md](docs/DOCKER_WSL2_DISK_CAP.md).
 
 - `backend/src/` - FastAPI scaffold, ingest, SQL, and agent modules.
 - `backend/src/agent/` - Huginn and Muninn LangGraph analysis layer.
-- `frontend/src/app/` - Next.js static shell.
+- `frontend/src/app/` - Next.js static dashboard.
+- `frontend/src/data/dashboard.json` - static dashboard payload.
 - `data/schema.sql` - normalized SQLite schema.
 - `data/queries/` - showcase SQL and session health score query.
 - `data/health_score_config.json` - editable directional scoring defaults.
 - `data/seed/` - synthetic sample logs and seeded SQLite database.
 - `docs/DATASETS.md` - public OBD-II source attribution and refresh notes.
 - `docs/ACCESS_MANIFEST.md` - exact runtime entry points and OBD-II read scope.
+- `docs/ASSETS.md` - dashboard image asset notes.
 - `docs/INSTALL.md` - local install list and launch commands.
 - `docs/METHODOLOGY.md` - terse data and analysis method.
 - `powerbi/` - Phase 4 report pack, exports, theme, measures, and screenshots.

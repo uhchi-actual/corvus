@@ -27,3 +27,14 @@ The interface should feel smooth and calm:
 - no placeholder or coming-soon panels
 - no motion that hides data or blocks interaction
 - `prefers-reduced-motion` support on every animated surface
+
+## Help Copy
+
+About and help surfaces should be terse and technical. They should explain:
+
+- what SQL computed
+- which rows support the result
+- where the check fits in the workflow
+- when a technician should inspect the vehicle
+
+Avoid filler, tutorials, and marketing copy.

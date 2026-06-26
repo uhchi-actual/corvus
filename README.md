@@ -1,8 +1,8 @@
 # Corvus
 
-Agentic OBD-II performance and maintenance analyzer.
+SQL-first OBD-II performance and maintenance analyzer.
 
-**Live demo target:** https://uhchi-actual.github.io/corvus/
+**Live demo:** https://uhchi-actual.github.io/corvus/
 
 Corvus reads diagnostic trouble codes and engine telemetry, stores the drive in a
 relational model, runs all numeric analysis in SQL, then uses Huginn and Muninn
@@ -31,8 +31,6 @@ Phase 4 Power BI report pack is in place:
 - Power BI-ready report pack against the seeded SQLite database.
 - Smooth v1 shell with warm off-white accents and reduced-motion support.
 
-The real static dashboard is reserved for Phase 5.
-
 ## Guardrails
 
 - SQL computes every sensor value, deviation, trim figure, score, and
@@ -46,6 +44,14 @@ The real static dashboard is reserved for Phase 5.
 
 Directional diagnostic guidance based on logged data - not a substitute for
 inspection by a certified technician.
+
+## Method
+
+- Normalize OBD-II logs into one SQLite schema.
+- Run deviation, drift, correlation, and scoring in SQL.
+- Keep thresholds editable and labeled directional.
+- Use Huginn and Muninn to summarize SQL output.
+- Store trace IDs with each finding.
 
 ## Local Development
 
@@ -82,13 +88,7 @@ curl -X POST "http://127.0.0.1:8000/analysis/session/1?use_llm=false"
 Run local checks:
 
 ```bash
-python scripts/check_phase0.py
-python scripts/check_phase1.py
-python scripts/check_phase2.py
-python scripts/check_phase3.py
-python scripts/check_phase4.py
-cd backend && pytest -q && ruff check src tests
-cd frontend && npm run lint && npm run build
+python scripts/check_all.py
 ```
 
 Seed the demo database:
@@ -116,13 +116,15 @@ See [docs/DOCKER_WSL2_DISK_CAP.md](docs/DOCKER_WSL2_DISK_CAP.md).
 
 - `backend/src/` - FastAPI scaffold, ingest, SQL, and agent modules.
 - `backend/src/agent/` - Huginn and Muninn LangGraph analysis layer.
-- `frontend/src/app/` - Next.js static shell and future dashboard.
+- `frontend/src/app/` - Next.js static shell.
 - `data/schema.sql` - normalized SQLite schema.
 - `data/queries/` - showcase SQL and session health score query.
 - `data/health_score_config.json` - editable directional scoring defaults.
 - `data/seed/` - synthetic sample logs and seeded SQLite database.
 - `docs/DATASETS.md` - public OBD-II source attribution and refresh notes.
 - `docs/ACCESS_MANIFEST.md` - exact runtime entry points and OBD-II read scope.
+- `docs/INSTALL.md` - local install list and launch commands.
+- `docs/METHODOLOGY.md` - terse data and analysis method.
 - `powerbi/` - Phase 4 report pack, exports, theme, measures, and screenshots.
 - `docs/` - guardrails, design notes, and deployment notes.
 

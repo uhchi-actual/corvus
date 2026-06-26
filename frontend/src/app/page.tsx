@@ -6,6 +6,14 @@ export default function Home() {
           corvus
         </h1>
         <p className="statement">OBD-II telemetry analyzed in SQL</p>
+        <p className="sourceLine">
+          Data:{" "}
+          <a href="https://doi.org/10.35097/1130">KIT/RADAR OBD-II</a>
+          {" / "}
+          <a href="https://creativecommons.org/licenses/by/4.0/deed.en">
+            CC BY 4.0
+          </a>
+        </p>
       </section>
     </main>
   );

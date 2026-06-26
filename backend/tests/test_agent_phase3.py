@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-import sqlite3
-import subprocess
-import sys
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -10,29 +7,13 @@ from fastapi.testclient import TestClient
 from src.agent import LlmConfig, analyze_session
 from src.config import get_settings
 from src.main import DISCLAIMER, app
+from tests.helpers import CONFIG_PATH, QUERY_DIR, connect, seeded_db
 
 ROOT = Path(__file__).resolve().parents[2]
-QUERY_DIR = ROOT / "data" / "queries"
-CONFIG_PATH = ROOT / "data" / "health_score_config.json"
-
-
-def _seeded_db(tmp_path: Path) -> Path:
-    db_path = tmp_path / "corvus.db"
-    subprocess.run(
-        [
-            sys.executable,
-            str(ROOT / "scripts" / "seed_database.py"),
-            "--database",
-            str(db_path),
-        ],
-        check=True,
-        cwd=ROOT,
-    )
-    return db_path
 
 
 def test_huginn_muninn_graph_returns_trace_and_sql_facts(tmp_path: Path) -> None:
-    db_path = _seeded_db(tmp_path)
+    db_path = seeded_db(tmp_path)
 
     result = analyze_session(
         session_id=1,
@@ -51,7 +32,7 @@ def test_huginn_muninn_graph_returns_trace_and_sql_facts(tmp_path: Path) -> None
     assert "session_health_score" in result["sql_facts"]
     assert result["findings"][0]["agent_trace_id"] == result["agent_trace_id"]
 
-    with sqlite3.connect(db_path) as conn:
+    with connect(db_path) as conn:
         stored_trace = conn.execute(
             "SELECT agent_trace_id FROM findings WHERE finding_id = ?",
             (result["findings"][0]["finding_id"],),
@@ -60,7 +41,7 @@ def test_huginn_muninn_graph_returns_trace_and_sql_facts(tmp_path: Path) -> None
 
 
 def test_agent_error_path_keeps_disclaimer_and_trace(tmp_path: Path) -> None:
-    db_path = _seeded_db(tmp_path)
+    db_path = seeded_db(tmp_path)
 
     result = analyze_session(
         session_id=999,
@@ -82,7 +63,7 @@ def test_analysis_endpoint_uses_provider_agnostic_llm_toggle(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
-    db_path = _seeded_db(tmp_path)
+    db_path = seeded_db(tmp_path)
     monkeypatch.setenv("DATABASE_URL", f"sqlite:///{db_path.as_posix()}")
     get_settings.cache_clear()
     try:

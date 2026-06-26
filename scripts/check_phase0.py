@@ -25,8 +25,12 @@ EXPECTED_PATHS = [
     "data/seed",
     "data/queries",
     "powerbi/screenshots",
+    "backend/tests/helpers.py",
     "docs/DOCKER_WSL2_DISK_CAP.md",
     "docs/DESIGN.md",
+    "docs/INSTALL.md",
+    "docs/METHODOLOGY.md",
+    "scripts/check_all.py",
 ]
 
 
@@ -44,6 +48,14 @@ def main() -> None:
     if "Mode 04" not in readme or "SQL computes" not in readme:
         raise SystemExit("README guardrails are incomplete")
 
+    methodology = (ROOT / "docs/METHODOLOGY.md").read_text(encoding="utf-8")
+    if "SQL does the numeric work" not in methodology or "agent_trace_id" not in methodology:
+        raise SystemExit("Methodology doc is incomplete")
+
+    frontend = (ROOT / "frontend/src/app/page.tsx").read_text(encoding="utf-8")
+    if "KIT/RADAR OBD-II" not in frontend or "CC BY 4.0" not in frontend:
+        raise SystemExit("Frontend public data attribution is missing")
+
     compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")
     if "disk=40GB" not in compose:
         raise SystemExit("Docker Compose is missing the WSL2 disk cap warning")
@@ -53,4 +65,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

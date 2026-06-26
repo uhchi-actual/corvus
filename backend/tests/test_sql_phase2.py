@@ -1,42 +1,14 @@
 from __future__ import annotations
 
-import sqlite3
-import subprocess
-import sys
 from pathlib import Path
 
 from src.sql import QueryRunner, run_session_health_score, run_session_query
-
-ROOT = Path(__file__).resolve().parents[2]
-QUERY_DIR = ROOT / "data" / "queries"
-CONFIG_PATH = ROOT / "data" / "health_score_config.json"
-
-
-def _seeded_db(tmp_path: Path) -> Path:
-    db_path = tmp_path / "corvus.db"
-    subprocess.run(
-        [
-            sys.executable,
-            str(ROOT / "scripts" / "seed_database.py"),
-            "--database",
-            str(db_path),
-        ],
-        check=True,
-        cwd=ROOT,
-    )
-    return db_path
-
-
-def _connect(path: Path) -> sqlite3.Connection:
-    conn = sqlite3.connect(path)
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA foreign_keys = ON")
-    return conn
+from tests.helpers import CONFIG_PATH, QUERY_DIR, connect, seeded_db
 
 
 def test_showcase_queries_return_seeded_session_facts(tmp_path: Path) -> None:
-    db_path = _seeded_db(tmp_path)
-    with _connect(db_path) as conn:
+    db_path = seeded_db(tmp_path)
+    with connect(db_path) as conn:
         baseline = run_session_query(conn, QUERY_DIR, "baseline_deviation", session_id=1)
         drift = run_session_query(conn, QUERY_DIR, "fuel_trim_drift", session_id=1)
         correlation = run_session_query(
@@ -55,8 +27,8 @@ def test_showcase_queries_return_seeded_session_facts(tmp_path: Path) -> None:
 
 
 def test_session_health_score_is_sql_computed_and_directional(tmp_path: Path) -> None:
-    db_path = _seeded_db(tmp_path)
-    with _connect(db_path) as conn:
+    db_path = seeded_db(tmp_path)
+    with connect(db_path) as conn:
         score_one = run_session_health_score(conn, QUERY_DIR, CONFIG_PATH, session_id=1)
         score_two = run_session_health_score(conn, QUERY_DIR, CONFIG_PATH, session_id=2)
 

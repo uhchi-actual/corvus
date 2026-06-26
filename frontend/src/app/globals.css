@@ -1,7 +1,8 @@
 :root {
   --uhchi-red: #cc2936;
-  --uhchi-teal: #2a9d8f;
+  --uhchi-teal: #1f7f78;
   --uhchi-dark: #2d2d2d;
+  --uhchi-shadow-fill: #383838;
   --ink: #f4f4f2;
   --muted: #b8bbb8;
   --panel: #242424;
@@ -26,6 +27,7 @@ body {
     Arial,
     Helvetica,
     sans-serif;
+  font-weight: 700;
   letter-spacing: 0;
 }
 
@@ -42,32 +44,52 @@ body {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel);
-  box-shadow: 10px 10px 0 rgba(42, 157, 143, 0.55);
+  box-shadow: 10px 10px 0 rgba(31, 127, 120, 0.7);
 }
 
 .kicker {
   margin: 0 0 12px;
   color: var(--uhchi-teal);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 900;
   text-transform: uppercase;
 }
 
 .wordmark {
+  position: relative;
+  display: inline-block;
+  z-index: 0;
   margin: 0;
   color: var(--uhchi-red);
   font-size: 96px;
   line-height: 0.9;
   font-weight: 900;
   letter-spacing: 0;
-  text-shadow: 8px 0 0 var(--uhchi-teal);
+  font-family:
+    "Arial Black",
+    Impact,
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+.wordmark::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: var(--uhchi-shadow-fill);
+  transform: translate(8px, 0);
+  -webkit-text-stroke: 2px var(--uhchi-teal);
+  text-stroke: 2px var(--uhchi-teal);
 }
 
 .statement {
   max-width: 560px;
   margin: 28px 0 0;
   color: var(--muted);
-  font-size: 18px;
+  font-size: 19px;
+  font-weight: 700;
   line-height: 1.6;
 }
 
@@ -87,23 +109,28 @@ body {
   padding: 8px 12px;
   color: var(--ink);
   background: rgba(204, 41, 54, 0.14);
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 800;
   line-height: 1.2;
 }
 
 @media (max-width: 560px) {
   .console {
     padding: 28px;
-    box-shadow: 6px 6px 0 rgba(42, 157, 143, 0.55);
+    box-shadow: 6px 6px 0 rgba(31, 127, 120, 0.7);
   }
 
   .wordmark {
     font-size: 56px;
-    text-shadow: 5px 0 0 var(--uhchi-teal);
+  }
+
+  .wordmark::before {
+    transform: translate(5px, 0);
+    -webkit-text-stroke-width: 1.5px;
+    text-stroke-width: 1.5px;
   }
 
   .statement {
-    font-size: 16px;
+    font-size: 17px;
   }
 }
-

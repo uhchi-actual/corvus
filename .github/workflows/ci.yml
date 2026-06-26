@@ -20,6 +20,9 @@ jobs:
       - name: Check scaffold paths and guardrails
         run: python scripts/check_phase0.py
 
+      - name: Check ingest schema and seed data
+        run: python scripts/check_phase1.py
+
   backend:
     name: Backend lint and test
     runs-on: ubuntu-latest

@@ -10,16 +10,20 @@ to explain SQL output in plain language.
 
 ## Current Status
 
-Phase 0 scaffold is in place:
+Phase 1 ingest and schema are in place:
 
 - Backend FastAPI health scaffold.
 - Frontend Next.js 15 static shell with uhchi design tokens.
 - Docker Compose wrappers for local development.
 - GitHub Actions for CI and GitHub Pages static export.
 - Environment example, security notes, and phase guardrails.
+- Normalized SQLite schema from the handoff.
+- CSV and emulator CSV ingestion paths.
+- Read-only live python-OBD adapter scaffold.
+- Synthetic seed logs and a seeded SQLite database.
 
-The schema, ingest adapters, SQL showcase queries, LangGraph agents, Power BI
-report, and real dashboard are intentionally reserved for later phases.
+The SQL showcase queries, LangGraph agents, Power BI report, and real dashboard
+are intentionally reserved for later phases.
 
 ## Guardrails
 
@@ -61,12 +65,19 @@ pip install -e ".[dev]"
 uvicorn src.main:app --reload --port 8000
 ```
 
-Run Phase 0 checks:
+Run local checks:
 
 ```bash
 python scripts/check_phase0.py
+python scripts/check_phase1.py
 cd backend && pytest -q && ruff check src tests
 cd frontend && npm run lint && npm run build
+```
+
+Seed the demo database:
+
+```bash
+python scripts/seed_database.py
 ```
 
 ## Docker
@@ -88,9 +99,9 @@ See [docs/DOCKER_WSL2_DISK_CAP.md](docs/DOCKER_WSL2_DISK_CAP.md).
 
 - `backend/src/` - FastAPI scaffold and future ingest, SQL, and agent modules.
 - `frontend/src/app/` - Next.js static shell and future dashboard.
-- `data/schema.sql` - Phase 1 schema landing file.
+- `data/schema.sql` - normalized SQLite schema.
 - `data/queries/` - Phase 2 showcase SQL query landing folder.
-- `data/seed/` - Phase 1 sample logs and seeded SQLite database landing folder.
+- `data/seed/` - synthetic sample logs and seeded SQLite database.
 - `powerbi/` - Phase 4 report and screenshots.
 - `docs/` - guardrails, design notes, and deployment notes.
 
@@ -98,4 +109,3 @@ See [docs/DOCKER_WSL2_DISK_CAP.md](docs/DOCKER_WSL2_DISK_CAP.md).
 
 This repo includes the build handoff as [HANDOFF.md](HANDOFF.md). Phase order and
 architecture should follow that document unless it is explicitly revised.
-

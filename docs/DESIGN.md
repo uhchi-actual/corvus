@@ -4,13 +4,15 @@ The uhchi GUI direction for Corvus is based on:
 
 - Dark graphite: `#2D2D2D`
 - Red foreground: `#CC2936`
-- Teal outline or offset shadow: `#2A9D8F`
+- Darker teal outline or offset shadow: `#1F7F78`
+- Slightly lighter graphite backing letter: `#383838`
 
 Reference image:
 
 ![uhchi red and teal outline reference](assets/uhchi-style-reference.png)
 
 Phase 0 stores these values as CSS tokens in `frontend/src/app/globals.css`.
-Phase 5 should apply them to the real dashboard while keeping performance
-thresholds visibly labeled as directional defaults.
-
+The wordmark should use red foreground letters over a slightly lighter graphite
+backing letter with the darker teal as an outline, not as a filled block shadow.
+Phase 5 should apply the same direction to the real dashboard while keeping
+performance thresholds visibly labeled as directional defaults.

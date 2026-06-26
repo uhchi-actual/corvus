@@ -7,14 +7,14 @@ from src.main import DISCLAIMER, READ_ONLY_OBD_MODES, app
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def test_health_endpoint_reports_phase_zero_contract() -> None:
+def test_health_endpoint_reports_current_contract() -> None:
     client = TestClient(app)
     response = client.get("/health")
 
     assert response.status_code == 200
     payload = response.json()
     assert payload["project"] == "corvus"
-    assert payload["phase"] == "0-scaffold"
+    assert payload["phase"] == "1-ingest"
     assert payload["status"] == "ok"
     assert payload["read_only_obd_modes"] == list(READ_ONLY_OBD_MODES)
     assert payload["disclaimer"] == DISCLAIMER
@@ -54,4 +54,3 @@ def test_phase_zero_scaffold_paths_exist() -> None:
 
     missing = [path for path in expected_paths if not (ROOT / path).exists()]
     assert missing == []
-

@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "check:phase0": "python scripts/check_phase0.py",
+    "check:phase1": "python scripts/check_phase1.py",
     "dev:frontend": "npm --prefix frontend run dev",
     "dev:backend": "cd backend && uvicorn src.main:app --reload --port 8000",
     "install:frontend": "npm install --prefix frontend"
   }
 }
-

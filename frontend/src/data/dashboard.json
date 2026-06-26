@@ -1,7 +1,7 @@
 {
   "project": "corvus",
   "version": "v1",
-  "statement": "Log a drive. SQL scores it. Ravens explain it.",
+  "statement": "OBD-II telemetry ingestion, SQL analytics, and drive health scoring.",
   "focus": {
     "session_id": 3,
     "vehicle": "Seat Leon",
@@ -211,15 +211,56 @@
           "coolant_temp_c": "n/a"
         }
       ],
-      "finding": {
-        "severity": "info",
-        "category": "session",
-        "metric_or_code": "sql_analysis",
-        "expected_range": "directional editable scoring config",
-        "likely_cause": "No DTC rows were logged for this session.",
-        "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
-        "agent_trace_id": "agent-74c33df3afd842bd8823b3371ad48781"
-      },
+      "healthMatrix": [
+        {
+          "id": "drive_health",
+          "label": "Drive health",
+          "value": "88.0",
+          "width_pct": "88.0%"
+        },
+        {
+          "id": "baseline_fit",
+          "label": "Baseline fit",
+          "value": "0.0",
+          "width_pct": "0.0%"
+        },
+        {
+          "id": "airflow",
+          "label": "Airflow",
+          "value": "18.2",
+          "width_pct": "18.2%"
+        },
+        {
+          "id": "fault_clearance",
+          "label": "Fault clearance",
+          "value": "100.0",
+          "width_pct": "100.0%"
+        },
+        {
+          "id": "sensor_balance",
+          "label": "Sensor balance",
+          "value": "52.0",
+          "width_pct": "52.0%"
+        }
+      ],
+      "performanceConcerns": [
+        {
+          "level": "watch",
+          "text": "Health score 88.0 sits below the strong band."
+        },
+        {
+          "level": "watch",
+          "text": "100% of samples outside the stored baseline band."
+        },
+        {
+          "level": "ok",
+          "text": "No fault codes in this public log."
+        },
+        {
+          "level": "watch",
+          "text": "Airflow swing is wide across the logged window."
+        }
+      ],
       "agentTrace": [
         {
           "agent": "corvus",
@@ -302,47 +343,8 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-74c33df3afd842bd8823b3371ad48781",
-      "sqlModules": [
-        {
-          "id": "session_health_score",
-          "title": "Drive health score",
-          "query": "session_health_score.sql",
-          "owner": "sql",
-          "input": "Telemetry rows and penalty config",
-          "output": "Score 88.0; metric penalties 12.0; fault penalties 0.0",
-          "body": "Combines metric penalties and fault-code penalties into one 0\u2013100 score."
-        },
-        {
-          "id": "baseline_deviation",
-          "title": "Baseline comparison",
-          "query": "baseline_deviation.sql",
-          "owner": "sql",
-          "input": "Telemetry joined to baseline bands",
-          "output": "100.0% outside band for coolant_temp_c (warm)",
-          "body": "Counts how often each sensor sat outside the stored healthy band for this vehicle."
-        },
-        {
-          "id": "fuel_trim_drift",
-          "title": "Fuel trim trend",
-          "query": "fuel_trim_drift.sql",
-          "owner": "sql",
-          "input": "Long-term fuel trim samples",
-          "output": "Latest rolling trim None%",
-          "body": "Rolling average of long-term fuel trim to spot lean or rich drift over time."
-        },
-        {
-          "id": "dtc_telemetry_correlation",
-          "title": "Fault code window",
-          "query": "dtc_telemetry_correlation.sql",
-          "owner": "sql",
-          "input": "Fault code timestamps",
-          "output": "No fault codes to correlate",
-          "body": "Pulls sensor rows from a few seconds around each logged fault code timestamp."
-        }
-      ],
-      "dtcSummary": "No DTC rows were logged for this session.",
-      "correlationSummary": "No DTC correlation rows were returned by SQL."
+      "agentTraceId": "agent-6af6b4608d6e4386964dec05f17badbf",
+      "dtcSummary": "No DTC rows were logged for this session."
     },
     "4": {
       "focus": {
@@ -530,15 +532,48 @@
           "coolant_temp_c": "n/a"
         }
       ],
-      "finding": {
-        "severity": "info",
-        "category": "session",
-        "metric_or_code": "sql_analysis",
-        "expected_range": "directional editable scoring config",
-        "likely_cause": "No DTC rows were logged for this session.",
-        "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
-        "agent_trace_id": "agent-3a3ac644dee349ffa5ce70997ef53d5f"
-      },
+      "healthMatrix": [
+        {
+          "id": "drive_health",
+          "label": "Drive health",
+          "value": "96.2",
+          "width_pct": "96.2%"
+        },
+        {
+          "id": "baseline_fit",
+          "label": "Baseline fit",
+          "value": "100.0",
+          "width_pct": "100.0%"
+        },
+        {
+          "id": "airflow",
+          "label": "Airflow",
+          "value": "42.8",
+          "width_pct": "42.8%"
+        },
+        {
+          "id": "fault_clearance",
+          "label": "Fault clearance",
+          "value": "100.0",
+          "width_pct": "100.0%"
+        },
+        {
+          "id": "sensor_balance",
+          "label": "Sensor balance",
+          "value": "84.4",
+          "width_pct": "84.4%"
+        }
+      ],
+      "performanceConcerns": [
+        {
+          "level": "ok",
+          "text": "No fault codes in this public log."
+        },
+        {
+          "level": "watch",
+          "text": "Airflow swing is wide across the logged window."
+        }
+      ],
       "agentTrace": [
         {
           "agent": "corvus",
@@ -621,47 +656,8 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-3a3ac644dee349ffa5ce70997ef53d5f",
-      "sqlModules": [
-        {
-          "id": "session_health_score",
-          "title": "Drive health score",
-          "query": "session_health_score.sql",
-          "owner": "sql",
-          "input": "Telemetry rows and penalty config",
-          "output": "Score 96.2; metric penalties 3.9; fault penalties 0.0",
-          "body": "Combines metric penalties and fault-code penalties into one 0\u2013100 score."
-        },
-        {
-          "id": "baseline_deviation",
-          "title": "Baseline comparison",
-          "query": "baseline_deviation.sql",
-          "owner": "sql",
-          "input": "Telemetry joined to baseline bands",
-          "output": "0.0% outside band for coolant_temp_c (warm)",
-          "body": "Counts how often each sensor sat outside the stored healthy band for this vehicle."
-        },
-        {
-          "id": "fuel_trim_drift",
-          "title": "Fuel trim trend",
-          "query": "fuel_trim_drift.sql",
-          "owner": "sql",
-          "input": "Long-term fuel trim samples",
-          "output": "Latest rolling trim None%",
-          "body": "Rolling average of long-term fuel trim to spot lean or rich drift over time."
-        },
-        {
-          "id": "dtc_telemetry_correlation",
-          "title": "Fault code window",
-          "query": "dtc_telemetry_correlation.sql",
-          "owner": "sql",
-          "input": "Fault code timestamps",
-          "output": "No fault codes to correlate",
-          "body": "Pulls sensor rows from a few seconds around each logged fault code timestamp."
-        }
-      ],
-      "dtcSummary": "No DTC rows were logged for this session.",
-      "correlationSummary": "No DTC correlation rows were returned by SQL."
+      "agentTraceId": "agent-d9789bc63d0445fca7d55e88ea50afc2",
+      "dtcSummary": "No DTC rows were logged for this session."
     },
     "5": {
       "focus": {
@@ -849,15 +845,48 @@
           "coolant_temp_c": "n/a"
         }
       ],
-      "finding": {
-        "severity": "info",
-        "category": "session",
-        "metric_or_code": "sql_analysis",
-        "expected_range": "directional editable scoring config",
-        "likely_cause": "No DTC rows were logged for this session.",
-        "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
-        "agent_trace_id": "agent-905542c4a8854dd4886e52d9a0c2b787"
-      },
+      "healthMatrix": [
+        {
+          "id": "drive_health",
+          "label": "Drive health",
+          "value": "95.0",
+          "width_pct": "95.0%"
+        },
+        {
+          "id": "baseline_fit",
+          "label": "Baseline fit",
+          "value": "100.0",
+          "width_pct": "100.0%"
+        },
+        {
+          "id": "airflow",
+          "label": "Airflow",
+          "value": "32.6",
+          "width_pct": "32.6%"
+        },
+        {
+          "id": "fault_clearance",
+          "label": "Fault clearance",
+          "value": "100.0",
+          "width_pct": "100.0%"
+        },
+        {
+          "id": "sensor_balance",
+          "label": "Sensor balance",
+          "value": "80.4",
+          "width_pct": "80.4%"
+        }
+      ],
+      "performanceConcerns": [
+        {
+          "level": "ok",
+          "text": "No fault codes in this public log."
+        },
+        {
+          "level": "watch",
+          "text": "Airflow swing is wide across the logged window."
+        }
+      ],
       "agentTrace": [
         {
           "agent": "corvus",
@@ -940,129 +969,10 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-905542c4a8854dd4886e52d9a0c2b787",
-      "sqlModules": [
-        {
-          "id": "session_health_score",
-          "title": "Drive health score",
-          "query": "session_health_score.sql",
-          "owner": "sql",
-          "input": "Telemetry rows and penalty config",
-          "output": "Score 95.0; metric penalties 4.9; fault penalties 0.0",
-          "body": "Combines metric penalties and fault-code penalties into one 0\u2013100 score."
-        },
-        {
-          "id": "baseline_deviation",
-          "title": "Baseline comparison",
-          "query": "baseline_deviation.sql",
-          "owner": "sql",
-          "input": "Telemetry joined to baseline bands",
-          "output": "0.0% outside band for coolant_temp_c (warm)",
-          "body": "Counts how often each sensor sat outside the stored healthy band for this vehicle."
-        },
-        {
-          "id": "fuel_trim_drift",
-          "title": "Fuel trim trend",
-          "query": "fuel_trim_drift.sql",
-          "owner": "sql",
-          "input": "Long-term fuel trim samples",
-          "output": "Latest rolling trim None%",
-          "body": "Rolling average of long-term fuel trim to spot lean or rich drift over time."
-        },
-        {
-          "id": "dtc_telemetry_correlation",
-          "title": "Fault code window",
-          "query": "dtc_telemetry_correlation.sql",
-          "owner": "sql",
-          "input": "Fault code timestamps",
-          "output": "No fault codes to correlate",
-          "body": "Pulls sensor rows from a few seconds around each logged fault code timestamp."
-        }
-      ],
-      "dtcSummary": "No DTC rows were logged for this session.",
-      "correlationSummary": "No DTC correlation rows were returned by SQL."
+      "agentTraceId": "agent-12a6bb4658344d179f70cb561a00c6ea",
+      "dtcSummary": "No DTC rows were logged for this session."
     }
   },
-  "pipeline": [
-    {
-      "id": "ingest",
-      "title": "Log the drive",
-      "owner": "corvus",
-      "input": "OBD-II port or CSV file",
-      "output": "SQLite rows",
-      "body": "Raw engine readings become tidy rows: speed, RPM, air flow, temperatures, and any fault codes."
-    },
-    {
-      "id": "sql",
-      "title": "SQL math",
-      "owner": "sql",
-      "input": "Telemetry and baseline tables",
-      "output": "Scores, trends, and evidence windows",
-      "body": "Window functions and joins compute every number. No LLM touches sensor values."
-    },
-    {
-      "id": "huginn",
-      "title": "Huginn reads now",
-      "owner": "huginn",
-      "input": "Current session SQL facts",
-      "output": "Present-drive summary",
-      "body": "Lists what happened on this drive: SQL scores, sensor drift, and any logged fault codes."
-    },
-    {
-      "id": "muninn",
-      "title": "Muninn recalls normal",
-      "owner": "muninn",
-      "input": "Stored healthy ranges",
-      "output": "Comparison and next checks",
-      "body": "Pulls baseline bands for this vehicle and ranks what to inspect from SQL evidence."
-    },
-    {
-      "id": "report",
-      "title": "Write the report",
-      "owner": "corvus",
-      "input": "Raven summaries",
-      "output": "Finding plus trace id",
-      "body": "Stores one finding row linked to the trace id so every sentence points back to SQL rows."
-    }
-  ],
-  "sqlModules": [
-    {
-      "id": "session_health_score",
-      "title": "Drive health score",
-      "query": "session_health_score.sql",
-      "owner": "sql",
-      "input": "Telemetry rows and penalty config",
-      "output": "Score 88.0; metric penalties 12.0; fault penalties 0.0",
-      "body": "Combines metric penalties and fault-code penalties into one 0\u2013100 score."
-    },
-    {
-      "id": "baseline_deviation",
-      "title": "Baseline comparison",
-      "query": "baseline_deviation.sql",
-      "owner": "sql",
-      "input": "Telemetry joined to baseline bands",
-      "output": "100.0% outside band for coolant_temp_c (warm)",
-      "body": "Counts how often each sensor sat outside the stored healthy band for this vehicle."
-    },
-    {
-      "id": "fuel_trim_drift",
-      "title": "Fuel trim trend",
-      "query": "fuel_trim_drift.sql",
-      "owner": "sql",
-      "input": "Long-term fuel trim samples",
-      "output": "Latest rolling trim None%",
-      "body": "Rolling average of long-term fuel trim to spot lean or rich drift over time."
-    },
-    {
-      "id": "dtc_telemetry_correlation",
-      "title": "Fault code window",
-      "query": "dtc_telemetry_correlation.sql",
-      "owner": "sql",
-      "input": "Fault code timestamps",
-      "output": "No fault codes to correlate",
-      "body": "Pulls sensor rows from a few seconds around each logged fault code timestamp."
-    }
-  ],
   "sessions": [
     {
       "session_id": 3,
@@ -1271,15 +1181,6 @@
       "coolant_temp_c": "n/a"
     }
   ],
-  "finding": {
-    "severity": "info",
-    "category": "session",
-    "metric_or_code": "sql_analysis",
-    "expected_range": "directional editable scoring config",
-    "likely_cause": "No DTC rows were logged for this session.",
-    "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
-    "agent_trace_id": "agent-74c33df3afd842bd8823b3371ad48781"
-  },
   "agentTrace": [
     {
       "agent": "corvus",
@@ -1362,63 +1263,19 @@
       "agent_tagline": "Writes the report"
     }
   ],
-  "agentTraceId": "agent-74c33df3afd842bd8823b3371ad48781",
-  "agents": {
-    "huginn": {
-      "name": "Huginn",
-      "tagline": "Reads this drive",
-      "role": "Looks at the logged drive in front of it: sensor rows, fault codes, and SQL scores."
-    },
-    "muninn": {
-      "name": "Muninn",
-      "tagline": "Recalls what normal looks like",
-      "role": "Compares this drive to stored healthy ranges and states what to inspect next."
-    }
-  },
+  "agentTraceId": "agent-6af6b4608d6e4386964dec05f17badbf",
   "disclaimer": "Directional diagnostic guidance based on logged data - not a substitute for inspection by a certified technician.",
   "healthGuide": {
     "title": "Drive health score",
     "body": "0 to 100 from SQL. Higher is better. Uses directional default thresholds you can edit in config."
   },
   "trendGuide": {
-    "title": "Air flow into the engine",
     "body": "Grams of air per second (mass air flow). Bars show a rolling SQL average over the logged drive."
   },
   "faultGuide": {
     "title": "Fault codes",
     "body": "OBD-II trouble codes logged during the drive. None logged means no code was stored in this public file."
   },
-  "method": [
-    "SQL computes every number on this page.",
-    "Huginn reads the current drive.",
-    "Muninn compares it to stored healthy ranges.",
-    "Each finding links to a trace id and SQL evidence."
-  ],
-  "workflow": [
-    {
-      "label": "Pick a car",
-      "body": "Choose one of the three real public drives in the list."
-    },
-    {
-      "label": "Read the score",
-      "body": "Check the health number before reading sensor rows."
-    },
-    {
-      "label": "Read the charts",
-      "body": "Use air flow and fault panels as SQL-backed evidence."
-    },
-    {
-      "label": "Follow the ravens",
-      "body": "See what Huginn read and what Muninn recalled for this drive."
-    }
-  ],
-  "readOrder": [
-    "Pick a real drive from the list.",
-    "Read the health score.",
-    "Scan air flow and fault code panels.",
-    "Read Huginn and Muninn steps below.",
-    "Open provenance to see the exact public file."
-  ],
   "dataSource": {
     "summary": "Three real OBD-II vehicles from public archives.",
     "sources": [

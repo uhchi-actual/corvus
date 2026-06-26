@@ -16,7 +16,7 @@ def main() -> None:
     if "coming soon" in page.lower() or "phase " in page.lower():
         raise SystemExit("Frontend contains placeholder or internal phase copy")
 
-    if "dashboard.json" not in page or "agentTrace" not in dashboard:
+    if "dashboard.json" not in page or "HealthMatrix" not in dashboard:
         raise SystemExit("Frontend is not rendering the static dashboard payload")
 
     if not payload["dataSource"].get("sources"):
@@ -52,8 +52,8 @@ def main() -> None:
     if "directional" not in payload["focus"]["score_basis"]:
         raise SystemExit("Health score is not labeled as directional")
 
-    if "agents" not in payload or "readOrder" not in payload:
-        raise SystemExit("Dashboard payload is missing readability guidance")
+    if "healthGuide" not in payload or "title" not in payload["healthGuide"]:
+        raise SystemExit("Dashboard payload is missing health guide")
 
     if "sessionViews" not in payload or len(payload["sessionViews"]) < 3:
         raise SystemExit("Dashboard payload is missing interactive session views")

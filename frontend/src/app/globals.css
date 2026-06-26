@@ -898,6 +898,101 @@ a {
   line-height: 1.4;
 }
 
+.panelHead.compactHead {
+  justify-content: flex-start;
+}
+
+.panelHead.compactHead h2 {
+  text-align: left;
+  font-size: 24px;
+}
+
+.panelHead.airflowHead {
+  justify-content: flex-end;
+}
+
+.panelHead.airflowHead h2 {
+  text-align: right;
+}
+
+.healthMatrixWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 320px;
+  padding: 8px 0 4px;
+}
+
+.healthMatrixChart {
+  display: block;
+  width: min(100%, 380px);
+  height: auto;
+}
+
+.healthMatrixGrid {
+  fill: none;
+  stroke: rgba(211, 188, 155, 0.14);
+  stroke-width: 1;
+}
+
+.healthMatrixAxis {
+  stroke: rgba(211, 188, 155, 0.12);
+  stroke-width: 1;
+}
+
+.healthMatrixRef {
+  fill: url(#performancePolygonGradient);
+  fill-opacity: 0.14;
+  stroke: rgba(31, 113, 108, 0.42);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.healthMatrixShape {
+  fill: url(#performancePolygonGradient);
+  fill-opacity: 0.58;
+  stroke: #cc2936;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.healthMatrixLabel {
+  fill: var(--muted);
+  font-family: var(--type-ui);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.healthMatrixValue {
+  fill: var(--ink);
+  font-family: var(--type-ui);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.matrixFlags {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.matrixFlags li {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(204, 41, 54, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(204, 41, 54, 0.22);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.provenanceRecordsCompact {
+  margin-top: 0;
+}
+
 .provenanceBlock {
   padding: 18px;
   border-radius: 8px;

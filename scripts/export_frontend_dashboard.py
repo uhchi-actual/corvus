@@ -13,8 +13,7 @@ BACKEND = ROOT / "backend"
 sys.path.insert(0, str(BACKEND))
 
 from src.agent import LlmConfig, analyze_session  # noqa: E402
-from src.agent.display import AGENT_PROFILES  # noqa: E402
-from src.agent.pipeline import PIPELINE_MODULES, sql_modules  # noqa: E402
+from src.agent.health_matrix import health_matrix, performance_concerns  # noqa: E402
 from src.ingest.database import connect_sqlite  # noqa: E402
 from src.main import DISCLAIMER  # noqa: E402
 from src.sql import run_session_health_score, run_session_query  # noqa: E402
@@ -240,16 +239,18 @@ def _session_view(
     session_id: int,
     analysis: dict[str, Any],
 ) -> dict[str, Any]:
+    focus = _focus_row(conn, session_id)
+    trend = _airflow_rows(conn, session_id)
+    matrix = health_matrix(focus, trend)
     return {
-        "focus": _focus_row(conn, session_id),
-        "trend": _airflow_rows(conn, session_id),
+        "focus": focus,
+        "trend": trend,
         "dtcEvidence": _dtc_rows(conn, session_id),
-        "finding": _finding(conn, session_id),
+        "healthMatrix": matrix,
+        "performanceConcerns": performance_concerns(focus, matrix),
         "agentTrace": analysis["agent_trace"],
         "agentTraceId": analysis["agent_trace_id"],
-        "sqlModules": sql_modules(analysis),
         "dtcSummary": analysis.get("dtc_summary", ""),
-        "correlationSummary": analysis.get("correlation_summary", ""),
     }
 
 
@@ -310,12 +311,10 @@ def _dashboard_payload(
     return {
         "project": "corvus",
         "version": "v1",
-        "statement": "Log a drive. SQL scores it. Ravens explain it.",
+        "statement": "OBD-II telemetry ingestion, SQL analytics, and drive health scoring.",
         "focus": focus,
         "defaultSessionId": default_session_id,
         "sessionViews": session_views,
-        "pipeline": PIPELINE_MODULES,
-        "sqlModules": default_view["sqlModules"],
         "sessions": _rows(
             conn,
             """
@@ -353,14 +352,8 @@ def _dashboard_payload(
         ),
         "trend": default_view["trend"],
         "dtcEvidence": default_view["dtcEvidence"],
-        "finding": default_view["finding"],
         "agentTrace": analysis_trace,
         "agentTraceId": analysis_trace_id,
-        "agents": {
-            key: profile
-            for key, profile in AGENT_PROFILES.items()
-            if key in {"huginn", "muninn"}
-        },
         "disclaimer": DISCLAIMER,
         "healthGuide": {
             "title": "Drive health score",
@@ -370,7 +363,6 @@ def _dashboard_payload(
             ),
         },
         "trendGuide": {
-            "title": "Air flow into the engine",
             "body": (
                 "Grams of air per second (mass air flow). "
                 "Bars show a rolling SQL average over the logged drive."
@@ -383,37 +375,6 @@ def _dashboard_payload(
                 "None logged means no code was stored in this public file."
             ),
         },
-        "method": [
-            "SQL computes every number on this page.",
-            "Huginn reads the current drive.",
-            "Muninn compares it to stored healthy ranges.",
-            "Each finding links to a trace id and SQL evidence.",
-        ],
-        "workflow": [
-            {
-                "label": "Pick a car",
-                "body": "Choose one of the three real public drives in the list.",
-            },
-            {
-                "label": "Read the score",
-                "body": "Check the health number before reading sensor rows.",
-            },
-            {
-                "label": "Read the charts",
-                "body": "Use air flow and fault panels as SQL-backed evidence.",
-            },
-            {
-                "label": "Follow the ravens",
-                "body": "See what Huginn read and what Muninn recalled for this drive.",
-            },
-        ],
-        "readOrder": [
-            "Pick a real drive from the list.",
-            "Read the health score.",
-            "Scan air flow and fault code panels.",
-            "Read Huginn and Muninn steps below.",
-            "Open provenance to see the exact public file.",
-        ],
         "dataSource": {
             "summary": "Three real OBD-II vehicles from public archives.",
             "sources": [

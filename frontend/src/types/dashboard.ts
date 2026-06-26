@@ -42,19 +42,20 @@ export type DtcRow = {
   coolant_temp_c: string;
 };
 
-export type TraceStep = {
-  agent: string;
-  node: string;
-  kind: string;
-  summary: string;
-  title?: string;
-  body?: string;
-  agent_name?: string;
-  agent_tagline?: string;
+export type HealthAxis = {
+  id: string;
+  label: string;
+  value: string;
+  width_pct: string;
+};
+
+export type PerformanceConcern = {
+  level: string;
+  text: string;
 };
 
 export type GuideBlock = {
-  title: string;
+  title?: string;
   body: string;
 };
 
@@ -66,40 +67,13 @@ export type ProvenanceRecord = {
   dataset_name: string;
 };
 
-export type PipelineModule = {
-  id: string;
-  title: string;
-  owner: string;
-  input: string;
-  output: string;
-  body: string;
-};
-
-export type SqlModule = {
-  id: string;
-  title: string;
-  query: string;
-  owner: string;
-  input: string;
-  output: string;
-  body: string;
-};
-
 export type SessionView = {
   focus: FocusRow;
   trend: TrendRow[];
   dtcEvidence: DtcRow[];
-  finding: {
-    likely_cause: string;
-    recommended_fix: string;
-    expected_range: string;
-    agent_trace_id: string;
-  };
-  agentTrace: TraceStep[];
-  agentTraceId: string;
-  sqlModules: SqlModule[];
+  healthMatrix: HealthAxis[];
+  performanceConcerns: PerformanceConcern[];
   dtcSummary: string;
-  correlationSummary: string;
 };
 
 export type DashboardData = {
@@ -111,19 +85,11 @@ export type DashboardData = {
   sessions: SessionRow[];
   trend: TrendRow[];
   dtcEvidence: DtcRow[];
-  finding: SessionView["finding"];
-  agentTrace: TraceStep[];
   agentTraceId: string;
-  agents: Record<string, { name: string; tagline: string; role: string }>;
-  pipeline: PipelineModule[];
-  sqlModules: SqlModule[];
   disclaimer: string;
   healthGuide: GuideBlock;
   trendGuide: GuideBlock;
   faultGuide: GuideBlock;
-  method: string[];
-  workflow: Array<{ label: string; body: string }>;
-  readOrder: string[];
   dataSource: {
     summary: string;
     sources: Array<{

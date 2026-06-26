@@ -14,33 +14,30 @@ def main() -> None:
     if "components/dashboard/Dashboard" not in page:
         raise SystemExit("Frontend is missing modular dashboard shell")
 
-    if "PipelineStrip" not in dashboard or "SqlModuleGrid" not in dashboard:
-        raise SystemExit("Frontend is missing modular pipeline or SQL sections")
+    if "HealthMatrix" not in dashboard or "Performance profile" not in dashboard:
+        raise SystemExit("Frontend is missing performance profile chart")
 
-    if "readOrder" not in payload or len(payload["readOrder"]) < 4:
-        raise SystemExit("Dashboard payload is missing read order guidance")
+    if "PipelineStrip" in dashboard or "SqlModuleGrid" in dashboard:
+        raise SystemExit("Frontend still contains removed pipeline or SQL module sections")
 
-    for key in ("healthGuide", "trendGuide", "faultGuide", "agents"):
+    if "What SQL and the ravens did" in dashboard or "How Corvus fits together" in dashboard:
+        raise SystemExit("Frontend still contains removed audit or pipeline copy")
+
+    for key in ("healthGuide", "trendGuide", "faultGuide"):
         if key not in payload:
             raise SystemExit(f"Dashboard payload is missing readability block: {key}")
 
     if "sessionViews" not in payload or len(payload["sessionViews"]) < 3:
         raise SystemExit("Dashboard payload is missing per-session views")
 
-    if len(payload.get("pipeline", [])) < 5:
-        raise SystemExit("Dashboard payload is missing modular pipeline")
-
     default_view = payload["sessionViews"][str(payload["defaultSessionId"])]
-    if len(default_view.get("sqlModules", [])) < 3:
-        raise SystemExit("Dashboard payload is missing SQL module cards")
+    matrix = default_view.get("healthMatrix", [])
+    if len(matrix) != 5:
+        raise SystemExit("Dashboard payload health matrix must have five axes")
 
-    huginn_steps = [step for step in default_view["agentTrace"] if step["agent"] == "huginn"]
-    muninn_steps = [step for step in default_view["agentTrace"] if step["agent"] == "muninn"]
-    if len(huginn_steps) < 3 or len(muninn_steps) < 3:
-        raise SystemExit("Agent trace is missing Huginn or Muninn steps")
-
-    if not default_view["agentTrace"][0].get("title"):
-        raise SystemExit("Agent trace steps are missing plain-language titles")
+    concerns = default_view.get("performanceConcerns", [])
+    if not concerns:
+        raise SystemExit("Dashboard payload is missing performance concerns")
 
     records = payload["dataSource"].get("records", [])
     if len(records) < 3:

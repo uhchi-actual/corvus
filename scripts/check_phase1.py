@@ -37,16 +37,20 @@ def main() -> None:
         session_sources = {
             row[0] for row in conn.execute("SELECT DISTINCT source FROM drive_sessions")
         }
-        if session_sources != {"csv", "emulator"}:
+        if session_sources != {"csv", "emulator", "public"}:
             raise SystemExit(f"Unexpected session sources: {sorted(session_sources)}")
 
         telemetry_count = conn.execute("SELECT COUNT(*) FROM telemetry_samples").fetchone()[0]
         dtc_count = conn.execute("SELECT COUNT(*) FROM dtc_events").fetchone()[0]
         baseline_count = conn.execute("SELECT COUNT(*) FROM baselines").fetchone()[0]
-        if telemetry_count != 264 or dtc_count != 2 or baseline_count != 15:
+        public_sessions = conn.execute(
+            "SELECT COUNT(*) FROM drive_sessions WHERE source = 'public'"
+        ).fetchone()[0]
+        if telemetry_count != 744 or dtc_count != 2 or baseline_count != 25 or public_sessions != 3:
             raise SystemExit(
                 "Unexpected seed counts: "
-                f"telemetry={telemetry_count}, dtc={dtc_count}, baselines={baseline_count}"
+                f"telemetry={telemetry_count}, dtc={dtc_count}, baselines={baseline_count}, "
+                f"public_sessions={public_sessions}"
             )
 
     live_adapter = (ROOT / "backend" / "src" / "ingest" / "live_obd.py").read_text(

@@ -29,6 +29,30 @@ UHCHI_DARK = "#2d2d2d"
 OFF_WHITE = "#eadbc6"
 PANEL = "#242424"
 
+QUERY_FIELDNAMES = {
+    "baseline_deviation": [
+        "session_id",
+        "metric",
+        "context",
+        "sample_count",
+        "out_of_range_samples",
+        "pct_out_of_range",
+    ],
+    "fuel_trim_drift": ["session_id", "ts", "ltft_b1_pct", "ltft_30s"],
+    "dtc_telemetry_correlation": [
+        "session_id",
+        "code",
+        "status",
+        "description",
+        "fault_ts",
+        "ts",
+        "rpm",
+        "engine_load_pct",
+        "coolant_temp_c",
+    ],
+    "airflow_trend": ["session_id", "ts", "maf_gps", "maf_30s"],
+}
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Export Corvus SQLite data for Power BI.")
@@ -51,7 +75,18 @@ def main() -> None:
         )
 
     with connect_sqlite(db_path) as conn:
-        _export_query(conn, export_dir / "vehicles.csv", "SELECT * FROM vehicles ORDER BY vehicle_id")
+        _export_query(
+            conn,
+            export_dir / "vehicles.csv",
+            """
+            SELECT DISTINCT v.*
+            FROM vehicles v
+            JOIN drive_sessions s
+              ON s.vehicle_id = v.vehicle_id
+            WHERE s.source = 'public'
+            ORDER BY v.vehicle_id
+            """,
+        )
         _export_query(
             conn,
             export_dir / "drive_sessions.csv",
@@ -71,16 +106,46 @@ def main() -> None:
             FROM drive_sessions s
             JOIN vehicles v
               ON v.vehicle_id = s.vehicle_id
+            WHERE s.source = 'public'
             ORDER BY s.session_id
             """,
         )
         _export_query(
             conn,
             export_dir / "telemetry_samples.csv",
-            "SELECT * FROM telemetry_samples ORDER BY session_id, ts, sample_id",
+            """
+            SELECT t.*
+            FROM telemetry_samples t
+            JOIN drive_sessions s
+              ON s.session_id = t.session_id
+            WHERE s.source = 'public'
+            ORDER BY t.session_id, t.ts, t.sample_id
+            """,
         )
-        _export_query(conn, export_dir / "dtc_events.csv", "SELECT * FROM dtc_events ORDER BY dtc_id")
-        _export_query(conn, export_dir / "baselines.csv", "SELECT * FROM baselines ORDER BY baseline_id")
+        _export_query(
+            conn,
+            export_dir / "dtc_events.csv",
+            """
+            SELECT d.*
+            FROM dtc_events d
+            JOIN drive_sessions s
+              ON s.session_id = d.session_id
+            WHERE s.source = 'public'
+            ORDER BY d.dtc_id
+            """,
+        )
+        _export_query(
+            conn,
+            export_dir / "baselines.csv",
+            """
+            SELECT DISTINCT b.*
+            FROM baselines b
+            JOIN drive_sessions s
+              ON s.vehicle_id = b.vehicle_id
+            WHERE s.source = 'public'
+            ORDER BY b.baseline_id
+            """,
+        )
         _export_query(
             conn,
             export_dir / "session_overview.csv",
@@ -101,6 +166,7 @@ def main() -> None:
               ON t.session_id = s.session_id
             LEFT JOIN dtc_events d
               ON d.session_id = s.session_id
+            WHERE s.source = 'public'
             GROUP BY s.session_id, v.make, v.model, s.source, s.started_at, s.ended_at
             ORDER BY s.session_id
             """,
@@ -108,7 +174,9 @@ def main() -> None:
 
         session_ids = [
             int(row["session_id"])
-            for row in conn.execute("SELECT session_id FROM drive_sessions ORDER BY session_id")
+            for row in conn.execute(
+                "SELECT session_id FROM drive_sessions WHERE source = 'public' ORDER BY session_id"
+            )
         ]
         _export_rows(
             export_dir / "health_scores.csv",
@@ -117,19 +185,34 @@ def main() -> None:
         _export_rows(
             export_dir / "baseline_deviation.csv",
             _query_all_sessions(conn, session_ids, "baseline_deviation"),
+            QUERY_FIELDNAMES["baseline_deviation"],
         )
         _export_rows(
             export_dir / "fuel_trim_drift.csv",
             _query_all_sessions(conn, session_ids, "fuel_trim_drift"),
+            QUERY_FIELDNAMES["fuel_trim_drift"],
+        )
+        _export_rows(
+            export_dir / "airflow_trend.csv",
+            _airflow_trend(conn, session_ids),
+            QUERY_FIELDNAMES["airflow_trend"],
         )
         _export_rows(
             export_dir / "dtc_telemetry_correlation.csv",
             _query_all_sessions(conn, session_ids, "dtc_telemetry_correlation"),
+            QUERY_FIELDNAMES["dtc_telemetry_correlation"],
         )
         _export_query(
             conn,
             export_dir / "findings.csv",
-            "SELECT * FROM findings ORDER BY finding_id",
+            """
+            SELECT f.*
+            FROM findings f
+            JOIN drive_sessions s
+              ON s.session_id = f.session_id
+            WHERE s.source = 'public'
+            ORDER BY f.finding_id
+            """,
         )
 
     _render_report_previews(export_dir, screenshots_dir)
@@ -147,6 +230,41 @@ def _query_all_sessions(
         for row in run_session_query(conn, QUERY_DIR, query_name, session_id):
             rows.append({"session_id": session_id, **row})
     return rows
+
+
+def _airflow_trend(conn: sqlite3.Connection, session_ids: list[int]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for session_id in session_ids:
+        session_rows = _rows(
+            conn,
+            """
+            SELECT
+              ts,
+              maf_gps,
+              ROUND(
+                AVG(maf_gps) OVER (
+                  ORDER BY ts
+                  ROWS BETWEEN 30 PRECEDING AND CURRENT ROW
+                ),
+                2
+              ) AS maf_30s
+            FROM telemetry_samples
+            WHERE session_id = ?
+              AND maf_gps IS NOT NULL
+            ORDER BY ts
+            """,
+            (session_id,),
+        )
+        rows.extend({"session_id": session_id, **row} for row in session_rows)
+    return rows
+
+
+def _rows(
+    conn: sqlite3.Connection,
+    sql: str,
+    params: tuple[Any, ...] = (),
+) -> list[dict[str, Any]]:
+    return [dict(row) for row in conn.execute(sql, params).fetchall()]
 
 
 def _export_query(conn: sqlite3.Connection, path: Path, sql: str) -> None:
@@ -173,20 +291,31 @@ def _render_report_previews(export_dir: Path, screenshots_dir: Path) -> None:
     overview_rows = _read_csv(export_dir / "session_overview.csv")
     health_rows = _read_csv(export_dir / "health_scores.csv")
     dtc_rows = _read_csv(export_dir / "dtc_telemetry_correlation.csv")
-    drift_rows = _read_csv(export_dir / "fuel_trim_drift.csv")
+    airflow_rows = _read_csv(export_dir / "airflow_trend.csv")
 
     _render_overview(screenshots_dir / "overview.png", overview_rows, health_rows)
     _render_table(
         screenshots_dir / "dtc_correlation.png",
         "DTC correlation",
-        dtc_rows[:8],
+        dtc_rows[:8]
+        or [
+            {
+                "session_id": "public",
+                "code": "none logged",
+                "status": "none",
+                "fault_ts": "",
+                "rpm": "n/a",
+                "engine_load_pct": "n/a",
+                "coolant_temp_c": "n/a",
+            }
+        ],
         ["session_id", "code", "status", "fault_ts", "rpm", "engine_load_pct", "coolant_temp_c"],
     )
     _render_table(
-        screenshots_dir / "fuel_trim_drift.png",
-        "Fuel trim drift",
-        drift_rows[:10],
-        ["session_id", "ts", "ltft_b1_pct", "ltft_30s"],
+        screenshots_dir / "airflow_trend.png",
+        "Mass air flow trend",
+        airflow_rows[:10],
+        ["session_id", "ts", "maf_gps", "maf_30s"],
     )
 
 
@@ -217,7 +346,7 @@ def _render_overview(path: Path, overview_rows: list[dict[str, str]], health_row
         x += 326
 
     draw.text((58, 402), "Pages", fill=OFF_WHITE, font=font_label)
-    for index, label in enumerate(("Drive health", "Fuel trim", "DTC evidence")):
+    for index, label in enumerate(("Drive health", "Mass air flow", "DTC evidence")):
         y = 452 + index * 52
         draw.rounded_rectangle((58, y, 520, y + 34), radius=10, outline=UHCHI_TEAL, width=2)
         draw.text((78, y + 5), label, fill=OFF_WHITE, font=font_small)

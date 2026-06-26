@@ -19,6 +19,7 @@ EXPECTED_EXPORTS = {
     "health_scores.csv",
     "baseline_deviation.csv",
     "fuel_trim_drift.csv",
+    "airflow_trend.csv",
     "dtc_telemetry_correlation.csv",
     "findings.csv",
 }
@@ -26,7 +27,7 @@ EXPECTED_EXPORTS = {
 EXPECTED_SCREENSHOTS = {
     "overview.png",
     "dtc_correlation.png",
-    "fuel_trim_drift.png",
+    "airflow_trend.png",
 }
 
 
@@ -48,10 +49,18 @@ def main() -> None:
 
     telemetry_rows = _csv_count(EXPORT_DIR / "telemetry_samples.csv")
     health_rows = _csv_count(EXPORT_DIR / "health_scores.csv")
-    if telemetry_rows != 264 or health_rows != 3:
+    if telemetry_rows != 720 or health_rows != 3:
         raise SystemExit(
             f"Unexpected Power BI export counts: telemetry={telemetry_rows}, health={health_rows}"
         )
+
+    visible_exports = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in EXPORT_DIR.glob("*.csv")
+        if path.name != "dtc_telemetry_correlation.csv"
+    )
+    if "Corvette" in visible_exports or "Synthetic" in visible_exports:
+        raise SystemExit("Power BI exports leaked internal control rows")
 
     for path in (
         ROOT / "powerbi" / "README.md",

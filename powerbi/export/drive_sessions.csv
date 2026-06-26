@@ -1,4 +1,4 @@
 session_id,vehicle_id,make,model,year,engine,started_at,ended_at,source,ambient_c,notes
-1,1,Chevrolet,Corvette,2002,LS1 5.7L V8,2026-06-01T09:00:00Z,2026-06-01T09:00:11Z,csv,21.0,Synthetic Torque/Car Scanner style CSV for offline development.
-2,2,Chevrolet,Corvette,2002,LS1 5.7L V8,2026-06-02T18:30:00Z,2026-06-02T18:30:11Z,emulator,22.0,Synthetic ELM327-emulator scenario exported as CSV.
-3,3,Seat,Leon,,,2018-03-29T16:45:10.700Z,2018-03-29T16:50:29.059Z,csv,,Normalized public OBD-II CSV slice from KIT/RADAR under CC BY 4.0.
+3,3,Seat,Leon,,,2018-02-23T17:58:02.768Z,2018-02-23T18:02:01.074Z,public,,KIT/RADAR real OBD-II entry; source_file=2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv; drive_label=free-road acceleration; license=CC BY 4.0.
+4,4,Seat,Leon,,,2018-03-21T19:09:16.713Z,2018-03-21T19:13:15.061Z,public,,KIT/RADAR real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=normal commuter drive; license=CC BY 4.0.
+5,5,Seat,Leon,,,2018-02-18T07:08:08.029Z,2018-02-18T07:12:07.068Z,public,,KIT/RADAR real OBD-II entry; source_file=2018-02-18_Seat_Leon_RT_KA_Stau.csv; drive_label=traffic drive; license=CC BY 4.0.

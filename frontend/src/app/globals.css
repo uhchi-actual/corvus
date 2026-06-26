@@ -58,7 +58,18 @@ a {
   text-decoration: none;
 }
 
+.constellationField {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.72;
+  mix-blend-mode: screen;
+}
+
 .dashboard {
+  position: relative;
+  z-index: 1;
   width: min(1180px, 100%);
   margin: 0 auto;
   padding: 54px 22px 36px;
@@ -156,6 +167,15 @@ a {
 
 .sourceLine a:hover {
   color: var(--ink);
+}
+
+.sourceDetail {
+  max-width: 560px;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.45;
 }
 
 .inspirationPlate {
@@ -311,7 +331,7 @@ a {
 .factGrid {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 1.5fr repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   margin: 8px 0 0;
 }
@@ -368,6 +388,12 @@ a {
   text-transform: uppercase;
 }
 
+.sessionRow small {
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+  text-transform: none;
+}
+
 .sessionRow strong {
   display: block;
   margin-top: 7px;
@@ -393,8 +419,7 @@ a {
 }
 
 .barChart {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(8px, 1fr));
+  display: flex;
   align-items: flex-end;
   gap: 8px;
   height: 190px;
@@ -408,8 +433,10 @@ a {
 
 .bar {
   display: block;
+  flex: 1 1 0;
   height: var(--bar-height);
   min-height: 14px;
+  min-width: 0;
   border-radius: 999px 999px 3px 3px;
   background: linear-gradient(180deg, var(--uhchi-red), var(--uhchi-teal));
   transform-origin: bottom;
@@ -429,6 +456,30 @@ a {
   border-radius: 8px;
   background: var(--panel-soft);
   box-shadow: inset 0 0 0 1px rgba(211, 188, 155, 0.1);
+}
+
+.emptyEvidence {
+  min-height: 188px;
+  padding: 22px;
+  border-radius: 8px;
+  background: var(--panel-soft);
+  box-shadow: inset 0 0 0 1px rgba(211, 188, 155, 0.1);
+}
+
+.emptyEvidence strong {
+  display: block;
+  color: var(--ink);
+  font-size: 20px;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.emptyEvidence p {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 850;
+  line-height: 1.45;
 }
 
 .tableRow {
@@ -464,7 +515,8 @@ a {
 }
 
 .traceList,
-.methodList {
+.methodList,
+.workflowList {
   display: grid;
   gap: 12px;
   margin: 0;
@@ -473,7 +525,8 @@ a {
 }
 
 .traceList li,
-.methodList li {
+.methodList li,
+.workflowList li {
   border-radius: 8px;
   background: var(--panel-soft);
   box-shadow: inset 0 0 0 1px rgba(211, 188, 155, 0.1);
@@ -511,6 +564,69 @@ a {
   font-size: 16px;
   font-weight: 900;
   line-height: 1.35;
+}
+
+.workflowList li {
+  padding: 16px;
+}
+
+.workflowList span {
+  display: block;
+  color: var(--uhchi-teal);
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.workflowList p {
+  margin: 8px 0 0;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 850;
+  line-height: 1.4;
+}
+
+.provenanceBlock {
+  padding: 18px;
+  border-radius: 8px;
+  background: var(--panel-soft);
+  box-shadow: inset 0 0 0 1px rgba(211, 188, 155, 0.1);
+}
+
+.provenanceBlock strong {
+  display: block;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.provenanceBlock p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.provenanceBlock ul {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.provenanceBlock li {
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(211, 188, 155, 0.05);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
 .finding {

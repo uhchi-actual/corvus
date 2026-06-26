@@ -1,10 +1,11 @@
 # Corvus Power BI Report Pack
 
 This folder contains the Phase 4 report assets for Power BI.
+The exported report data is scoped to the real public KIT/RADAR Seat Leon entries.
 
 Power BI Desktop is not installed in this development environment, so the binary
 `.pbix` export cannot be produced here. The report pack is still built against
-the Corvus SQLite database and includes the data exports, SQL, theme, DAX
+the Corvus SQLite database and includes public-session data exports, SQL, theme, DAX
 measures, manifest, and preview screenshots needed to assemble/export the PBIX
 in Desktop.
 
@@ -31,7 +32,7 @@ Outputs:
 The report should keep the same v1 scope:
 
 - Drive health
-- Fuel trim
+- Mass air flow
 - DTC evidence
 
 Do not add placeholder or coming-soon pages.

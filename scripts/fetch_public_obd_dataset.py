@@ -12,6 +12,11 @@ ROOT = Path(__file__).resolve().parents[1]
 DATASET_URL = "https://www.radar-service.eu/radar-backend/archives/bCtGxdTklQlfQcAq/versions/1/content"
 ARCHIVE_MD5 = "22d9aac00d1a2b4c97aa35fd7a103ba4"
 SOURCE_FILE = "2018-03-29_Seat_Leon_KA_RT_Stau.csv"
+PUBLIC_SEED_SOURCES = {
+    "public_obd_kit_acceleration.csv": "2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv",
+    "public_obd_kit_normal.csv": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+    "public_obd_kit_traffic.csv": "2018-02-18_Seat_Leon_RT_KA_Stau.csv",
+}
 
 SOURCE_COLUMNS = {
     "rpm": "Engine RPM [RPM]",
@@ -48,7 +53,9 @@ def main() -> None:
     )
     parser.add_argument("--work-dir", default=str(ROOT / "work" / "public-obd"))
     parser.add_argument("--output", default=str(ROOT / "data" / "seed" / "public_obd_kit_sample.csv"))
+    parser.add_argument("--source-file", default=SOURCE_FILE)
     parser.add_argument("--max-rows", type=int, default=240)
+    parser.add_argument("--all-dashboard-seeds", action="store_true")
     args = parser.parse_args()
 
     work_dir = Path(args.work_dir)
@@ -61,17 +68,15 @@ def main() -> None:
         urllib.request.urlretrieve(DATASET_URL, archive_path)
     _verify_md5(archive_path)
 
-    csv_path = _extract_source_csv(archive_path, work_dir)
-    rows = _normalized_rows(csv_path, args.max_rows)
-    if not rows:
-        raise SystemExit(f"No normalized rows written from {csv_path}")
+    if args.all_dashboard_seeds:
+        for filename, source_file in PUBLIC_SEED_SOURCES.items():
+            csv_path = _extract_source_csv(archive_path, work_dir, source_file)
+            seed_path = output_path.parent / filename
+            _write_normalized_seed(csv_path, seed_path, args.max_rows)
+        return
 
-    with output_path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=OUTPUT_COLUMNS, lineterminator="\n")
-        writer.writeheader()
-        writer.writerows(rows)
-
-    print(f"Wrote {len(rows)} rows to {output_path}")
+    csv_path = _extract_source_csv(archive_path, work_dir, args.source_file)
+    _write_normalized_seed(csv_path, output_path, args.max_rows)
 
 
 def _verify_md5(path: Path) -> None:
@@ -83,10 +88,10 @@ def _verify_md5(path: Path) -> None:
         raise SystemExit(f"Unexpected archive checksum for {path}")
 
 
-def _extract_source_csv(archive_path: Path, work_dir: Path) -> Path:
+def _extract_source_csv(archive_path: Path, work_dir: Path, source_file: str) -> Path:
     extracted_dir = work_dir / "extracted"
     unzipped_dir = work_dir / "unzipped"
-    csv_path = unzipped_dir / "OBD-II-Dataset" / SOURCE_FILE
+    csv_path = unzipped_dir / "OBD-II-Dataset" / source_file
     if csv_path.exists():
         return csv_path
 
@@ -105,6 +110,19 @@ def _extract_source_csv(archive_path: Path, work_dir: Path) -> Path:
     if not csv_path.exists():
         raise FileNotFoundError(f"Source CSV not found: {csv_path}")
     return csv_path
+
+
+def _write_normalized_seed(csv_path: Path, output_path: Path, max_rows: int) -> None:
+    rows = _normalized_rows(csv_path, max_rows)
+    if not rows:
+        raise SystemExit(f"No normalized rows written from {csv_path}")
+
+    with output_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=OUTPUT_COLUMNS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+    print(f"Wrote {len(rows)} rows from {csv_path.name} to {output_path}")
 
 
 def _normalized_rows(csv_path: Path, max_rows: int) -> list[dict[str, str]]:

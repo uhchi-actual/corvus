@@ -20,6 +20,18 @@ def main() -> None:
     if payload["dataSource"]["license"] != "CC BY 4.0":
         raise SystemExit("Dashboard payload is missing public data license attribution")
 
+    if len(payload["dataSource"].get("entries", [])) < 3:
+        raise SystemExit("Dashboard payload is missing exact public source entries")
+
+    if any(session["source"] != "public" for session in payload["sessions"]):
+        raise SystemExit("Dashboard payload includes non-public displayed sessions")
+
+    if "Corvette" in json.dumps(payload) or "synthetic" in json.dumps(payload["sessions"]).lower():
+        raise SystemExit("Dashboard payload leaked synthetic control data")
+
+    if len(payload.get("trend", [])) > 26 or not payload.get("trend"):
+        raise SystemExit("Dashboard trend is missing bounded SQL output")
+
     if not payload["agentTraceId"].startswith("agent-") or not payload["agentTrace"]:
         raise SystemExit("Dashboard payload is missing agent trace data")
 

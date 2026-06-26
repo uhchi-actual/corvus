@@ -18,6 +18,24 @@ from src.ingest.database import (  # noqa: E402
 )
 from src.ingest.emulator_adapter import ingest_emulator_csv  # noqa: E402
 
+PUBLIC_DRIVE_SOURCES = [
+    {
+        "seed_file": "public_obd_kit_acceleration.csv",
+        "source_file": "2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv",
+        "label": "free-road acceleration",
+    },
+    {
+        "seed_file": "public_obd_kit_normal.csv",
+        "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+        "label": "normal commuter drive",
+    },
+    {
+        "seed_file": "public_obd_kit_traffic.csv",
+        "source_file": "2018-02-18_Seat_Leon_RT_KA_Stau.csv",
+        "label": "traffic drive",
+    },
+]
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Seed the Corvus SQLite demo database.")
@@ -65,24 +83,34 @@ def main() -> None:
             engine=None,
             notes="Public KIT Automotive OBD-II Dataset sample; DOI 10.35097/1130.",
         )
-        public_result = ingest_drive_csv(
-            conn,
-            ROOT / "data" / "seed" / "public_obd_kit_sample.csv",
-            public_vehicle,
-            SessionMetadata(
-                source="csv",
-                notes="Normalized public OBD-II CSV slice from KIT/RADAR under CC BY 4.0.",
-            ),
-        )
-        insert_demo_baselines(conn, public_result.vehicle_id)
+        public_results = []
+        for source in PUBLIC_DRIVE_SOURCES:
+            public_result = ingest_drive_csv(
+                conn,
+                ROOT / "data" / "seed" / source["seed_file"],
+                public_vehicle,
+                SessionMetadata(
+                    source="public",
+                    notes=(
+                        "KIT/RADAR real OBD-II entry; "
+                        f"source_file={source['source_file']}; "
+                        f"drive_label={source['label']}; "
+                        "license=CC BY 4.0."
+                    ),
+                ),
+            )
+            insert_demo_baselines(conn, public_result.vehicle_id)
+            public_results.append(public_result)
         conn.commit()
 
     print(f"Seeded {db_path}")
+    public_telemetry_rows = sum(result.telemetry_rows for result in public_results)
+    public_dtc_rows = sum(result.dtc_rows for result in public_results)
     print(
         "Rows: "
         f"csv telemetry={csv_result.telemetry_rows}, csv dtcs={csv_result.dtc_rows}; "
         f"emulator telemetry={emulator_result.telemetry_rows}, emulator dtcs={emulator_result.dtc_rows}; "
-        f"public telemetry={public_result.telemetry_rows}, public dtcs={public_result.dtc_rows}"
+        f"public telemetry={public_telemetry_rows}, public dtcs={public_dtc_rows}"
     )
 
 

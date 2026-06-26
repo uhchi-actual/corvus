@@ -10,9 +10,9 @@
       "visuals": ["health score cards", "session row counts", "baseline deviation table"]
     },
     {
-      "name": "Fuel trim",
-      "tables": ["fuel_trim_drift", "telemetry_samples"],
-      "visuals": ["LTFT rolling SQL output line", "telemetry detail table"]
+      "name": "Mass air flow",
+      "tables": ["airflow_trend", "telemetry_samples"],
+      "visuals": ["mass air flow rolling SQL output line", "telemetry detail table"]
     },
     {
       "name": "DTC evidence",

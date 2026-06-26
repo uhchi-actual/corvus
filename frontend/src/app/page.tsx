@@ -1,11 +1,15 @@
 import type { CSSProperties } from "react";
 
+import { ConstellationField } from "../components/ConstellationField";
 import dashboardData from "../data/dashboard.json";
 
 type SessionRow = {
   session_id: number;
   vehicle: string;
   source: string;
+  notes: string;
+  source_file: string;
+  drive_label: string;
   health_score: string;
   health_score_width: string;
   telemetry_samples: string;
@@ -14,10 +18,10 @@ type SessionRow = {
   baseline_width: string;
 };
 
-type DriftRow = {
+type TrendRow = {
   ts: string;
-  ltft_b1_pct: string;
-  ltft_30s: string;
+  maf_gps: string;
+  maf_30s: string;
   height_pct: string;
 };
 
@@ -51,7 +55,7 @@ type DashboardData = {
     sample_count: string;
   };
   sessions: SessionRow[];
-  drift: DriftRow[];
+  trend: TrendRow[];
   dtcEvidence: DtcRow[];
   finding: {
     likely_cause: string;
@@ -63,8 +67,15 @@ type DashboardData = {
   agentTraceId: string;
   disclaimer: string;
   method: string[];
+  workflow: Array<{
+    label: string;
+    body: string;
+  }>;
   dataSource: {
     name: string;
+    vehicle: string;
+    entries: string[];
+    note: string;
     doi: string;
     license: string;
     licenseUrl: string;
@@ -82,15 +93,19 @@ type Vars = CSSProperties & {
 };
 
 const dashboard = dashboardData as DashboardData;
+const diagnosticCode = dashboard.dtcEvidence[0];
+const hasDiagnosticRows = diagnosticCode?.status !== "none";
 
 export default function Home() {
   return (
-    <main className="dashboard" aria-label="Corvus dashboard">
+    <>
+      <ConstellationField />
+      <main className="dashboard" aria-label="Corvus dashboard">
       <section className="heroSurface flowIn" aria-labelledby="corvus-title">
         <div className="heroCopy">
           <div className="topLine">
             <span>{dashboard.version}</span>
-            <span>static SQL demo</span>
+            <span>real public telemetry</span>
           </div>
           <h1 id="corvus-title" className="wordmark" data-text="corvus">
             corvus
@@ -101,6 +116,10 @@ export default function Home() {
             <a href={dashboard.dataSource.doi}>{dashboard.dataSource.name}</a>
             {" / "}
             <a href={dashboard.dataSource.licenseUrl}>{dashboard.dataSource.license}</a>
+          </p>
+          <p className="sourceDetail">
+            Public dashboard rows use real {dashboard.dataSource.vehicle} drive entries from
+            the KIT/RADAR archive.
           </p>
         </div>
         <figure className="inspirationPlate" aria-label={dashboard.inspiration.label}>
@@ -140,31 +159,32 @@ export default function Home() {
               <dd>{dashboard.focus.vehicle}</dd>
             </div>
             <div>
+              <dt>Drive</dt>
+              <dd>{dashboard.focus.drive_label}</dd>
+            </div>
+            <div>
               <dt>Samples</dt>
               <dd>{dashboard.focus.telemetry_samples}</dd>
             </div>
             <div>
-              <dt>DTC rows</dt>
+              <dt>Code rows</dt>
               <dd>{dashboard.focus.dtc_count}</dd>
-            </div>
-            <div>
-              <dt>Metric penalty</dt>
-              <dd>{dashboard.focus.metric_penalty_points}</dd>
             </div>
           </dl>
         </article>
 
         <article className="panel sessionsPanel flowIn delayedTwo">
           <div className="panelHead">
-            <p>Seeded drives</p>
-            <h2>SQL output</h2>
+            <p>Real entries</p>
+            <h2>Drive set</h2>
           </div>
           <div className="sessionList">
             {dashboard.sessions.map((session) => (
               <div className="sessionRow" key={session.session_id}>
                 <div>
-                  <span>Session {session.session_id}</span>
+                  <span>{session.drive_label}</span>
                   <strong>{session.vehicle}</strong>
+                  <small>{session.source_file}</small>
                 </div>
                 <div className="miniMeters">
                   <span>{session.health_score}</span>
@@ -185,47 +205,91 @@ export default function Home() {
       <section className="grid twoCol evidenceGrid">
         <article className="panel flowIn delayedThree">
           <div className="panelHead">
-            <p>Fuel trim</p>
-            <h2>Windowed LTFT</h2>
+            <p>Mass air flow</p>
+            <h2>Rolling trend</h2>
           </div>
-          <div className="barChart" aria-label="Fuel trim drift">
-            {dashboard.drift.map((point) => (
+          <div className="barChart" aria-label="Mass air flow rolling trend">
+            {dashboard.trend.map((point) => (
               <span
                 key={point.ts}
                 className="bar"
-                title={`${point.ts}: ${point.ltft_30s}`}
+                title={`${point.ts}: ${point.maf_30s} g/s`}
                 style={{ "--bar-height": point.height_pct } as Vars}
               />
             ))}
           </div>
           <p className="microCopy">
-            SQL window function over logged LTFT rows. Current focus ends at{" "}
-            {dashboard.drift.at(-1)?.ltft_30s}.
+            SQL window over logged mass air flow rows. Current focus ends at{" "}
+            {dashboard.trend.at(-1)?.maf_30s} g/s.
           </p>
         </article>
 
         <article className="panel flowIn delayedFour">
           <div className="panelHead">
-            <p>DTC evidence</p>
-            <h2>{dashboard.dtcEvidence[0]?.code}</h2>
+            <p>Diagnostic code</p>
+            <h2>{hasDiagnosticRows ? diagnosticCode?.code : "None logged"}</h2>
           </div>
-          <div className="evidenceTable" role="table" aria-label="DTC telemetry window">
-            <div className="tableRow tableHead" role="row">
-              <span role="columnheader">rpm</span>
-              <span role="columnheader">load</span>
-              <span role="columnheader">coolant</span>
-              <span role="columnheader">status</span>
-            </div>
-            {dashboard.dtcEvidence.map((row) => (
-              <div className="tableRow" role="row" key={row.ts}>
-                <span role="cell">{row.rpm}</span>
-                <span role="cell">{row.engine_load_pct}</span>
-                <span role="cell">{row.coolant_temp_c}</span>
-                <span role="cell">{row.status}</span>
+          {hasDiagnosticRows ? (
+            <div
+              className="evidenceTable"
+              role="table"
+              aria-label="Diagnostic trouble code telemetry window"
+            >
+              <div className="tableRow tableHead" role="row">
+                <span role="columnheader">rpm</span>
+                <span role="columnheader">load</span>
+                <span role="columnheader">coolant</span>
+                <span role="columnheader">status</span>
               </div>
-            ))}
+              {dashboard.dtcEvidence.map((row) => (
+                <div className="tableRow" role="row" key={row.ts}>
+                  <span role="cell">{row.rpm}</span>
+                  <span role="cell">{row.engine_load_pct}</span>
+                  <span role="cell">{row.coolant_temp_c}</span>
+                  <span role="cell">{row.status}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="emptyEvidence">
+              <strong>No diagnostic trouble code rows</strong>
+              <p>{diagnosticCode?.description}</p>
+            </div>
+          )}
+          {hasDiagnosticRows ? <p className="microCopy">{diagnosticCode?.description}</p> : null}
+        </article>
+      </section>
+
+      <section className="grid twoCol">
+        <article className="panel flowIn delayedFive">
+          <div className="panelHead">
+            <p>Workflow</p>
+            <h2>Read order</h2>
           </div>
-          <p className="microCopy">{dashboard.dtcEvidence[0]?.description}</p>
+          <ol className="workflowList">
+            {dashboard.workflow.map((step) => (
+              <li key={step.label}>
+                <span>{step.label}</span>
+                <p>{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </article>
+
+        <article className="panel flowIn delayedSix">
+          <div className="panelHead">
+            <p>Source</p>
+            <h2>Provenance</h2>
+          </div>
+          <div className="provenanceBlock">
+            <strong>{dashboard.dataSource.name}</strong>
+            <p>{dashboard.dataSource.note}</p>
+            <ul>
+              {dashboard.dataSource.entries.map((entry) => (
+                <li key={entry}>{entry}</li>
+              ))}
+            </ul>
+          </div>
         </article>
       </section>
 
@@ -250,7 +314,7 @@ export default function Home() {
         <article className="panel flowIn delayedSix">
           <div className="panelHead">
             <p>Method</p>
-            <h2>Read path</h2>
+            <h2>Evidence path</h2>
           </div>
           <ul className="methodList">
             {dashboard.method.map((item) => (
@@ -268,6 +332,7 @@ export default function Home() {
       <footer className="footer flowIn delayedSix">
         <span>{dashboard.disclaimer}</span>
       </footer>
-    </main>
+      </main>
+    </>
   );
 }

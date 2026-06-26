@@ -10,7 +10,7 @@
 **Live demo (Pages):** `https://uhchi-actual.github.io/corvus/`
 **One-liner:** Agentic OBD-II performance and maintenance analyzer — reads trouble codes and live engine telemetry, compares each drive against a per-vehicle baseline in SQL, and outputs ranked likely faults with the evidence and recommended fixes.
 
-This document is the build spec. It is written so a coding agent (Cursor/Codex) or you can build the repo phase by phase without inventing anything. Every OBD-II fact here is from the python-OBD source and the SAE J1979 PID reference — verify against those, not memory, if anything looks off.
+This document is the build spec. It is written so the repo can be built phase by phase without inventing anything. Every OBD-II fact here is from the python-OBD source and the SAE J1979 PID reference — verify against those, not memory, if anything looks off.
 
 ---
 

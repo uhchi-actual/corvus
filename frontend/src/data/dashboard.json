@@ -3,50 +3,62 @@
   "version": "v1",
   "statement": "OBD-II telemetry analyzed in SQL",
   "focus": {
-    "session_id": 2,
-    "vehicle": "Chevrolet Corvette",
-    "source": "emulator",
-    "started_at": "2026-06-02T18:30:00Z",
-    "ended_at": "2026-06-02T18:30:11Z",
-    "health_score": "74.0",
-    "health_score_width": "74.0%",
-    "metric_penalty_points": "8.0",
-    "dtc_penalty_points": "18.0",
-    "dtc_count": "1",
-    "telemetry_samples": "12",
+    "session_id": 4,
+    "vehicle": "Seat Leon",
+    "source": "public",
+    "notes": "KIT/RADAR real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=normal commuter drive; license=CC BY 4.0.",
+    "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+    "drive_label": "normal commuter drive",
+    "started_at": "2018-03-21T19:09:16.713Z",
+    "ended_at": "2018-03-21T19:13:15.061Z",
+    "health_score": "88.0",
+    "health_score_width": "88.0%",
+    "metric_penalty_points": "12.0",
+    "dtc_penalty_points": "0.0",
+    "dtc_count": "0",
+    "telemetry_samples": "240",
     "score_basis": "directional editable scoring config",
-    "pct_out_of_range": "16.7",
-    "baseline_width": "16.7%",
-    "out_of_range_samples": "2",
-    "sample_count": "12"
+    "pct_out_of_range": "100.0",
+    "baseline_width": "100.0%",
+    "out_of_range_samples": "240",
+    "sample_count": "240"
   },
   "sessions": [
     {
-      "session_id": 1,
-      "vehicle": "Chevrolet Corvette",
-      "source": "csv",
-      "health_score": "80.0",
-      "health_score_width": "80.0%",
-      "telemetry_samples": "12",
-      "dtc_count": "1",
+      "session_id": 3,
+      "vehicle": "Seat Leon",
+      "source": "public",
+      "notes": "KIT/RADAR real OBD-II entry; source_file=2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv; drive_label=free-road acceleration; license=CC BY 4.0.",
+      "source_file": "2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv",
+      "drive_label": "free-road acceleration",
+      "health_score": "100.0",
+      "health_score_width": "100.0%",
+      "telemetry_samples": "240",
+      "dtc_count": "0",
       "pct_out_of_range": "0.0",
       "baseline_width": "0.0%"
     },
     {
-      "session_id": 2,
-      "vehicle": "Chevrolet Corvette",
-      "source": "emulator",
-      "health_score": "74.0",
-      "health_score_width": "74.0%",
-      "telemetry_samples": "12",
-      "dtc_count": "1",
-      "pct_out_of_range": "16.7",
-      "baseline_width": "16.7%"
+      "session_id": 4,
+      "vehicle": "Seat Leon",
+      "source": "public",
+      "notes": "KIT/RADAR real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=normal commuter drive; license=CC BY 4.0.",
+      "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+      "drive_label": "normal commuter drive",
+      "health_score": "88.0",
+      "health_score_width": "88.0%",
+      "telemetry_samples": "240",
+      "dtc_count": "0",
+      "pct_out_of_range": "100.0",
+      "baseline_width": "100.0%"
     },
     {
-      "session_id": 3,
+      "session_id": 5,
       "vehicle": "Seat Leon",
-      "source": "csv",
+      "source": "public",
+      "notes": "KIT/RADAR real OBD-II entry; source_file=2018-02-18_Seat_Leon_RT_KA_Stau.csv; drive_label=traffic drive; license=CC BY 4.0.",
+      "source_file": "2018-02-18_Seat_Leon_RT_KA_Stau.csv",
+      "drive_label": "traffic drive",
       "health_score": "88.0",
       "health_score_width": "88.0%",
       "telemetry_samples": "240",
@@ -55,140 +67,168 @@
       "baseline_width": "100.0%"
     }
   ],
-  "drift": [
+  "trend": [
     {
-      "ts": "2026-06-02T18:30:00Z",
-      "ltft_b1_pct": "2.0",
-      "ltft_30s": "2.00",
-      "height_pct": "51.9%"
+      "ts": "2018-03-21T19:09:16.713Z",
+      "maf_gps": "0.88",
+      "maf_30s": "0.88",
+      "height_pct": "16.6%"
     },
     {
-      "ts": "2026-06-02T18:30:01Z",
-      "ltft_b1_pct": "2.2",
-      "ltft_30s": "2.10",
-      "height_pct": "53.8%"
+      "ts": "2018-03-21T19:09:26.043Z",
+      "maf_gps": "0.88",
+      "maf_30s": "0.88",
+      "height_pct": "16.6%"
     },
     {
-      "ts": "2026-06-02T18:30:02Z",
-      "ltft_b1_pct": "2.5",
-      "ltft_30s": "2.23",
-      "height_pct": "56.3%"
+      "ts": "2018-03-21T19:09:36.003Z",
+      "maf_gps": "16.94",
+      "maf_30s": "6.88",
+      "height_pct": "34.7%"
     },
     {
-      "ts": "2026-06-02T18:30:03Z",
-      "ltft_b1_pct": "3.1",
-      "ltft_30s": "2.45",
-      "height_pct": "60.5%"
+      "ts": "2018-03-21T19:09:46.083Z",
+      "maf_gps": "16.94",
+      "maf_30s": "10.07",
+      "height_pct": "44.3%"
     },
     {
-      "ts": "2026-06-02T18:30:04Z",
-      "ltft_b1_pct": "3.8",
-      "ltft_30s": "2.72",
-      "height_pct": "65.6%"
+      "ts": "2018-03-21T19:09:56.013Z",
+      "maf_gps": "25.49",
+      "maf_30s": "17.38",
+      "height_pct": "66.3%"
     },
     {
-      "ts": "2026-06-02T18:30:05Z",
-      "ltft_b1_pct": "4.6",
-      "ltft_30s": "3.03",
-      "height_pct": "71.5%"
+      "ts": "2018-03-21T19:10:06.032Z",
+      "maf_gps": "22.44",
+      "maf_30s": "21.62",
+      "height_pct": "79.1%"
     },
     {
-      "ts": "2026-06-02T18:30:06Z",
-      "ltft_b1_pct": "5.2",
-      "ltft_30s": "3.34",
-      "height_pct": "77.4%"
-    },
-    {
-      "ts": "2026-06-02T18:30:07Z",
-      "ltft_b1_pct": "5.0",
-      "ltft_30s": "3.55",
-      "height_pct": "81.3%"
-    },
-    {
-      "ts": "2026-06-02T18:30:08Z",
-      "ltft_b1_pct": "4.5",
-      "ltft_30s": "3.66",
-      "height_pct": "83.4%"
-    },
-    {
-      "ts": "2026-06-02T18:30:09Z",
-      "ltft_b1_pct": "4.0",
-      "ltft_30s": "3.69",
+      "ts": "2018-03-21T19:10:16.022Z",
+      "maf_gps": "16.69",
+      "maf_30s": "23.25",
       "height_pct": "84.0%"
     },
     {
-      "ts": "2026-06-02T18:30:10Z",
-      "ltft_b1_pct": "3.4",
-      "ltft_30s": "3.66",
-      "height_pct": "83.4%"
+      "ts": "2018-03-21T19:10:26.043Z",
+      "maf_gps": "54.13",
+      "maf_30s": "22.60",
+      "height_pct": "82.0%"
     },
     {
-      "ts": "2026-06-02T18:30:11Z",
-      "ltft_b1_pct": "2.8",
-      "ltft_30s": "3.59",
-      "height_pct": "82.1%"
+      "ts": "2018-03-21T19:10:36.062Z",
+      "maf_gps": "16.94",
+      "maf_30s": "20.87",
+      "height_pct": "76.8%"
+    },
+    {
+      "ts": "2018-03-21T19:10:46.022Z",
+      "maf_gps": "15.69",
+      "maf_30s": "19.02",
+      "height_pct": "71.3%"
+    },
+    {
+      "ts": "2018-03-21T19:10:56.012Z",
+      "maf_gps": "16.05",
+      "maf_30s": "18.80",
+      "height_pct": "70.6%"
+    },
+    {
+      "ts": "2018-03-21T19:11:06.002Z",
+      "maf_gps": "30.08",
+      "maf_30s": "19.88",
+      "height_pct": "73.9%"
+    },
+    {
+      "ts": "2018-03-21T19:11:16.052Z",
+      "maf_gps": "27.08",
+      "maf_30s": "21.33",
+      "height_pct": "78.2%"
+    },
+    {
+      "ts": "2018-03-21T19:11:26.012Z",
+      "maf_gps": "14.97",
+      "maf_30s": "21.82",
+      "height_pct": "79.7%"
+    },
+    {
+      "ts": "2018-03-21T19:11:36.062Z",
+      "maf_gps": "14.97",
+      "maf_30s": "18.55",
+      "height_pct": "69.8%"
+    },
+    {
+      "ts": "2018-03-21T19:11:46.052Z",
+      "maf_gps": "15.91",
+      "maf_30s": "16.52",
+      "height_pct": "63.7%"
+    },
+    {
+      "ts": "2018-03-21T19:11:56.042Z",
+      "maf_gps": "16.74",
+      "maf_30s": "19.00",
+      "height_pct": "71.2%"
+    },
+    {
+      "ts": "2018-03-21T19:12:06.032Z",
+      "maf_gps": "14.88",
+      "maf_30s": "18.84",
+      "height_pct": "70.7%"
+    },
+    {
+      "ts": "2018-03-21T19:12:16.082Z",
+      "maf_gps": "9.72",
+      "maf_30s": "17.67",
+      "height_pct": "67.2%"
+    },
+    {
+      "ts": "2018-03-21T19:12:26.072Z",
+      "maf_gps": "33.99",
+      "maf_30s": "13.78",
+      "height_pct": "55.5%"
+    },
+    {
+      "ts": "2018-03-21T19:12:36.032Z",
+      "maf_gps": "12.91",
+      "maf_30s": "14.87",
+      "height_pct": "58.8%"
+    },
+    {
+      "ts": "2018-03-21T19:12:46.022Z",
+      "maf_gps": "9.86",
+      "maf_30s": "14.43",
+      "height_pct": "57.4%"
+    },
+    {
+      "ts": "2018-03-21T19:12:56.012Z",
+      "maf_gps": "9.66",
+      "maf_30s": "13.61",
+      "height_pct": "55.0%"
+    },
+    {
+      "ts": "2018-03-21T19:13:06.031Z",
+      "maf_gps": "9.69",
+      "maf_30s": "10.00",
+      "height_pct": "44.1%"
+    },
+    {
+      "ts": "2018-03-21T19:13:15.061Z",
+      "maf_gps": "9.33",
+      "maf_30s": "9.51",
+      "height_pct": "42.6%"
     }
   ],
   "dtcEvidence": [
     {
-      "code": "P0301",
-      "status": "stored",
-      "description": "Cylinder 1 Misfire Detected",
-      "fault_ts": "2026-06-02T18:30:05Z",
-      "ts": "2026-06-02T18:30:00Z",
-      "rpm": "690",
-      "engine_load_pct": "21.0",
-      "coolant_temp_c": "80.0"
-    },
-    {
-      "code": "P0301",
-      "status": "stored",
-      "description": "Cylinder 1 Misfire Detected",
-      "fault_ts": "2026-06-02T18:30:05Z",
-      "ts": "2026-06-02T18:30:01Z",
-      "rpm": "730",
-      "engine_load_pct": "22.0",
-      "coolant_temp_c": "81.0"
-    },
-    {
-      "code": "P0301",
-      "status": "stored",
-      "description": "Cylinder 1 Misfire Detected",
-      "fault_ts": "2026-06-02T18:30:05Z",
-      "ts": "2026-06-02T18:30:02Z",
-      "rpm": "1280",
-      "engine_load_pct": "33.0",
-      "coolant_temp_c": "83.0"
-    },
-    {
-      "code": "P0301",
-      "status": "stored",
-      "description": "Cylinder 1 Misfire Detected",
-      "fault_ts": "2026-06-02T18:30:05Z",
-      "ts": "2026-06-02T18:30:03Z",
-      "rpm": "1840",
-      "engine_load_pct": "41.0",
-      "coolant_temp_c": "85.0"
-    },
-    {
-      "code": "P0301",
-      "status": "stored",
-      "description": "Cylinder 1 Misfire Detected",
-      "fault_ts": "2026-06-02T18:30:05Z",
-      "ts": "2026-06-02T18:30:04Z",
-      "rpm": "2260",
-      "engine_load_pct": "48.0",
-      "coolant_temp_c": "87.0"
-    },
-    {
-      "code": "P0301",
-      "status": "stored",
-      "description": "Cylinder 1 Misfire Detected",
-      "fault_ts": "2026-06-02T18:30:05Z",
-      "ts": "2026-06-02T18:30:05Z",
-      "rpm": "2710",
-      "engine_load_pct": "57.0",
-      "coolant_temp_c": "89.0"
+      "code": "none logged",
+      "status": "none",
+      "description": "No diagnostic trouble code was logged in this real public entry.",
+      "fault_ts": "",
+      "ts": "",
+      "rpm": "n/a",
+      "engine_load_pct": "n/a",
+      "coolant_temp_c": "n/a"
     }
   ],
   "finding": {
@@ -196,9 +236,9 @@
     "category": "session",
     "metric_or_code": "sql_analysis",
     "expected_range": "directional editable scoring config",
-    "likely_cause": "Logged DTC rows are available. Use their source descriptions and SQL evidence.",
+    "likely_cause": "No DTC rows were logged for this session.",
     "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
-    "agent_trace_id": "agent-77ad2ecccc264475818cbd7c33ec776b"
+    "agent_trace_id": "agent-644e04924f53452c8f15a0ce8eadba2a"
   },
   "agentTrace": [
     {
@@ -250,16 +290,41 @@
       "summary": "Wrote finding row with agent_trace_id."
     }
   ],
-  "agentTraceId": "agent-77ad2ecccc264475818cbd7c33ec776b",
+  "agentTraceId": "agent-644e04924f53452c8f15a0ce8eadba2a",
   "disclaimer": "Directional diagnostic guidance based on logged data - not a substitute for inspection by a certified technician.",
   "method": [
-    "SQL computes score, drift, deviation, and DTC windows.",
+    "SQL computes score, trend, deviation, and diagnostic windows.",
     "Huginn reads the current session facts.",
     "Muninn recalls stored baselines.",
     "Trace IDs tie each finding to its evidence."
   ],
+  "workflow": [
+    {
+      "label": "Select drive",
+      "body": "Use a logged session with known source and vehicle metadata."
+    },
+    {
+      "label": "Check score",
+      "body": "Review directional penalties before reading the detailed rows."
+    },
+    {
+      "label": "Read evidence",
+      "body": "Use airflow, baseline, and diagnostic windows to decide the next inspection."
+    },
+    {
+      "label": "Audit trace",
+      "body": "Confirm which SQL rows Huginn and Muninn summarized."
+    }
+  ],
   "dataSource": {
     "name": "KIT/RADAR Automotive OBD-II Dataset",
+    "vehicle": "Seat Leon",
+    "entries": [
+      "2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv",
+      "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+      "2018-02-18_Seat_Leon_RT_KA_Stau.csv"
+    ],
+    "note": "Three real drive entries are used for the public dashboard. Public v1 charts mass air flow because these source files do not include fuel-trim fields.",
     "doi": "https://doi.org/10.35097/1130",
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/deed.en"

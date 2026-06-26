@@ -134,9 +134,12 @@ def _prepare_dashboard_tables(conn: sqlite3.Connection, session_ids: list[int]) 
 def _focus_session_id(conn: sqlite3.Connection) -> int:
     row = conn.execute(
         """
-        SELECT session_id
-        FROM dashboard_health
-        ORDER BY health_score ASC, session_id ASC
+        SELECT h.session_id
+        FROM dashboard_health h
+        JOIN drive_sessions s
+          ON s.session_id = h.session_id
+        WHERE s.source = 'public'
+        ORDER BY h.health_score ASC, h.session_id ASC
         LIMIT 1
         """
     ).fetchone()
@@ -169,6 +172,17 @@ def _dashboard_payload(
           h.session_id,
           v.make || ' ' || v.model AS vehicle,
           s.source,
+          s.notes AS notes,
+          substr(
+            s.notes,
+            instr(s.notes, 'source_file=') + length('source_file='),
+            instr(s.notes, '; drive_label=') - instr(s.notes, 'source_file=') - length('source_file=')
+          ) AS source_file,
+          substr(
+            s.notes,
+            instr(s.notes, 'drive_label=') + length('drive_label='),
+            instr(s.notes, '; license=') - instr(s.notes, 'drive_label=') - length('drive_label=')
+          ) AS drive_label,
           h.started_at,
           h.ended_at,
           printf('%.1f', h.health_score) AS health_score,
@@ -205,6 +219,17 @@ def _dashboard_payload(
               h.session_id,
               v.make || ' ' || v.model AS vehicle,
               s.source,
+              s.notes AS notes,
+              substr(
+                s.notes,
+                instr(s.notes, 'source_file=') + length('source_file='),
+                instr(s.notes, '; drive_label=') - instr(s.notes, 'source_file=') - length('source_file=')
+              ) AS source_file,
+              substr(
+                s.notes,
+                instr(s.notes, 'drive_label=') + length('drive_label='),
+                instr(s.notes, '; license=') - instr(s.notes, 'drive_label=') - length('drive_label=')
+              ) AS drive_label,
               printf('%.1f', h.health_score) AS health_score,
               printf('%.1f%%', h.health_score) AS health_score_width,
               CAST(h.telemetry_samples AS TEXT) AS telemetry_samples,
@@ -218,23 +243,49 @@ def _dashboard_payload(
               ON v.vehicle_id = s.vehicle_id
             LEFT JOIN dashboard_baseline b
               ON b.session_id = h.session_id
+            WHERE s.source = 'public'
             ORDER BY h.session_id
             """,
         ),
-        "drift": _drift_rows(conn, focus_session_id),
+        "trend": _airflow_rows(conn, focus_session_id),
         "dtcEvidence": _dtc_rows(conn, focus_session_id),
         "finding": _finding(conn, focus_session_id),
         "agentTrace": analysis["agent_trace"],
         "agentTraceId": analysis["agent_trace_id"],
         "disclaimer": analysis["disclaimer"],
         "method": [
-            "SQL computes score, drift, deviation, and DTC windows.",
+            "SQL computes score, trend, deviation, and diagnostic windows.",
             "Huginn reads the current session facts.",
             "Muninn recalls stored baselines.",
             "Trace IDs tie each finding to its evidence.",
         ],
+        "workflow": [
+            {
+                "label": "Select drive",
+                "body": "Use a logged session with known source and vehicle metadata.",
+            },
+            {
+                "label": "Check score",
+                "body": "Review directional penalties before reading the detailed rows.",
+            },
+            {
+                "label": "Read evidence",
+            "body": "Use airflow, baseline, and diagnostic windows to decide the next inspection.",
+            },
+            {
+                "label": "Audit trace",
+                "body": "Confirm which SQL rows Huginn and Muninn summarized.",
+            },
+        ],
         "dataSource": {
             "name": "KIT/RADAR Automotive OBD-II Dataset",
+            "vehicle": "Seat Leon",
+            "entries": [
+                "2018-02-23_Seat_Leon_RT_RT_Frei_Beschleunigung.csv",
+                "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+                "2018-02-18_Seat_Leon_RT_KA_Stau.csv",
+            ],
+            "note": "Three real drive entries are used for the public dashboard. Public v1 charts mass air flow because these source files do not include fuel-trim fields.",
             "doi": "https://doi.org/10.35097/1130",
             "license": "CC BY 4.0",
             "licenseUrl": "https://creativecommons.org/licenses/by/4.0/deed.en",
@@ -246,46 +297,75 @@ def _dashboard_payload(
     }
 
 
-def _drift_rows(conn: sqlite3.Connection, session_id: int) -> list[dict[str, Any]]:
-    conn.execute("DROP TABLE IF EXISTS temp.dashboard_drift")
-    conn.execute(
-        """
-        CREATE TEMP TABLE dashboard_drift (
-          ts TEXT,
-          ltft_b1_pct REAL,
-          ltft_30s REAL
-        )
-        """
-    )
-    conn.executemany(
-        """
-        INSERT INTO dashboard_drift (ts, ltft_b1_pct, ltft_30s)
-        VALUES (:ts, :ltft_b1_pct, :ltft_30s)
-        """,
-        run_session_query(conn, QUERY_DIR, "fuel_trim_drift", session_id),
-    )
+def _airflow_rows(conn: sqlite3.Connection, session_id: int) -> list[dict[str, Any]]:
     return _rows(
         conn,
         """
-        WITH bounds AS (
-          SELECT MAX(ABS(ltft_30s)) AS max_abs
-          FROM dashboard_drift
+        WITH airflow AS (
+          SELECT
+            ts,
+            maf_gps,
+            ROUND(
+              AVG(maf_gps) OVER (
+                ORDER BY ts
+                ROWS BETWEEN 30 PRECEDING AND CURRENT ROW
+              ),
+              2
+            ) AS maf_30s
+          FROM telemetry_samples
+          WHERE session_id = ?
+            AND maf_gps IS NOT NULL
+        ),
+        indexed AS (
+          SELECT
+            ts,
+            maf_gps,
+            maf_30s,
+            ROW_NUMBER() OVER (ORDER BY ts) AS rn,
+            COUNT(*) OVER () AS total_rows
+          FROM airflow
+        ),
+        stepped AS (
+          SELECT
+            ts,
+            maf_gps,
+            maf_30s,
+            rn,
+            total_rows,
+            CASE
+              WHEN CAST(total_rows / 24 AS INTEGER) < 1 THEN 1
+              ELSE CAST(total_rows / 24 AS INTEGER)
+            END AS sample_step
+          FROM indexed
+        ),
+        sampled AS (
+          SELECT *
+          FROM stepped
+          WHERE rn = 1
+             OR rn = total_rows
+             OR ((rn - 1) % sample_step) = 0
+        ),
+        bounds AS (
+          SELECT MAX(maf_30s) AS max_value
+          FROM sampled
         )
         SELECT
           ts,
-          printf('%.1f', ltft_b1_pct) AS ltft_b1_pct,
-          printf('%.2f', ltft_30s) AS ltft_30s,
+          printf('%.2f', maf_gps) AS maf_gps,
+          printf('%.2f', maf_30s) AS maf_30s,
           printf(
             '%.1f%%',
             CASE
-              WHEN bounds.max_abs IS NULL OR bounds.max_abs = 0 THEN 8.0
-              ELSE 14.0 + 70.0 * ABS(ltft_30s) / bounds.max_abs
+              WHEN bounds.max_value IS NULL OR bounds.max_value = 0 THEN 8.0
+              ELSE 14.0 + 70.0 * maf_30s / bounds.max_value
             END
           ) AS height_pct
-        FROM dashboard_drift
+        FROM sampled
         CROSS JOIN bounds
         ORDER BY ts
+        LIMIT 26
         """,
+        (session_id,),
     )
 
 
@@ -314,7 +394,7 @@ def _dtc_rows(conn: sqlite3.Connection, session_id: int) -> list[dict[str, Any]]
         """,
         run_session_query(conn, QUERY_DIR, "dtc_telemetry_correlation", session_id),
     )
-    return _rows(
+    rows = _rows(
         conn,
         """
         SELECT
@@ -331,6 +411,20 @@ def _dtc_rows(conn: sqlite3.Connection, session_id: int) -> list[dict[str, Any]]
         LIMIT 6
         """,
     )
+    if rows:
+        return rows
+    return [
+        {
+            "code": "none logged",
+            "status": "none",
+            "description": "No diagnostic trouble code was logged in this real public entry.",
+            "fault_ts": "",
+            "ts": "",
+            "rpm": "n/a",
+            "engine_load_pct": "n/a",
+            "coolant_temp_c": "n/a",
+        }
+    ]
 
 
 def _finding(conn: sqlite3.Connection, session_id: int) -> dict[str, Any]:

@@ -54,23 +54,14 @@ body {
 }
 
 .console {
-  width: min(760px, 100%);
-  padding: 42px;
+  width: min(720px, 100%);
+  padding: 46px 42px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: linear-gradient(145deg, #252525 0%, var(--panel) 55%, #222 100%);
   box-shadow:
     10px 10px 0 rgba(31, 127, 120, 0.72),
     0 24px 64px rgba(0, 0, 0, 0.24);
-}
-
-.kicker {
-  margin: 0 0 12px;
-  color: var(--uhchi-teal);
-  font-family: var(--type-ui);
-  font-size: 16px;
-  font-weight: 900;
-  text-transform: uppercase;
 }
 
 .wordmark {
@@ -105,37 +96,12 @@ body {
 
 .statement {
   max-width: 560px;
-  margin: 30px 0 0;
+  margin: 26px 0 0;
   color: #e3e5e2;
   font-family: var(--type-ui);
-  font-size: 20px;
-  font-weight: 850;
-  line-height: 1.45;
-}
-
-.statusRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 32px;
-}
-
-.statusRow span {
-  min-height: 40px;
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid rgba(31, 127, 120, 0.95);
-  border-radius: 999px;
-  padding: 9px 16px;
-  color: var(--ink);
-  background: rgba(31, 127, 120, 0.14);
-  box-shadow:
-    inset 0 0 0 1px rgba(244, 244, 242, 0.04),
-    0 8px 22px rgba(0, 0, 0, 0.12);
-  font-family: var(--type-ui);
-  font-size: 15.5px;
+  font-size: 21px;
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1.45;
 }
 
 @media (max-width: 560px) {
@@ -157,6 +123,6 @@ body {
   }
 
   .statement {
-    font-size: 18px;
+    font-size: 18.5px;
   }
 }

@@ -56,16 +56,35 @@ def main() -> None:
             notes="Synthetic ELM327-emulator scenario exported as CSV.",
         )
         insert_demo_baselines(conn, emulator_result.vehicle_id)
+
+        public_vehicle = VehicleMetadata(
+            vin=None,
+            make="Seat",
+            model="Leon",
+            year=None,
+            engine=None,
+            notes="Public KIT Automotive OBD-II Dataset sample; DOI 10.35097/1130.",
+        )
+        public_result = ingest_drive_csv(
+            conn,
+            ROOT / "data" / "seed" / "public_obd_kit_sample.csv",
+            public_vehicle,
+            SessionMetadata(
+                source="csv",
+                notes="Normalized public OBD-II CSV slice from KIT/RADAR under CC BY 4.0.",
+            ),
+        )
+        insert_demo_baselines(conn, public_result.vehicle_id)
         conn.commit()
 
     print(f"Seeded {db_path}")
     print(
         "Rows: "
         f"csv telemetry={csv_result.telemetry_rows}, csv dtcs={csv_result.dtc_rows}; "
-        f"emulator telemetry={emulator_result.telemetry_rows}, emulator dtcs={emulator_result.dtc_rows}"
+        f"emulator telemetry={emulator_result.telemetry_rows}, emulator dtcs={emulator_result.dtc_rows}; "
+        f"public telemetry={public_result.telemetry_rows}, public dtcs={public_result.dtc_rows}"
     )
 
 
 if __name__ == "__main__":
     main()
-

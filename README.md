@@ -21,6 +21,7 @@ Phase 2 SQL core is in place:
 - CSV and emulator CSV ingestion paths.
 - Read-only live python-OBD adapter scaffold.
 - Synthetic seed logs and a seeded SQLite database.
+- Public KIT/RADAR OBD-II seed slice from a CC BY 4.0 dataset.
 - Showcase SQL for baseline deviation, fuel-trim drift, and DTC-to-telemetry
   correlation.
 - Deterministic session health score computed in SQL from editable directional
@@ -108,6 +109,7 @@ See [docs/DOCKER_WSL2_DISK_CAP.md](docs/DOCKER_WSL2_DISK_CAP.md).
 - `data/queries/` - showcase SQL and session health score query.
 - `data/health_score_config.json` - editable directional scoring defaults.
 - `data/seed/` - synthetic sample logs and seeded SQLite database.
+- `docs/DATASETS.md` - public OBD-II source attribution and refresh notes.
 - `powerbi/` - Phase 4 report and screenshots.
 - `docs/` - guardrails, design notes, and deployment notes.
 

@@ -60,6 +60,37 @@ def test_emulator_ingest_marks_session_source(tmp_path: Path) -> None:
         assert source == "emulator"
 
 
+def test_public_obd_seed_uses_real_dataset_columns(tmp_path: Path) -> None:
+    db_path = _new_db(tmp_path)
+    vehicle = VehicleMetadata(make="Seat", model="Leon", notes="Public KIT OBD-II sample.")
+    with _connect(db_path) as conn:
+        result = ingest_drive_csv(
+            conn,
+            ROOT / "data" / "seed" / "public_obd_kit_sample.csv",
+            vehicle,
+            SessionMetadata(source="csv", notes="Public KIT Automotive OBD-II Dataset slice."),
+        )
+
+        assert result.telemetry_rows == 240
+        assert result.dtc_rows == 0
+        row = conn.execute(
+            """
+            SELECT rpm, speed_kph, coolant_temp_c, intake_temp_c, maf_gps, throttle_pct
+            FROM telemetry_samples
+            WHERE session_id = ?
+            ORDER BY ts
+            LIMIT 1
+            """,
+            (result.session_id,),
+        ).fetchone()
+        assert row["rpm"] is not None
+        assert row["speed_kph"] is not None
+        assert row["coolant_temp_c"] is not None
+        assert row["intake_temp_c"] is not None
+        assert row["maf_gps"] is not None
+        assert row["throttle_pct"] is not None
+
+
 def test_live_obd_adapter_uses_verified_read_only_commands(tmp_path: Path) -> None:
     db_path = _new_db(tmp_path)
     fake_obd = FakeObdModule()

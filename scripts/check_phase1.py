@@ -43,7 +43,7 @@ def main() -> None:
         telemetry_count = conn.execute("SELECT COUNT(*) FROM telemetry_samples").fetchone()[0]
         dtc_count = conn.execute("SELECT COUNT(*) FROM dtc_events").fetchone()[0]
         baseline_count = conn.execute("SELECT COUNT(*) FROM baselines").fetchone()[0]
-        if telemetry_count != 24 or dtc_count != 2 or baseline_count != 10:
+        if telemetry_count != 264 or dtc_count != 2 or baseline_count != 15:
             raise SystemExit(
                 "Unexpected seed counts: "
                 f"telemetry={telemetry_count}, dtc={dtc_count}, baselines={baseline_count}"
@@ -64,4 +64,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -24,6 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Local runtime files
+work/
 *.db-journal
 *.sqlite-journal
 *.log

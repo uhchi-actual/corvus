@@ -48,21 +48,30 @@ def performance_concerns(
     matrix: list[dict[str, str]],
 ) -> list[dict[str, str]]:
     concerns: list[dict[str, str]] = []
-    health = float(focus.get("health_score") or 0)
-    if health < 92.0:
+
+    baseline_pct = float(focus.get("pct_out_of_range") or 0)
+    if baseline_pct >= 50.0:
         concerns.append(
             {
                 "level": "watch",
-                "text": f"Health score {health:.1f} sits below the strong band.",
+                "text": (
+                    "Coolant temperature mostly sat outside the stored healthy range "
+                    "for this log — check the cooling system or the sensor before "
+                    "assuming normal operation."
+                ),
             }
         )
 
-    baseline_pct = float(focus.get("pct_out_of_range") or 0)
-    if baseline_pct > 40.0:
+    metric_penalty = float(focus.get("metric_penalty_points") or 0)
+    if metric_penalty >= 8.0:
         concerns.append(
             {
                 "level": "watch",
-                "text": f"{baseline_pct:.0f}% of samples outside the stored baseline band.",
+                "text": (
+                    "Engine load and trim readings added measurable penalty points — "
+                    "the engine may have been working harder or running less evenly "
+                    "than a clean reference drive."
+                ),
             }
         )
 
@@ -71,14 +80,11 @@ def performance_concerns(
         concerns.append(
             {
                 "level": "fault",
-                "text": f"{dtc_count} fault code row(s) logged on this drive.",
-            }
-        )
-    else:
-        concerns.append(
-            {
-                "level": "ok",
-                "text": "No fault codes in this public log.",
+                "text": (
+                    f"This file logged {dtc_count} fault code row(s). "
+                    "Open the fault panel for the code and the RPM, load, and "
+                    "coolant rows captured around it."
+                ),
             }
         )
 
@@ -89,20 +95,38 @@ def performance_concerns(
         concerns.append(
             {
                 "level": "watch",
-                "text": "Airflow swing is wide across the logged window.",
+                "text": (
+                    "Mass airflow moved up and down sharply across the drive — "
+                    "that can mean unstable idle, a boost event, or a noisy MAF signal."
+                ),
             }
         )
 
-    if not any(item["level"] == "watch" for item in concerns):
-        concerns.insert(
-            0,
+    health = float(focus.get("health_score") or 0)
+    if health < 90.0 and len(concerns) < 2:
+        concerns.append(
             {
-                "level": "ok",
-                "text": "No major performance flags from SQL on this drive.",
-            },
+                "level": "watch",
+                "text": (
+                    "The SQL health score is moderate for this session — "
+                    "use the airflow chart and fault panel together before "
+                    "treating the drive as fully healthy."
+                ),
+            }
         )
 
-    return concerns[:4]
+    if not concerns:
+        concerns.append(
+            {
+                "level": "ok",
+                "text": (
+                    "No fault codes were logged and nothing major stood out "
+                    "in SQL on this public file."
+                ),
+            }
+        )
+
+    return concerns[:3]
 
 
 def _clamp(value: float) -> float:

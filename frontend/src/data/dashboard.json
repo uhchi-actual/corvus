@@ -246,19 +246,15 @@
       "performanceConcerns": [
         {
           "level": "watch",
-          "text": "Health score 88.0 sits below the strong band."
+          "text": "Coolant temperature mostly sat outside the stored healthy range for this log \u2014 check the cooling system or the sensor before assuming normal operation."
         },
         {
           "level": "watch",
-          "text": "100% of samples outside the stored baseline band."
-        },
-        {
-          "level": "ok",
-          "text": "No fault codes in this public log."
+          "text": "Engine load and trim readings added measurable penalty points \u2014 the engine may have been working harder or running less evenly than a clean reference drive."
         },
         {
           "level": "watch",
-          "text": "Airflow swing is wide across the logged window."
+          "text": "Mass airflow moved up and down sharply across the drive \u2014 that can mean unstable idle, a boost event, or a noisy MAF signal."
         }
       ],
       "agentTrace": [
@@ -343,7 +339,7 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-6af6b4608d6e4386964dec05f17badbf",
+      "agentTraceId": "agent-204c22222d394c7d94050f3d91d573ab",
       "dtcSummary": "No DTC rows were logged for this session."
     },
     "4": {
@@ -566,12 +562,8 @@
       ],
       "performanceConcerns": [
         {
-          "level": "ok",
-          "text": "No fault codes in this public log."
-        },
-        {
           "level": "watch",
-          "text": "Airflow swing is wide across the logged window."
+          "text": "Mass airflow moved up and down sharply across the drive \u2014 that can mean unstable idle, a boost event, or a noisy MAF signal."
         }
       ],
       "agentTrace": [
@@ -656,7 +648,7 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-d9789bc63d0445fca7d55e88ea50afc2",
+      "agentTraceId": "agent-536ff9f92bcb4cc6bbb22f31d19f6555",
       "dtcSummary": "No DTC rows were logged for this session."
     },
     "5": {
@@ -879,12 +871,8 @@
       ],
       "performanceConcerns": [
         {
-          "level": "ok",
-          "text": "No fault codes in this public log."
-        },
-        {
           "level": "watch",
-          "text": "Airflow swing is wide across the logged window."
+          "text": "Mass airflow moved up and down sharply across the drive \u2014 that can mean unstable idle, a boost event, or a noisy MAF signal."
         }
       ],
       "agentTrace": [
@@ -969,7 +957,7 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-12a6bb4658344d179f70cb561a00c6ea",
+      "agentTraceId": "agent-43fa870582294a56a8790bf4b69f1b24",
       "dtcSummary": "No DTC rows were logged for this session."
     }
   },
@@ -1263,7 +1251,7 @@
       "agent_tagline": "Writes the report"
     }
   ],
-  "agentTraceId": "agent-6af6b4608d6e4386964dec05f17badbf",
+  "agentTraceId": "agent-204c22222d394c7d94050f3d91d573ab",
   "disclaimer": "Directional diagnostic guidance based on logged data - not a substitute for inspection by a certified technician.",
   "healthGuide": {
     "title": "Drive health score",

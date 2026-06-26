@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import type { DashboardData, CssVars, DtcRow } from "../../types/dashboard";
 import { DrivePicker } from "./DrivePicker";
 import { HealthMatrix } from "./HealthMatrix";
+import { SourceProvenanceTabs } from "./SourceProvenanceTabs";
 
 type Props = {
   data: DashboardData;
@@ -117,90 +118,85 @@ export function Dashboard({ data }: Props) {
       </section>
 
       <section className="grid">
-        <article className="panel flowIn delayedTwo">
+        <article className="panel flowIn delayedTwo" key={`profile-${activeSessionId}`}>
           <div className="panelHead">
             <p>SQL-derived axes</p>
             <h2>Performance profile</h2>
           </div>
-          <HealthMatrix axes={view.healthMatrix} score={focus.health_score} />
-          {flagLines.length > 0 ? (
-            <ul className="matrixFlags">
-              {flagLines.map((line) => (
-                <li key={line.text}>{line.text}</li>
-              ))}
-            </ul>
-          ) : null}
+          <div className="panelSwap">
+            <HealthMatrix axes={view.healthMatrix} score={focus.health_score} />
+            {flagLines.length > 0 ? (
+              <ul className="matrixFlags">
+                {flagLines.map((line) => (
+                  <li key={line.text}>{line.text}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
         </article>
       </section>
 
       <section className="grid twoCol evidenceGrid">
-        <article className="panel flowIn delayedThree">
+        <article className="panel flowIn delayedThree" key={`airflow-${activeSessionId}`}>
           <div className="panelHead airflowHead">
             <h2>Airflow data</h2>
           </div>
-          <div className="barChart" aria-label="Mass air flow rolling trend">
-            {view.trend.map((point) => (
-              <span
-                key={point.ts}
-                className="bar"
-                title={`${point.ts}: ${point.maf_30s} g/s`}
-                style={{ "--bar-height": point.height_pct } as CssVars}
-              />
-            ))}
+          <div className="panelSwap">
+            <div className="barChart" aria-label="Mass air flow rolling trend">
+              {view.trend.map((point) => (
+                <span
+                  key={point.ts}
+                  className="bar"
+                  title={`${point.ts}: ${point.maf_30s} g/s`}
+                  style={{ "--bar-height": point.height_pct } as CssVars}
+                />
+              ))}
+            </div>
+            <p className="guideCopy">{data.trendGuide.body}</p>
+            <p className="microCopy">Last rolling average: {view.trend.at(-1)?.maf_30s} g/s</p>
           </div>
-          <p className="guideCopy">{data.trendGuide.body}</p>
-          <p className="microCopy">Last rolling average: {view.trend.at(-1)?.maf_30s} g/s</p>
         </article>
 
-        <article className="panel flowIn delayedFour">
+        <article className="panel flowIn delayedFour" key={`faults-${activeSessionId}`}>
           <div className="panelHead">
             <p>{data.faultGuide.title}</p>
             <h2>{showFaultRows ? diagnosticCode?.code : "None logged"}</h2>
           </div>
-          {showFaultRows ? (
-            <div className="evidenceTable" role="table" aria-label="Fault code sensor window">
-              <div className="tableRow tableHead" role="row">
-                <span role="columnheader">RPM</span>
-                <span role="columnheader">Load</span>
-                <span role="columnheader">Coolant</span>
-                <span role="columnheader">Status</span>
-              </div>
-              {diagnosticRows.map((row) => (
-                <div className="tableRow" role="row" key={row.ts}>
-                  <span role="cell">{row.rpm}</span>
-                  <span role="cell">{row.engine_load_pct}</span>
-                  <span role="cell">{row.coolant_temp_c}</span>
-                  <span role="cell">{row.status}</span>
+          <div className="panelSwap">
+            {showFaultRows ? (
+              <div className="evidenceTable" role="table" aria-label="Fault code sensor window">
+                <div className="tableRow tableHead" role="row">
+                  <span role="columnheader">RPM</span>
+                  <span role="columnheader">Load</span>
+                  <span role="columnheader">Coolant</span>
+                  <span role="columnheader">Status</span>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="emptyEvidence">
-              <strong>No fault code in this file</strong>
-              <p>{diagnosticCode?.description}</p>
-            </div>
-          )}
-          <p className="guideCopy">{data.faultGuide.body}</p>
+                {diagnosticRows.map((row) => (
+                  <div className="tableRow" role="row" key={row.ts}>
+                    <span role="cell">{row.rpm}</span>
+                    <span role="cell">{row.engine_load_pct}</span>
+                    <span role="cell">{row.coolant_temp_c}</span>
+                    <span role="cell">{row.status}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="emptyEvidence">
+                <strong>No fault code in this file</strong>
+                <p>{diagnosticCode?.description}</p>
+              </div>
+            )}
+            <p className="guideCopy">{data.faultGuide.body}</p>
+          </div>
         </article>
       </section>
 
-      <section className="grid">
-        <article className="panel flowIn delayedFive">
-          <div className="panelHead">
-            <p>Public archives</p>
-            <h2>Provenance</h2>
-          </div>
-          <div className="provenanceRecords provenanceRecordsCompact">
-            {data.dataSource.records.map((record) => (
-              <div className="provenanceRecord" key={`${record.vehicle}-${record.source_file}`}>
-                <strong>{record.vehicle}</strong>
-                <span>{record.drive_label}</span>
-                <code>{record.source_file}</code>
-                <span className="licenseTag">{record.license}</span>
-              </div>
-            ))}
-          </div>
-        </article>
+      <section className="grid" key={`source-${activeSessionId}`}>
+        <SourceProvenanceTabs
+          records={data.dataSource.records}
+          trace={view.agentTrace}
+          traceId={view.agentTraceId}
+        />
       </section>
 
       <footer className="footer flowIn delayedSix">

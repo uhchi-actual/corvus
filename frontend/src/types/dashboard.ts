@@ -54,6 +54,17 @@ export type PerformanceConcern = {
   text: string;
 };
 
+export type TraceStep = {
+  agent: string;
+  node: string;
+  kind: string;
+  summary: string;
+  title?: string;
+  body?: string;
+  agent_name?: string;
+  agent_tagline?: string;
+};
+
 export type GuideBlock = {
   title?: string;
   body: string;
@@ -73,6 +84,8 @@ export type SessionView = {
   dtcEvidence: DtcRow[];
   healthMatrix: HealthAxis[];
   performanceConcerns: PerformanceConcern[];
+  agentTrace: TraceStep[];
+  agentTraceId: string;
   dtcSummary: string;
 };
 

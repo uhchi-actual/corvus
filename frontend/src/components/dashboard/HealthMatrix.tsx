@@ -5,9 +5,9 @@ type Props = {
   score: string;
 };
 
-const SIZE = 360;
+const SIZE = 400;
 const CENTER = SIZE / 2;
-const RADIUS = 128;
+const RADIUS = 140;
 
 function polarPoint(index: number, count: number, value: number) {
   const angle = (Math.PI * 2 * index) / count - Math.PI / 2;
@@ -38,16 +38,6 @@ export function HealthMatrix({ axes, score }: Props) {
     1,
   );
 
-  const labelPoints = axes.map((axis, index) => {
-    const angle = (Math.PI * 2 * index) / count - Math.PI / 2;
-    const labelRadius = RADIUS + 34;
-    return {
-      axis,
-      x: CENTER + Math.cos(angle) * labelRadius,
-      y: CENTER + Math.sin(angle) * labelRadius,
-    };
-  });
-
   return (
     <div className="healthMatrixWrap">
       <svg
@@ -57,7 +47,14 @@ export function HealthMatrix({ axes, score }: Props) {
         aria-label={`Performance profile for drive score ${score}`}
       >
         <defs>
-          <linearGradient id="performancePolygonGradient" x1="0" y1="0" x2="0" y2={SIZE} gradientUnits="userSpaceOnUse">
+          <linearGradient
+            id="performancePolygonGradient"
+            x1="0"
+            y1="0"
+            x2="0"
+            y2={SIZE}
+            gradientUnits="userSpaceOnUse"
+          >
             <stop offset="0%" stopColor="#cc2936" />
             <stop offset="100%" stopColor="#1f716c" />
           </linearGradient>
@@ -94,37 +91,15 @@ export function HealthMatrix({ axes, score }: Props) {
         })}
         <polygon className="healthMatrixRef" points={referencePoints} />
         <polygon className="healthMatrixShape" points={dataPoints} />
-        {labelPoints.map(({ axis, x, y }) => (
-          <text
-            key={axis.id}
-            className="healthMatrixLabel"
-            x={x}
-            y={y}
-            textAnchor="middle"
-            dominantBaseline="middle"
-          >
-            {axis.label}
-          </text>
-        ))}
-        {labelPoints.map(({ axis, x, y }) => {
-          const angle = Math.atan2(y - CENTER, x - CENTER);
-          const valueRadius = RADIUS + 18;
-          const valueX = CENTER + Math.cos(angle) * valueRadius;
-          const valueY = CENTER + Math.sin(angle) * valueRadius;
-          return (
-            <text
-              key={`${axis.id}-value`}
-              className="healthMatrixValue"
-              x={valueX}
-              y={valueY}
-              textAnchor="middle"
-              dominantBaseline="middle"
-            >
-              {axis.value}
-            </text>
-          );
-        })}
       </svg>
+      <ol className="matrixAxisLegend" aria-label="Performance axis scores">
+        {axes.map((axis) => (
+          <li key={axis.id}>
+            <span>{axis.label}</span>
+            <strong>{axis.value}</strong>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }

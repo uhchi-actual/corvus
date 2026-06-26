@@ -1,0 +1,101 @@
+# Corvus
+
+Agentic OBD-II performance and maintenance analyzer.
+
+**Live demo target:** https://uhchi-actual.github.io/corvus/
+
+Corvus reads diagnostic trouble codes and engine telemetry, stores the drive in a
+relational model, runs all numeric analysis in SQL, then uses Huginn and Muninn
+to explain SQL output in plain language.
+
+## Current Status
+
+Phase 0 scaffold is in place:
+
+- Backend FastAPI health scaffold.
+- Frontend Next.js 15 static shell with uhchi design tokens.
+- Docker Compose wrappers for local development.
+- GitHub Actions for CI and GitHub Pages static export.
+- Environment example, security notes, and phase guardrails.
+
+The schema, ingest adapters, SQL showcase queries, LangGraph agents, Power BI
+report, and real dashboard are intentionally reserved for later phases.
+
+## Guardrails
+
+- SQL computes every sensor value, deviation, trim figure, score, and
+  correlation. LLM paths explain SQL output only.
+- OBD-II specifics must be verified against the `brendan-w/python-OBD` source
+  before implementation.
+- Performance thresholds are directional defaults stored as editable config and
+  must be labeled directional in the UI.
+- Corvus is read-only: Mode 01, 02, 03, 07, and 09 reads are allowed. Mode 04
+  clearing and ECU writes are out of scope.
+
+Directional diagnostic guidance based on logged data - not a substitute for
+inspection by a certified technician.
+
+## Local Development
+
+Install frontend dependencies:
+
+```bash
+cd frontend
+npm install
+```
+
+Run the static frontend shell:
+
+```bash
+cd frontend
+npm run dev
+```
+
+Run the backend scaffold:
+
+```bash
+cd backend
+python -m venv .venv
+.venv\Scripts\activate
+pip install -e ".[dev]"
+uvicorn src.main:app --reload --port 8000
+```
+
+Run Phase 0 checks:
+
+```bash
+python scripts/check_phase0.py
+cd backend && pytest -q && ruff check src tests
+cd frontend && npm run lint && npm run build
+```
+
+## Docker
+
+```bash
+docker compose up --build
+```
+
+Before heavy Docker use on WSL2, cap the VHDX in `~/.wslconfig`:
+
+```ini
+[wsl2]
+disk=40GB
+```
+
+See [docs/DOCKER_WSL2_DISK_CAP.md](docs/DOCKER_WSL2_DISK_CAP.md).
+
+## Repository Map
+
+- `backend/src/` - FastAPI scaffold and future ingest, SQL, and agent modules.
+- `frontend/src/app/` - Next.js static shell and future dashboard.
+- `data/schema.sql` - Phase 1 schema landing file.
+- `data/queries/` - Phase 2 showcase SQL query landing folder.
+- `data/seed/` - Phase 1 sample logs and seeded SQLite database landing folder.
+- `powerbi/` - Phase 4 report and screenshots.
+- `docs/` - guardrails, design notes, and deployment notes.
+
+## Source Of Truth
+
+This repo includes the build handoff as [HANDOFF.md](HANDOFF.md). Phase order and
+architecture should follow that document unless it is explicitly revised.
+

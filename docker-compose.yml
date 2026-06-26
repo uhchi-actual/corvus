@@ -1,0 +1,39 @@
+# WSL2 Docker disk cap from HANDOFF section 9:
+# Add this to ~/.wslconfig before heavy Docker work:
+#
+# [wsl2]
+# disk=40GB
+#
+# Then prune regularly with:
+# docker system prune -af --volumes
+
+name: corvus
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - USE_LLM=${USE_LLM:-true}
+      - LLM_ENDPOINT=${LLM_ENDPOINT:-http://host.docker.internal:11434/v1}
+      - LLM_MODEL=${LLM_MODEL:-JOSIEFIED-Qwen3:8b}
+      - LLM_API_KEY=${LLM_API_KEY:-not-needed-for-local}
+      - DATABASE_URL=${DATABASE_URL:-sqlite:////app/data/seed/corvus.db}
+      - OBD_PORT=${OBD_PORT:-auto}
+    volumes:
+      - ./data:/app/data
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BASE_PATH=
+    depends_on:
+      - backend
+

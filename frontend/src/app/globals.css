@@ -403,6 +403,184 @@ a {
   line-height: 1.15;
 }
 
+.sessionButton {
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform var(--motion-medium) var(--ease-smooth),
+    box-shadow var(--motion-medium) var(--ease-smooth),
+    background var(--motion-medium) var(--ease-smooth);
+}
+
+.sessionButton:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 0 0 1px rgba(211, 188, 155, 0.22),
+    0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.sessionButton.isActive {
+  box-shadow:
+    inset 0 0 0 2px rgba(31, 113, 108, 0.72),
+    0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.pipelinePanel {
+  margin-top: 0;
+}
+
+.pipelineStrip {
+  display: grid;
+  gap: 14px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pipelineModule {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--panel-soft);
+  box-shadow: inset 0 0 0 1px rgba(211, 188, 155, 0.1);
+}
+
+.pipelineIndex {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: rgba(31, 113, 108, 0.22);
+  color: var(--uhchi-teal);
+  font-size: 16px;
+  font-weight: 950;
+  line-height: 42px;
+  text-align: center;
+}
+
+.pipelineMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.pipelineOwner {
+  color: var(--uhchi-teal);
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.pipelineBody strong {
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.pipelineBody p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.pipelineIo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0 0;
+}
+
+.pipelineIo dt {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.pipelineIo dd {
+  margin: 6px 0 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.sqlModuleGrid {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.sqlModuleCard {
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--panel-soft);
+  box-shadow: inset 0 0 0 1px rgba(211, 188, 155, 0.1);
+}
+
+.sqlModuleCard header {
+  display: grid;
+  gap: 6px;
+}
+
+.sqlModuleCard header span {
+  color: var(--uhchi-teal);
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.sqlModuleCard header strong {
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.sqlModuleCard header code {
+  color: var(--muted);
+  font-family: var(--type-ui);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.sqlModuleCard p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.sqlModuleCard dl {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0 0;
+}
+
+.sqlModuleCard dt {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.sqlModuleCard dd {
+  margin: 6px 0 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
 .miniMeters {
   display: grid;
   gap: 7px;

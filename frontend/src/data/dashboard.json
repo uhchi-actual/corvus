@@ -23,6 +23,1046 @@
     "out_of_range_samples": "240",
     "sample_count": "240"
   },
+  "defaultSessionId": 3,
+  "sessionViews": {
+    "3": {
+      "focus": {
+        "session_id": 3,
+        "vehicle": "Seat Leon",
+        "source": "public",
+        "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=normal commuter drive; license=CC BY 4.0.",
+        "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+        "drive_label": "normal commuter drive",
+        "started_at": "2018-03-21T19:09:16.713Z",
+        "ended_at": "2018-03-21T19:13:15.061Z",
+        "health_score": "88.0",
+        "health_score_width": "88.0%",
+        "metric_penalty_points": "12.0",
+        "dtc_penalty_points": "0.0",
+        "dtc_count": "0",
+        "telemetry_samples": "240",
+        "score_basis": "directional editable scoring config",
+        "pct_out_of_range": "100.0",
+        "baseline_width": "100.0%",
+        "out_of_range_samples": "240",
+        "sample_count": "240"
+      },
+      "trend": [
+        {
+          "ts": "2018-03-21T19:09:16.713Z",
+          "maf_gps": "0.88",
+          "maf_30s": "0.88",
+          "height_pct": "16.6%"
+        },
+        {
+          "ts": "2018-03-21T19:09:26.043Z",
+          "maf_gps": "0.88",
+          "maf_30s": "0.88",
+          "height_pct": "16.6%"
+        },
+        {
+          "ts": "2018-03-21T19:09:36.003Z",
+          "maf_gps": "16.94",
+          "maf_30s": "6.88",
+          "height_pct": "34.7%"
+        },
+        {
+          "ts": "2018-03-21T19:09:46.083Z",
+          "maf_gps": "16.94",
+          "maf_30s": "10.07",
+          "height_pct": "44.3%"
+        },
+        {
+          "ts": "2018-03-21T19:09:56.013Z",
+          "maf_gps": "25.49",
+          "maf_30s": "17.38",
+          "height_pct": "66.3%"
+        },
+        {
+          "ts": "2018-03-21T19:10:06.032Z",
+          "maf_gps": "22.44",
+          "maf_30s": "21.62",
+          "height_pct": "79.1%"
+        },
+        {
+          "ts": "2018-03-21T19:10:16.022Z",
+          "maf_gps": "16.69",
+          "maf_30s": "23.25",
+          "height_pct": "84.0%"
+        },
+        {
+          "ts": "2018-03-21T19:10:26.043Z",
+          "maf_gps": "54.13",
+          "maf_30s": "22.60",
+          "height_pct": "82.0%"
+        },
+        {
+          "ts": "2018-03-21T19:10:36.062Z",
+          "maf_gps": "16.94",
+          "maf_30s": "20.87",
+          "height_pct": "76.8%"
+        },
+        {
+          "ts": "2018-03-21T19:10:46.022Z",
+          "maf_gps": "15.69",
+          "maf_30s": "19.02",
+          "height_pct": "71.3%"
+        },
+        {
+          "ts": "2018-03-21T19:10:56.012Z",
+          "maf_gps": "16.05",
+          "maf_30s": "18.80",
+          "height_pct": "70.6%"
+        },
+        {
+          "ts": "2018-03-21T19:11:06.002Z",
+          "maf_gps": "30.08",
+          "maf_30s": "19.88",
+          "height_pct": "73.9%"
+        },
+        {
+          "ts": "2018-03-21T19:11:16.052Z",
+          "maf_gps": "27.08",
+          "maf_30s": "21.33",
+          "height_pct": "78.2%"
+        },
+        {
+          "ts": "2018-03-21T19:11:26.012Z",
+          "maf_gps": "14.97",
+          "maf_30s": "21.82",
+          "height_pct": "79.7%"
+        },
+        {
+          "ts": "2018-03-21T19:11:36.062Z",
+          "maf_gps": "14.97",
+          "maf_30s": "18.55",
+          "height_pct": "69.8%"
+        },
+        {
+          "ts": "2018-03-21T19:11:46.052Z",
+          "maf_gps": "15.91",
+          "maf_30s": "16.52",
+          "height_pct": "63.7%"
+        },
+        {
+          "ts": "2018-03-21T19:11:56.042Z",
+          "maf_gps": "16.74",
+          "maf_30s": "19.00",
+          "height_pct": "71.2%"
+        },
+        {
+          "ts": "2018-03-21T19:12:06.032Z",
+          "maf_gps": "14.88",
+          "maf_30s": "18.84",
+          "height_pct": "70.7%"
+        },
+        {
+          "ts": "2018-03-21T19:12:16.082Z",
+          "maf_gps": "9.72",
+          "maf_30s": "17.67",
+          "height_pct": "67.2%"
+        },
+        {
+          "ts": "2018-03-21T19:12:26.072Z",
+          "maf_gps": "33.99",
+          "maf_30s": "13.78",
+          "height_pct": "55.5%"
+        },
+        {
+          "ts": "2018-03-21T19:12:36.032Z",
+          "maf_gps": "12.91",
+          "maf_30s": "14.87",
+          "height_pct": "58.8%"
+        },
+        {
+          "ts": "2018-03-21T19:12:46.022Z",
+          "maf_gps": "9.86",
+          "maf_30s": "14.43",
+          "height_pct": "57.4%"
+        },
+        {
+          "ts": "2018-03-21T19:12:56.012Z",
+          "maf_gps": "9.66",
+          "maf_30s": "13.61",
+          "height_pct": "55.0%"
+        },
+        {
+          "ts": "2018-03-21T19:13:06.031Z",
+          "maf_gps": "9.69",
+          "maf_30s": "10.00",
+          "height_pct": "44.1%"
+        },
+        {
+          "ts": "2018-03-21T19:13:15.061Z",
+          "maf_gps": "9.33",
+          "maf_30s": "9.51",
+          "height_pct": "42.6%"
+        }
+      ],
+      "dtcEvidence": [
+        {
+          "code": "none logged",
+          "status": "none",
+          "description": "No diagnostic trouble code was logged in this real public entry.",
+          "fault_ts": "",
+          "ts": "",
+          "rpm": "n/a",
+          "engine_load_pct": "n/a",
+          "coolant_temp_c": "n/a"
+        }
+      ],
+      "finding": {
+        "severity": "info",
+        "category": "session",
+        "metric_or_code": "sql_analysis",
+        "expected_range": "directional editable scoring config",
+        "likely_cause": "No DTC rows were logged for this session.",
+        "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
+        "agent_trace_id": "agent-74c33df3afd842bd8823b3371ad48781"
+      },
+      "agentTrace": [
+        {
+          "agent": "corvus",
+          "node": "agent_trace",
+          "kind": "deterministic",
+          "summary": "Trace created before analysis output.",
+          "title": "Open trace",
+          "body": "Trace created before analysis output.",
+          "agent_name": "Corvus",
+          "agent_tagline": "Writes the report"
+        },
+        {
+          "agent": "huginn",
+          "node": "ingest_normalizer",
+          "kind": "deterministic",
+          "summary": "Loaded the logged drive from the database.",
+          "title": "Load the drive",
+          "body": "Loaded the logged drive from the database.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "huginn",
+          "node": "sql_deviation",
+          "kind": "deterministic",
+          "summary": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
+          "title": "Run SQL checks",
+          "body": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "huginn",
+          "node": "dtc_interpreter",
+          "kind": "deterministic",
+          "summary": "Listed diagnostic trouble codes logged on this drive.",
+          "title": "Read fault codes",
+          "body": "Listed diagnostic trouble codes logged on this drive.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "muninn",
+          "node": "baseline_recall",
+          "kind": "deterministic",
+          "summary": "Loaded stored healthy ranges for this vehicle.",
+          "title": "Load healthy ranges",
+          "body": "Loaded stored healthy ranges for this vehicle.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "muninn",
+          "node": "correlation",
+          "kind": "deterministic",
+          "summary": "Matched fault timestamps to nearby engine sensor rows.",
+          "title": "Match faults to sensors",
+          "body": "Matched fault timestamps to nearby engine sensor rows.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "muninn",
+          "node": "recommendation",
+          "kind": "deterministic",
+          "summary": "Ranked what to inspect next from SQL facts only.",
+          "title": "State next checks",
+          "body": "Ranked what to inspect next from SQL facts only.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "corvus",
+          "node": "report_writer",
+          "kind": "deterministic",
+          "summary": "Saved the finding with trace id for audit.",
+          "title": "Save finding",
+          "body": "Saved the finding with trace id for audit.",
+          "agent_name": "Corvus",
+          "agent_tagline": "Writes the report"
+        }
+      ],
+      "agentTraceId": "agent-74c33df3afd842bd8823b3371ad48781",
+      "sqlModules": [
+        {
+          "id": "session_health_score",
+          "title": "Drive health score",
+          "query": "session_health_score.sql",
+          "owner": "sql",
+          "input": "Telemetry rows and penalty config",
+          "output": "Score 88.0; metric penalties 12.0; fault penalties 0.0",
+          "body": "Combines metric penalties and fault-code penalties into one 0\u2013100 score."
+        },
+        {
+          "id": "baseline_deviation",
+          "title": "Baseline comparison",
+          "query": "baseline_deviation.sql",
+          "owner": "sql",
+          "input": "Telemetry joined to baseline bands",
+          "output": "100.0% outside band for coolant_temp_c (warm)",
+          "body": "Counts how often each sensor sat outside the stored healthy band for this vehicle."
+        },
+        {
+          "id": "fuel_trim_drift",
+          "title": "Fuel trim trend",
+          "query": "fuel_trim_drift.sql",
+          "owner": "sql",
+          "input": "Long-term fuel trim samples",
+          "output": "Latest rolling trim None%",
+          "body": "Rolling average of long-term fuel trim to spot lean or rich drift over time."
+        },
+        {
+          "id": "dtc_telemetry_correlation",
+          "title": "Fault code window",
+          "query": "dtc_telemetry_correlation.sql",
+          "owner": "sql",
+          "input": "Fault code timestamps",
+          "output": "No fault codes to correlate",
+          "body": "Pulls sensor rows from a few seconds around each logged fault code timestamp."
+        }
+      ],
+      "dtcSummary": "No DTC rows were logged for this session.",
+      "correlationSummary": "No DTC correlation rows were returned by SQL."
+    },
+    "4": {
+      "focus": {
+        "session_id": 4,
+        "vehicle": "VED ICE 6.0L V8",
+        "source": "public",
+        "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; VehId=108; Trip=784; drive_label=Ann Arbor week log; license=Apache-2.0.",
+        "source_file": "VED_171101_week.csv; VehId=108; Trip=784",
+        "drive_label": "Ann Arbor week log",
+        "started_at": "2017-11-02T13:27:31.820Z",
+        "ended_at": "2017-11-02T13:30:47.520Z",
+        "health_score": "96.2",
+        "health_score_width": "96.2%",
+        "metric_penalty_points": "3.9",
+        "dtc_penalty_points": "0.0",
+        "dtc_count": "0",
+        "telemetry_samples": "240",
+        "score_basis": "directional editable scoring config",
+        "pct_out_of_range": "0.0",
+        "baseline_width": "0.0%",
+        "out_of_range_samples": "0",
+        "sample_count": "240"
+      },
+      "trend": [
+        {
+          "ts": "2017-11-02T13:27:31.820Z",
+          "maf_gps": "9.83",
+          "maf_30s": "9.83",
+          "height_pct": "45.8%"
+        },
+        {
+          "ts": "2017-11-02T13:27:41.220Z",
+          "maf_gps": "8.14",
+          "maf_30s": "8.72",
+          "height_pct": "42.2%"
+        },
+        {
+          "ts": "2017-11-02T13:27:51.520Z",
+          "maf_gps": "8.97",
+          "maf_30s": "8.20",
+          "height_pct": "40.5%"
+        },
+        {
+          "ts": "2017-11-02T13:27:59.720Z",
+          "maf_gps": "6.46",
+          "maf_30s": "7.98",
+          "height_pct": "39.8%"
+        },
+        {
+          "ts": "2017-11-02T13:28:17.120Z",
+          "maf_gps": "5.92",
+          "maf_30s": "7.08",
+          "height_pct": "36.9%"
+        },
+        {
+          "ts": "2017-11-02T13:28:27.820Z",
+          "maf_gps": "31.92",
+          "maf_30s": "7.72",
+          "height_pct": "39.0%"
+        },
+        {
+          "ts": "2017-11-02T13:28:33.820Z",
+          "maf_gps": "28.30",
+          "maf_30s": "17.35",
+          "height_pct": "70.2%"
+        },
+        {
+          "ts": "2017-11-02T13:28:44.320Z",
+          "maf_gps": "8.06",
+          "maf_30s": "19.82",
+          "height_pct": "78.2%"
+        },
+        {
+          "ts": "2017-11-02T13:28:56.820Z",
+          "maf_gps": "7.88",
+          "maf_30s": "21.62",
+          "height_pct": "84.0%"
+        },
+        {
+          "ts": "2017-11-02T13:29:06.220Z",
+          "maf_gps": "29.93",
+          "maf_30s": "15.32",
+          "height_pct": "63.6%"
+        },
+        {
+          "ts": "2017-11-02T13:29:15.320Z",
+          "maf_gps": "19.05",
+          "maf_30s": "17.41",
+          "height_pct": "70.4%"
+        },
+        {
+          "ts": "2017-11-02T13:29:26.720Z",
+          "maf_gps": "10.28",
+          "maf_30s": "16.46",
+          "height_pct": "67.3%"
+        },
+        {
+          "ts": "2017-11-02T13:29:31.820Z",
+          "maf_gps": "26.47",
+          "maf_30s": "15.36",
+          "height_pct": "63.7%"
+        },
+        {
+          "ts": "2017-11-02T13:29:36.720Z",
+          "maf_gps": "47.86",
+          "maf_30s": "19.08",
+          "height_pct": "75.8%"
+        },
+        {
+          "ts": "2017-11-02T13:29:45.020Z",
+          "maf_gps": "9.35",
+          "maf_30s": "20.81",
+          "height_pct": "81.4%"
+        },
+        {
+          "ts": "2017-11-02T13:29:49.120Z",
+          "maf_gps": "10.58",
+          "maf_30s": "20.14",
+          "height_pct": "79.2%"
+        },
+        {
+          "ts": "2017-11-02T13:29:54.120Z",
+          "maf_gps": "7.14",
+          "maf_30s": "12.62",
+          "height_pct": "54.9%"
+        },
+        {
+          "ts": "2017-11-02T13:30:01.320Z",
+          "maf_gps": "10.61",
+          "maf_30s": "9.46",
+          "height_pct": "44.6%"
+        },
+        {
+          "ts": "2017-11-02T13:30:06.320Z",
+          "maf_gps": "44.86",
+          "maf_30s": "11.85",
+          "height_pct": "52.4%"
+        },
+        {
+          "ts": "2017-11-02T13:30:15.520Z",
+          "maf_gps": "12.10",
+          "maf_30s": "15.21",
+          "height_pct": "63.2%"
+        },
+        {
+          "ts": "2017-11-02T13:30:27.920Z",
+          "maf_gps": "7.97",
+          "maf_30s": "15.22",
+          "height_pct": "63.3%"
+        },
+        {
+          "ts": "2017-11-02T13:30:34.020Z",
+          "maf_gps": "6.10",
+          "maf_30s": "13.17",
+          "height_pct": "56.6%"
+        },
+        {
+          "ts": "2017-11-02T13:30:38.920Z",
+          "maf_gps": "9.35",
+          "maf_30s": "11.73",
+          "height_pct": "52.0%"
+        },
+        {
+          "ts": "2017-11-02T13:30:42.020Z",
+          "maf_gps": "7.59",
+          "maf_30s": "11.29",
+          "height_pct": "50.6%"
+        },
+        {
+          "ts": "2017-11-02T13:30:47.520Z",
+          "maf_gps": "20.28",
+          "maf_30s": "13.10",
+          "height_pct": "56.4%"
+        }
+      ],
+      "dtcEvidence": [
+        {
+          "code": "none logged",
+          "status": "none",
+          "description": "No diagnostic trouble code was logged in this real public entry.",
+          "fault_ts": "",
+          "ts": "",
+          "rpm": "n/a",
+          "engine_load_pct": "n/a",
+          "coolant_temp_c": "n/a"
+        }
+      ],
+      "finding": {
+        "severity": "info",
+        "category": "session",
+        "metric_or_code": "sql_analysis",
+        "expected_range": "directional editable scoring config",
+        "likely_cause": "No DTC rows were logged for this session.",
+        "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
+        "agent_trace_id": "agent-3a3ac644dee349ffa5ce70997ef53d5f"
+      },
+      "agentTrace": [
+        {
+          "agent": "corvus",
+          "node": "agent_trace",
+          "kind": "deterministic",
+          "summary": "Trace created before analysis output.",
+          "title": "Open trace",
+          "body": "Trace created before analysis output.",
+          "agent_name": "Corvus",
+          "agent_tagline": "Writes the report"
+        },
+        {
+          "agent": "huginn",
+          "node": "ingest_normalizer",
+          "kind": "deterministic",
+          "summary": "Loaded the logged drive from the database.",
+          "title": "Load the drive",
+          "body": "Loaded the logged drive from the database.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "huginn",
+          "node": "sql_deviation",
+          "kind": "deterministic",
+          "summary": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
+          "title": "Run SQL checks",
+          "body": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "huginn",
+          "node": "dtc_interpreter",
+          "kind": "deterministic",
+          "summary": "Listed diagnostic trouble codes logged on this drive.",
+          "title": "Read fault codes",
+          "body": "Listed diagnostic trouble codes logged on this drive.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "muninn",
+          "node": "baseline_recall",
+          "kind": "deterministic",
+          "summary": "Loaded stored healthy ranges for this vehicle.",
+          "title": "Load healthy ranges",
+          "body": "Loaded stored healthy ranges for this vehicle.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "muninn",
+          "node": "correlation",
+          "kind": "deterministic",
+          "summary": "Matched fault timestamps to nearby engine sensor rows.",
+          "title": "Match faults to sensors",
+          "body": "Matched fault timestamps to nearby engine sensor rows.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "muninn",
+          "node": "recommendation",
+          "kind": "deterministic",
+          "summary": "Ranked what to inspect next from SQL facts only.",
+          "title": "State next checks",
+          "body": "Ranked what to inspect next from SQL facts only.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "corvus",
+          "node": "report_writer",
+          "kind": "deterministic",
+          "summary": "Saved the finding with trace id for audit.",
+          "title": "Save finding",
+          "body": "Saved the finding with trace id for audit.",
+          "agent_name": "Corvus",
+          "agent_tagline": "Writes the report"
+        }
+      ],
+      "agentTraceId": "agent-3a3ac644dee349ffa5ce70997ef53d5f",
+      "sqlModules": [
+        {
+          "id": "session_health_score",
+          "title": "Drive health score",
+          "query": "session_health_score.sql",
+          "owner": "sql",
+          "input": "Telemetry rows and penalty config",
+          "output": "Score 96.2; metric penalties 3.9; fault penalties 0.0",
+          "body": "Combines metric penalties and fault-code penalties into one 0\u2013100 score."
+        },
+        {
+          "id": "baseline_deviation",
+          "title": "Baseline comparison",
+          "query": "baseline_deviation.sql",
+          "owner": "sql",
+          "input": "Telemetry joined to baseline bands",
+          "output": "0.0% outside band for coolant_temp_c (warm)",
+          "body": "Counts how often each sensor sat outside the stored healthy band for this vehicle."
+        },
+        {
+          "id": "fuel_trim_drift",
+          "title": "Fuel trim trend",
+          "query": "fuel_trim_drift.sql",
+          "owner": "sql",
+          "input": "Long-term fuel trim samples",
+          "output": "Latest rolling trim None%",
+          "body": "Rolling average of long-term fuel trim to spot lean or rich drift over time."
+        },
+        {
+          "id": "dtc_telemetry_correlation",
+          "title": "Fault code window",
+          "query": "dtc_telemetry_correlation.sql",
+          "owner": "sql",
+          "input": "Fault code timestamps",
+          "output": "No fault codes to correlate",
+          "body": "Pulls sensor rows from a few seconds around each logged fault code timestamp."
+        }
+      ],
+      "dtcSummary": "No DTC rows were logged for this session.",
+      "correlationSummary": "No DTC correlation rows were returned by SQL."
+    },
+    "5": {
+      "focus": {
+        "session_id": 5,
+        "vehicle": "VED Car 1.5L",
+        "source": "public",
+        "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; VehId=8; Trip=708; drive_label=Ann Arbor week log; license=Apache-2.0.",
+        "source_file": "VED_171101_week.csv; VehId=8; Trip=708",
+        "drive_label": "Ann Arbor week log",
+        "started_at": "2017-11-02T13:51:53.106Z",
+        "ended_at": "2017-11-02T13:55:03.506Z",
+        "health_score": "95.0",
+        "health_score_width": "95.0%",
+        "metric_penalty_points": "4.9",
+        "dtc_penalty_points": "0.0",
+        "dtc_count": "0",
+        "telemetry_samples": "240",
+        "score_basis": "directional editable scoring config",
+        "pct_out_of_range": "0.0",
+        "baseline_width": "0.0%",
+        "out_of_range_samples": "0",
+        "sample_count": "240"
+      },
+      "trend": [
+        {
+          "ts": "2017-11-02T13:51:53.106Z",
+          "maf_gps": "6.70",
+          "maf_30s": "6.70",
+          "height_pct": "43.4%"
+        },
+        {
+          "ts": "2017-11-02T13:51:58.906Z",
+          "maf_gps": "15.60",
+          "maf_30s": "12.36",
+          "height_pct": "68.2%"
+        },
+        {
+          "ts": "2017-11-02T13:52:06.606Z",
+          "maf_gps": "4.48",
+          "maf_30s": "9.86",
+          "height_pct": "57.3%"
+        },
+        {
+          "ts": "2017-11-02T13:52:12.806Z",
+          "maf_gps": "9.54",
+          "maf_30s": "8.63",
+          "height_pct": "51.9%"
+        },
+        {
+          "ts": "2017-11-02T13:52:19.306Z",
+          "maf_gps": "15.69",
+          "maf_30s": "9.55",
+          "height_pct": "55.9%"
+        },
+        {
+          "ts": "2017-11-02T13:52:26.706Z",
+          "maf_gps": "6.91",
+          "maf_30s": "9.80",
+          "height_pct": "57.0%"
+        },
+        {
+          "ts": "2017-11-02T13:52:36.206Z",
+          "maf_gps": "18.97",
+          "maf_30s": "12.01",
+          "height_pct": "66.7%"
+        },
+        {
+          "ts": "2017-11-02T13:52:43.506Z",
+          "maf_gps": "6.15",
+          "maf_30s": "11.14",
+          "height_pct": "62.9%"
+        },
+        {
+          "ts": "2017-11-02T13:52:53.806Z",
+          "maf_gps": "2.93",
+          "maf_30s": "9.18",
+          "height_pct": "54.3%"
+        },
+        {
+          "ts": "2017-11-02T13:53:03.306Z",
+          "maf_gps": "2.96",
+          "maf_30s": "6.52",
+          "height_pct": "42.6%"
+        },
+        {
+          "ts": "2017-11-02T13:53:13.806Z",
+          "maf_gps": "3.55",
+          "maf_30s": "3.48",
+          "height_pct": "29.3%"
+        },
+        {
+          "ts": "2017-11-02T13:53:19.106Z",
+          "maf_gps": "3.52",
+          "maf_30s": "3.31",
+          "height_pct": "28.5%"
+        },
+        {
+          "ts": "2017-11-02T13:53:24.806Z",
+          "maf_gps": "16.65",
+          "maf_30s": "3.90",
+          "height_pct": "31.1%"
+        },
+        {
+          "ts": "2017-11-02T13:53:30.706Z",
+          "maf_gps": "21.33",
+          "maf_30s": "8.19",
+          "height_pct": "49.9%"
+        },
+        {
+          "ts": "2017-11-02T13:53:37.906Z",
+          "maf_gps": "22.01",
+          "maf_30s": "12.26",
+          "height_pct": "67.8%"
+        },
+        {
+          "ts": "2017-11-02T13:53:48.606Z",
+          "maf_gps": "3.64",
+          "maf_30s": "15.31",
+          "height_pct": "81.2%"
+        },
+        {
+          "ts": "2017-11-02T13:53:59.006Z",
+          "maf_gps": "2.93",
+          "maf_30s": "11.13",
+          "height_pct": "62.8%"
+        },
+        {
+          "ts": "2017-11-02T13:54:09.406Z",
+          "maf_gps": "21.90",
+          "maf_30s": "11.17",
+          "height_pct": "63.0%"
+        },
+        {
+          "ts": "2017-11-02T13:54:19.206Z",
+          "maf_gps": "23.93",
+          "maf_30s": "14.85",
+          "height_pct": "79.2%"
+        },
+        {
+          "ts": "2017-11-02T13:54:25.706Z",
+          "maf_gps": "5.69",
+          "maf_30s": "15.95",
+          "height_pct": "84.0%"
+        },
+        {
+          "ts": "2017-11-02T13:54:34.106Z",
+          "maf_gps": "3.58",
+          "maf_30s": "12.95",
+          "height_pct": "70.8%"
+        },
+        {
+          "ts": "2017-11-02T13:54:43.406Z",
+          "maf_gps": "3.67",
+          "maf_30s": "5.73",
+          "height_pct": "39.1%"
+        },
+        {
+          "ts": "2017-11-02T13:54:50.706Z",
+          "maf_gps": "2.58",
+          "maf_30s": "4.14",
+          "height_pct": "32.2%"
+        },
+        {
+          "ts": "2017-11-02T13:54:58.006Z",
+          "maf_gps": "23.54",
+          "maf_30s": "5.46",
+          "height_pct": "38.0%"
+        },
+        {
+          "ts": "2017-11-02T13:55:03.506Z",
+          "maf_gps": "23.80",
+          "maf_30s": "11.88",
+          "height_pct": "66.1%"
+        }
+      ],
+      "dtcEvidence": [
+        {
+          "code": "none logged",
+          "status": "none",
+          "description": "No diagnostic trouble code was logged in this real public entry.",
+          "fault_ts": "",
+          "ts": "",
+          "rpm": "n/a",
+          "engine_load_pct": "n/a",
+          "coolant_temp_c": "n/a"
+        }
+      ],
+      "finding": {
+        "severity": "info",
+        "category": "session",
+        "metric_or_code": "sql_analysis",
+        "expected_range": "directional editable scoring config",
+        "likely_cause": "No DTC rows were logged for this session.",
+        "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
+        "agent_trace_id": "agent-905542c4a8854dd4886e52d9a0c2b787"
+      },
+      "agentTrace": [
+        {
+          "agent": "corvus",
+          "node": "agent_trace",
+          "kind": "deterministic",
+          "summary": "Trace created before analysis output.",
+          "title": "Open trace",
+          "body": "Trace created before analysis output.",
+          "agent_name": "Corvus",
+          "agent_tagline": "Writes the report"
+        },
+        {
+          "agent": "huginn",
+          "node": "ingest_normalizer",
+          "kind": "deterministic",
+          "summary": "Loaded the logged drive from the database.",
+          "title": "Load the drive",
+          "body": "Loaded the logged drive from the database.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "huginn",
+          "node": "sql_deviation",
+          "kind": "deterministic",
+          "summary": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
+          "title": "Run SQL checks",
+          "body": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "huginn",
+          "node": "dtc_interpreter",
+          "kind": "deterministic",
+          "summary": "Listed diagnostic trouble codes logged on this drive.",
+          "title": "Read fault codes",
+          "body": "Listed diagnostic trouble codes logged on this drive.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "muninn",
+          "node": "baseline_recall",
+          "kind": "deterministic",
+          "summary": "Loaded stored healthy ranges for this vehicle.",
+          "title": "Load healthy ranges",
+          "body": "Loaded stored healthy ranges for this vehicle.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "muninn",
+          "node": "correlation",
+          "kind": "deterministic",
+          "summary": "Matched fault timestamps to nearby engine sensor rows.",
+          "title": "Match faults to sensors",
+          "body": "Matched fault timestamps to nearby engine sensor rows.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "muninn",
+          "node": "recommendation",
+          "kind": "deterministic",
+          "summary": "Ranked what to inspect next from SQL facts only.",
+          "title": "State next checks",
+          "body": "Ranked what to inspect next from SQL facts only.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "corvus",
+          "node": "report_writer",
+          "kind": "deterministic",
+          "summary": "Saved the finding with trace id for audit.",
+          "title": "Save finding",
+          "body": "Saved the finding with trace id for audit.",
+          "agent_name": "Corvus",
+          "agent_tagline": "Writes the report"
+        }
+      ],
+      "agentTraceId": "agent-905542c4a8854dd4886e52d9a0c2b787",
+      "sqlModules": [
+        {
+          "id": "session_health_score",
+          "title": "Drive health score",
+          "query": "session_health_score.sql",
+          "owner": "sql",
+          "input": "Telemetry rows and penalty config",
+          "output": "Score 95.0; metric penalties 4.9; fault penalties 0.0",
+          "body": "Combines metric penalties and fault-code penalties into one 0\u2013100 score."
+        },
+        {
+          "id": "baseline_deviation",
+          "title": "Baseline comparison",
+          "query": "baseline_deviation.sql",
+          "owner": "sql",
+          "input": "Telemetry joined to baseline bands",
+          "output": "0.0% outside band for coolant_temp_c (warm)",
+          "body": "Counts how often each sensor sat outside the stored healthy band for this vehicle."
+        },
+        {
+          "id": "fuel_trim_drift",
+          "title": "Fuel trim trend",
+          "query": "fuel_trim_drift.sql",
+          "owner": "sql",
+          "input": "Long-term fuel trim samples",
+          "output": "Latest rolling trim None%",
+          "body": "Rolling average of long-term fuel trim to spot lean or rich drift over time."
+        },
+        {
+          "id": "dtc_telemetry_correlation",
+          "title": "Fault code window",
+          "query": "dtc_telemetry_correlation.sql",
+          "owner": "sql",
+          "input": "Fault code timestamps",
+          "output": "No fault codes to correlate",
+          "body": "Pulls sensor rows from a few seconds around each logged fault code timestamp."
+        }
+      ],
+      "dtcSummary": "No DTC rows were logged for this session.",
+      "correlationSummary": "No DTC correlation rows were returned by SQL."
+    }
+  },
+  "pipeline": [
+    {
+      "id": "ingest",
+      "title": "Log the drive",
+      "owner": "corvus",
+      "input": "OBD-II port or CSV file",
+      "output": "SQLite rows",
+      "body": "Raw engine readings become tidy rows: speed, RPM, air flow, temperatures, and any fault codes."
+    },
+    {
+      "id": "sql",
+      "title": "SQL math",
+      "owner": "sql",
+      "input": "Telemetry and baseline tables",
+      "output": "Scores, trends, and evidence windows",
+      "body": "Window functions and joins compute every number. No LLM touches sensor values."
+    },
+    {
+      "id": "huginn",
+      "title": "Huginn reads now",
+      "owner": "huginn",
+      "input": "Current session SQL facts",
+      "output": "Present-drive summary",
+      "body": "Lists what happened on this drive: SQL scores, sensor drift, and any logged fault codes."
+    },
+    {
+      "id": "muninn",
+      "title": "Muninn recalls normal",
+      "owner": "muninn",
+      "input": "Stored healthy ranges",
+      "output": "Comparison and next checks",
+      "body": "Pulls baseline bands for this vehicle and ranks what to inspect from SQL evidence."
+    },
+    {
+      "id": "report",
+      "title": "Write the report",
+      "owner": "corvus",
+      "input": "Raven summaries",
+      "output": "Finding plus trace id",
+      "body": "Stores one finding row linked to the trace id so every sentence points back to SQL rows."
+    }
+  ],
+  "sqlModules": [
+    {
+      "id": "session_health_score",
+      "title": "Drive health score",
+      "query": "session_health_score.sql",
+      "owner": "sql",
+      "input": "Telemetry rows and penalty config",
+      "output": "Score 88.0; metric penalties 12.0; fault penalties 0.0",
+      "body": "Combines metric penalties and fault-code penalties into one 0\u2013100 score."
+    },
+    {
+      "id": "baseline_deviation",
+      "title": "Baseline comparison",
+      "query": "baseline_deviation.sql",
+      "owner": "sql",
+      "input": "Telemetry joined to baseline bands",
+      "output": "100.0% outside band for coolant_temp_c (warm)",
+      "body": "Counts how often each sensor sat outside the stored healthy band for this vehicle."
+    },
+    {
+      "id": "fuel_trim_drift",
+      "title": "Fuel trim trend",
+      "query": "fuel_trim_drift.sql",
+      "owner": "sql",
+      "input": "Long-term fuel trim samples",
+      "output": "Latest rolling trim None%",
+      "body": "Rolling average of long-term fuel trim to spot lean or rich drift over time."
+    },
+    {
+      "id": "dtc_telemetry_correlation",
+      "title": "Fault code window",
+      "query": "dtc_telemetry_correlation.sql",
+      "owner": "sql",
+      "input": "Fault code timestamps",
+      "output": "No fault codes to correlate",
+      "body": "Pulls sensor rows from a few seconds around each logged fault code timestamp."
+    }
+  ],
   "sessions": [
     {
       "session_id": 3,
@@ -238,7 +1278,7 @@
     "expected_range": "directional editable scoring config",
     "likely_cause": "No DTC rows were logged for this session.",
     "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
-    "agent_trace_id": "agent-eabe8fc055b942fab184a15fef46add8"
+    "agent_trace_id": "agent-74c33df3afd842bd8823b3371ad48781"
   },
   "agentTrace": [
     {
@@ -322,7 +1362,7 @@
       "agent_tagline": "Writes the report"
     }
   ],
-  "agentTraceId": "agent-eabe8fc055b942fab184a15fef46add8",
+  "agentTraceId": "agent-74c33df3afd842bd8823b3371ad48781",
   "agents": {
     "huginn": {
       "name": "Huginn",

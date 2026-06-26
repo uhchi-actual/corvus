@@ -11,10 +11,12 @@ def main() -> None:
     styles = (ROOT / "frontend/src/app/globals.css").read_text(encoding="utf-8")
     payload = json.loads((ROOT / "frontend/src/data/dashboard.json").read_text(encoding="utf-8"))
 
+    dashboard = (ROOT / "frontend/src/components/dashboard/Dashboard.tsx").read_text(encoding="utf-8")
+
     if "coming soon" in page.lower() or "phase " in page.lower():
         raise SystemExit("Frontend contains placeholder or internal phase copy")
 
-    if "dashboardData" not in page or "agentTrace" not in page:
+    if "dashboard.json" not in page or "agentTrace" not in dashboard:
         raise SystemExit("Frontend is not rendering the static dashboard payload")
 
     if not payload["dataSource"].get("sources"):
@@ -52,6 +54,9 @@ def main() -> None:
 
     if "agents" not in payload or "readOrder" not in payload:
         raise SystemExit("Dashboard payload is missing readability guidance")
+
+    if "sessionViews" not in payload or len(payload["sessionViews"]) < 3:
+        raise SystemExit("Dashboard payload is missing interactive session views")
 
     inspiration_path = ROOT / "frontend/public" / payload["inspiration"]["image"]
     if not inspiration_path.exists():

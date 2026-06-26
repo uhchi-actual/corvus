@@ -14,6 +14,7 @@ sys.path.insert(0, str(BACKEND))
 
 from src.agent import LlmConfig, analyze_session  # noqa: E402
 from src.agent.display import AGENT_PROFILES  # noqa: E402
+from src.agent.pipeline import PIPELINE_MODULES, sql_modules  # noqa: E402
 from src.ingest.database import connect_sqlite  # noqa: E402
 from src.main import DISCLAIMER  # noqa: E402
 from src.sql import run_session_health_score, run_session_query  # noqa: E402
@@ -44,24 +45,36 @@ def main() -> None:
     with connect_sqlite(db_path) as conn:
         session_ids = _session_ids(conn)
         _prepare_dashboard_tables(conn, session_ids)
-        focus_session_id = _focus_session_id(conn)
-        _replace_seeded_finding(conn, focus_session_id)
+        public_session_ids = _public_session_ids(conn)
+        default_session_id = _focus_session_id(conn)
 
-    analysis = analyze_session(
-        session_id=focus_session_id,
-        database_path=db_path,
-        query_dir=QUERY_DIR,
-        config_path=CONFIG_PATH,
-        disclaimer=DISCLAIMER,
-        llm_config=LlmConfig(enabled=False, endpoint="", model="", api_key=""),
-    )
-
-    if analysis["status"] != "ok":
-        raise SystemExit(f"Dashboard analysis failed: {analysis.get('error')}")
+    llm_config = LlmConfig(enabled=False, endpoint="", model="", api_key="")
+    session_views: dict[str, dict[str, Any]] = {}
+    for session_id in public_session_ids:
+        with connect_sqlite(db_path) as conn:
+            _replace_seeded_finding(conn, session_id)
+        analysis = analyze_session(
+            session_id=session_id,
+            database_path=db_path,
+            query_dir=QUERY_DIR,
+            config_path=CONFIG_PATH,
+            disclaimer=DISCLAIMER,
+            llm_config=llm_config,
+        )
+        if analysis["status"] != "ok":
+            raise SystemExit(f"Dashboard analysis failed for session {session_id}: {analysis.get('error')}")
+        with connect_sqlite(db_path) as conn:
+            _prepare_dashboard_tables(conn, _session_ids(conn))
+            session_views[str(session_id)] = _session_view(conn, session_id, analysis)
 
     with connect_sqlite(db_path) as conn:
         _prepare_dashboard_tables(conn, _session_ids(conn))
-        payload = _dashboard_payload(conn, focus_session_id, analysis)
+        payload = _dashboard_payload(
+            conn,
+            default_session_id,
+            session_views[str(default_session_id)],
+            session_views,
+        )
 
     out_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     print(f"Frontend dashboard data written to {out_path}")
@@ -130,6 +143,15 @@ def _prepare_dashboard_tables(conn: sqlite3.Connection, session_ids: list[int]) 
         """,
         baseline_rows,
     )
+
+
+def _public_session_ids(conn: sqlite3.Connection) -> list[int]:
+    return [
+        int(row["session_id"])
+        for row in conn.execute(
+            "SELECT session_id FROM drive_sessions WHERE source = 'public' ORDER BY session_id"
+        )
+    ]
 
 
 def _focus_session_id(conn: sqlite3.Connection) -> int:
@@ -213,12 +235,26 @@ def _public_source_entries(conn: sqlite3.Connection) -> list[str]:
     return [str(row["source_file"]) for row in rows]
 
 
-def _dashboard_payload(
+def _session_view(
     conn: sqlite3.Connection,
-    focus_session_id: int,
+    session_id: int,
     analysis: dict[str, Any],
 ) -> dict[str, Any]:
-    focus = _one(
+    return {
+        "focus": _focus_row(conn, session_id),
+        "trend": _airflow_rows(conn, session_id),
+        "dtcEvidence": _dtc_rows(conn, session_id),
+        "finding": _finding(conn, session_id),
+        "agentTrace": analysis["agent_trace"],
+        "agentTraceId": analysis["agent_trace_id"],
+        "sqlModules": sql_modules(analysis),
+        "dtcSummary": analysis.get("dtc_summary", ""),
+        "correlationSummary": analysis.get("correlation_summary", ""),
+    }
+
+
+def _focus_row(conn: sqlite3.Connection, session_id: int) -> dict[str, Any]:
+    return _one(
         conn,
         """
         SELECT
@@ -258,13 +294,28 @@ def _dashboard_payload(
           ON b.session_id = h.session_id
         WHERE h.session_id = ?
         """,
-        (focus_session_id,),
+        (session_id,),
     )
+
+
+def _dashboard_payload(
+    conn: sqlite3.Connection,
+    default_session_id: int,
+    default_view: dict[str, Any],
+    session_views: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    focus = default_view["focus"]
+    analysis_trace = default_view["agentTrace"]
+    analysis_trace_id = default_view["agentTraceId"]
     return {
         "project": "corvus",
         "version": "v1",
         "statement": "Log a drive. SQL scores it. Ravens explain it.",
         "focus": focus,
+        "defaultSessionId": default_session_id,
+        "sessionViews": session_views,
+        "pipeline": PIPELINE_MODULES,
+        "sqlModules": default_view["sqlModules"],
         "sessions": _rows(
             conn,
             """
@@ -300,17 +351,17 @@ def _dashboard_payload(
             ORDER BY h.session_id
             """,
         ),
-        "trend": _airflow_rows(conn, focus_session_id),
-        "dtcEvidence": _dtc_rows(conn, focus_session_id),
-        "finding": _finding(conn, focus_session_id),
-        "agentTrace": analysis["agent_trace"],
-        "agentTraceId": analysis["agent_trace_id"],
+        "trend": default_view["trend"],
+        "dtcEvidence": default_view["dtcEvidence"],
+        "finding": default_view["finding"],
+        "agentTrace": analysis_trace,
+        "agentTraceId": analysis_trace_id,
         "agents": {
             key: profile
             for key, profile in AGENT_PROFILES.items()
             if key in {"huginn", "muninn"}
         },
-        "disclaimer": analysis["disclaimer"],
+        "disclaimer": DISCLAIMER,
         "healthGuide": {
             "title": "Drive health score",
             "body": (

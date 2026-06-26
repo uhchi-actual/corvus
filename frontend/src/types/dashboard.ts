@@ -1,0 +1,149 @@
+import type { CSSProperties } from "react";
+
+export type SessionRow = {
+  session_id: number;
+  vehicle: string;
+  source: string;
+  notes: string;
+  source_file: string;
+  drive_label: string;
+  health_score: string;
+  health_score_width: string;
+  telemetry_samples: string;
+  dtc_count: string;
+  pct_out_of_range: string;
+  baseline_width: string;
+};
+
+export type FocusRow = SessionRow & {
+  started_at: string;
+  ended_at: string;
+  metric_penalty_points: string;
+  dtc_penalty_points: string;
+  score_basis: string;
+  out_of_range_samples: string;
+  sample_count: string;
+};
+
+export type TrendRow = {
+  ts: string;
+  maf_gps: string;
+  maf_30s: string;
+  height_pct: string;
+};
+
+export type DtcRow = {
+  code: string;
+  status: string;
+  description: string;
+  ts: string;
+  rpm: string;
+  engine_load_pct: string;
+  coolant_temp_c: string;
+};
+
+export type TraceStep = {
+  agent: string;
+  node: string;
+  kind: string;
+  summary: string;
+  title?: string;
+  body?: string;
+  agent_name?: string;
+  agent_tagline?: string;
+};
+
+export type GuideBlock = {
+  title: string;
+  body: string;
+};
+
+export type ProvenanceRecord = {
+  vehicle: string;
+  drive_label: string;
+  source_file: string;
+  license: string;
+  dataset_name: string;
+};
+
+export type PipelineModule = {
+  id: string;
+  title: string;
+  owner: string;
+  input: string;
+  output: string;
+  body: string;
+};
+
+export type SqlModule = {
+  id: string;
+  title: string;
+  query: string;
+  owner: string;
+  input: string;
+  output: string;
+  body: string;
+};
+
+export type SessionView = {
+  focus: FocusRow;
+  trend: TrendRow[];
+  dtcEvidence: DtcRow[];
+  finding: {
+    likely_cause: string;
+    recommended_fix: string;
+    expected_range: string;
+    agent_trace_id: string;
+  };
+  agentTrace: TraceStep[];
+  agentTraceId: string;
+  sqlModules: SqlModule[];
+  dtcSummary: string;
+  correlationSummary: string;
+};
+
+export type DashboardData = {
+  version: string;
+  statement: string;
+  defaultSessionId: number;
+  sessionViews: Record<string, SessionView>;
+  focus: FocusRow;
+  sessions: SessionRow[];
+  trend: TrendRow[];
+  dtcEvidence: DtcRow[];
+  finding: SessionView["finding"];
+  agentTrace: TraceStep[];
+  agentTraceId: string;
+  agents: Record<string, { name: string; tagline: string; role: string }>;
+  pipeline: PipelineModule[];
+  sqlModules: SqlModule[];
+  disclaimer: string;
+  healthGuide: GuideBlock;
+  trendGuide: GuideBlock;
+  faultGuide: GuideBlock;
+  method: string[];
+  workflow: Array<{ label: string; body: string }>;
+  readOrder: string[];
+  dataSource: {
+    summary: string;
+    sources: Array<{
+      name: string;
+      license: string;
+      licenseUrl: string;
+      url: string;
+    }>;
+    entries: string[];
+    note: string;
+    records: ProvenanceRecord[];
+  };
+  inspiration: {
+    label: string;
+    image: string;
+  };
+};
+
+export type CssVars = CSSProperties & {
+  "--score-width"?: string;
+  "--baseline-width"?: string;
+  "--bar-height"?: string;
+};

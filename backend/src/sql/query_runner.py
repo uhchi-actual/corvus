@@ -9,6 +9,8 @@ QUERY_FILENAMES = {
     "baseline_deviation": "baseline_deviation.sql",
     "fuel_trim_drift": "fuel_trim_drift.sql",
     "dtc_telemetry_correlation": "dtc_telemetry_correlation.sql",
+    "session_baselines": "session_baselines.sql",
+    "session_dtc_events": "session_dtc_events.sql",
     "session_health_score": "session_health_score.sql",
 }
 

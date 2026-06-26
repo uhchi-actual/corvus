@@ -10,7 +10,7 @@ to explain SQL output in plain language.
 
 ## Current Status
 
-Phase 2 SQL core is in place:
+Phase 3 agent graph is in place:
 
 - Backend FastAPI health scaffold.
 - Frontend Next.js 15 static shell with uhchi design tokens.
@@ -26,9 +26,11 @@ Phase 2 SQL core is in place:
   correlation.
 - Deterministic session health score computed in SQL from editable directional
   scoring config.
+- Huginn and Muninn LangGraph flow that explains SQL output and writes traced
+  findings.
 
-The LangGraph agents, Power BI report, and real dashboard are intentionally
-reserved for later phases.
+The Power BI report and real dashboard are intentionally reserved for later
+phases.
 
 ## Guardrails
 
@@ -70,12 +72,19 @@ pip install -e ".[dev]"
 uvicorn src.main:app --reload --port 8000
 ```
 
+Run a local analysis pass:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/analysis/session/1?use_llm=false"
+```
+
 Run local checks:
 
 ```bash
 python scripts/check_phase0.py
 python scripts/check_phase1.py
 python scripts/check_phase2.py
+python scripts/check_phase3.py
 cd backend && pytest -q && ruff check src tests
 cd frontend && npm run lint && npm run build
 ```
@@ -103,7 +112,8 @@ See [docs/DOCKER_WSL2_DISK_CAP.md](docs/DOCKER_WSL2_DISK_CAP.md).
 
 ## Repository Map
 
-- `backend/src/` - FastAPI scaffold and future ingest, SQL, and agent modules.
+- `backend/src/` - FastAPI scaffold, ingest, SQL, and agent modules.
+- `backend/src/agent/` - Huginn and Muninn LangGraph analysis layer.
 - `frontend/src/app/` - Next.js static shell and future dashboard.
 - `data/schema.sql` - normalized SQLite schema.
 - `data/queries/` - showcase SQL and session health score query.

@@ -1,2 +1,6 @@
-"""Phase 3 landing package for Huginn and Muninn LangGraph nodes."""
+"""Huginn and Muninn LangGraph analysis layer."""
 
+from .graph import analyze_session
+from .llm import LlmConfig
+
+__all__ = ["LlmConfig", "analyze_session"]

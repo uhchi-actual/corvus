@@ -8,9 +8,9 @@ Corvus follows the handoff split:
 4. Muninn recalls baseline and prior-session context.
 5. Reports and dashboards present evidence, recommendations, and trace IDs.
 
-Phase 2 includes deterministic SQL for baseline deviation, fuel-trim drift,
-DTC-to-telemetry correlation, and session health scoring. Later phases must not
-bypass SQL for numeric analysis.
+Phase 3 includes the Huginn and Muninn LangGraph flow. The graph consumes SQL
+rows, writes traced findings, and returns the mandatory disclaimer on every
+response path. It must not bypass SQL for numeric analysis.
 
 ## SQL Core
 
@@ -24,6 +24,27 @@ The showcase queries live in `data/queries/`:
 `session_health_score.sql` receives editable directional defaults from
 `data/health_score_config.json`. Python only loads parameters and executes SQL;
 it does not calculate vehicle-health numbers.
+
+## Agent Layer
+
+Huginn handles the current session:
+
+- `ingest_normalizer`
+- `sql_deviation`
+- `dtc_interpreter`
+
+Muninn handles memory and comparison:
+
+- `baseline_recall`
+- `correlation`
+- `recommendation`
+
+`report_writer` writes `findings.agent_trace_id`. API responses include
+`agent_trace_id`, `agent_trace`, and the mandatory disclaimer whether analysis
+succeeds or fails.
+
+The analysis route is `POST /analysis/session/{session_id}` because it writes a
+finding row.
 
 ## Read-Only OBD-II Scope
 

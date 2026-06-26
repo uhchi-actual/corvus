@@ -14,7 +14,7 @@ def test_health_endpoint_reports_current_contract() -> None:
     assert response.status_code == 200
     payload = response.json()
     assert payload["project"] == "corvus"
-    assert payload["phase"] == "2-sql-core"
+    assert payload["phase"] == "3-agent"
     assert payload["status"] == "ok"
     assert payload["read_only_obd_modes"] == list(READ_ONLY_OBD_MODES)
     assert payload["disclaimer"] == DISCLAIMER

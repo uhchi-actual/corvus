@@ -19,3 +19,10 @@ at `data/seed/public_obd_kit_sample.csv`.
 
 The script does not interpolate sensor values. It only carries forward the last
 reported PID value so the row-oriented Corvus schema can ingest the log.
+
+Refresh the public seed:
+
+```bash
+python scripts/fetch_public_obd_dataset.py
+python scripts/seed_database.py
+```

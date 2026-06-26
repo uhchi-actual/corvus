@@ -23,6 +23,9 @@ jobs:
       - name: Check ingest schema and seed data
         run: python scripts/check_phase1.py
 
+      - name: Check SQL showcase queries
+        run: python scripts/check_phase2.py
+
   backend:
     name: Backend lint and test
     runs-on: ubuntu-latest

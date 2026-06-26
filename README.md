@@ -10,7 +10,7 @@ to explain SQL output in plain language.
 
 ## Current Status
 
-Phase 1 ingest and schema are in place:
+Phase 2 SQL core is in place:
 
 - Backend FastAPI health scaffold.
 - Frontend Next.js 15 static shell with uhchi design tokens.
@@ -21,9 +21,13 @@ Phase 1 ingest and schema are in place:
 - CSV and emulator CSV ingestion paths.
 - Read-only live python-OBD adapter scaffold.
 - Synthetic seed logs and a seeded SQLite database.
+- Showcase SQL for baseline deviation, fuel-trim drift, and DTC-to-telemetry
+  correlation.
+- Deterministic session health score computed in SQL from editable directional
+  scoring config.
 
-The SQL showcase queries, LangGraph agents, Power BI report, and real dashboard
-are intentionally reserved for later phases.
+The LangGraph agents, Power BI report, and real dashboard are intentionally
+reserved for later phases.
 
 ## Guardrails
 
@@ -70,6 +74,7 @@ Run local checks:
 ```bash
 python scripts/check_phase0.py
 python scripts/check_phase1.py
+python scripts/check_phase2.py
 cd backend && pytest -q && ruff check src tests
 cd frontend && npm run lint && npm run build
 ```
@@ -100,7 +105,8 @@ See [docs/DOCKER_WSL2_DISK_CAP.md](docs/DOCKER_WSL2_DISK_CAP.md).
 - `backend/src/` - FastAPI scaffold and future ingest, SQL, and agent modules.
 - `frontend/src/app/` - Next.js static shell and future dashboard.
 - `data/schema.sql` - normalized SQLite schema.
-- `data/queries/` - Phase 2 showcase SQL query landing folder.
+- `data/queries/` - showcase SQL and session health score query.
+- `data/health_score_config.json` - editable directional scoring defaults.
 - `data/seed/` - synthetic sample logs and seeded SQLite database.
 - `powerbi/` - Phase 4 report and screenshots.
 - `docs/` - guardrails, design notes, and deployment notes.

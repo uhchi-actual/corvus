@@ -8,8 +8,22 @@ Corvus follows the handoff split:
 4. Muninn recalls baseline and prior-session context.
 5. Reports and dashboards present evidence, recommendations, and trace IDs.
 
-Phase 0 includes only the scaffold. Later phases must not bypass SQL for numeric
-analysis.
+Phase 2 includes deterministic SQL for baseline deviation, fuel-trim drift,
+DTC-to-telemetry correlation, and session health scoring. Later phases must not
+bypass SQL for numeric analysis.
+
+## SQL Core
+
+The showcase queries live in `data/queries/`:
+
+- `baseline_deviation.sql`
+- `fuel_trim_drift.sql`
+- `dtc_telemetry_correlation.sql`
+- `session_health_score.sql`
+
+`session_health_score.sql` receives editable directional defaults from
+`data/health_score_config.json`. Python only loads parameters and executes SQL;
+it does not calculate vehicle-health numbers.
 
 ## Read-Only OBD-II Scope
 
@@ -27,4 +41,3 @@ Mode 04 and ECU writes are excluded by design.
 
 Before implementing any command, PID, mode, or threshold, verify it against the
 `brendan-w/python-OBD` source. Do not use model memory as the source of truth.
-

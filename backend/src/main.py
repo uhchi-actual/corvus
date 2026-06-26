@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from .config import get_settings
 
 PROJECT_SLUG = "corvus"
-PHASE = "1-ingest"
+PHASE = "2-sql-core"
 DISCLAIMER = (
     "Directional diagnostic guidance based on logged data - not a substitute for "
     "inspection by a certified technician."

@@ -451,6 +451,139 @@ a {
   line-height: 1.45;
 }
 
+.guideCopy {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.agentPanel .agentRole {
+  margin: 0;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.agentSteps {
+  display: grid;
+  gap: 14px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agentSteps li {
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: var(--panel-soft);
+  box-shadow: inset 0 0 0 1px rgba(211, 188, 155, 0.1);
+}
+
+.agentSteps strong {
+  display: block;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.agentSteps p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.4;
+}
+
+.readOrderList {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: read-step;
+}
+
+.readOrderList li {
+  counter-increment: read-step;
+  padding-left: 34px;
+  position: relative;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.readOrderList li::before {
+  content: counter(read-step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(31, 113, 108, 0.22);
+  color: var(--uhchi-teal);
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 24px;
+  text-align: center;
+}
+
+.factFile {
+  font-size: 12px;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.provenanceRecords {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.provenanceRecord {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--panel-soft);
+  box-shadow: inset 0 0 0 1px rgba(211, 188, 155, 0.1);
+}
+
+.provenanceRecord strong {
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.provenanceRecord span {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.provenanceRecord code {
+  color: var(--ink);
+  font-family: var(--type-ui);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+  word-break: break-all;
+}
+
+.licenseTag {
+  color: var(--uhchi-teal);
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
 .evidenceTable {
   overflow: hidden;
   border-radius: 8px;

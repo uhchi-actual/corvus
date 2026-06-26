@@ -30,4 +30,5 @@ Next.js 15 dashboard, uhchi theme, and GitHub Pages static export.
 
 ## Phase 6 - Polish
 
-README, screenshots, and resume bullets.
+README resume bullets, plain-language dashboard copy, Huginn and Muninn walkthrough
+panels, and provenance cards for public data.

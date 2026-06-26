@@ -50,6 +50,9 @@ def main() -> None:
     if "directional" not in payload["focus"]["score_basis"]:
         raise SystemExit("Health score is not labeled as directional")
 
+    if "agents" not in payload or "readOrder" not in payload:
+        raise SystemExit("Dashboard payload is missing readability guidance")
+
     inspiration_path = ROOT / "frontend/public" / payload["inspiration"]["image"]
     if not inspiration_path.exists():
         raise SystemExit(f"Missing inspiration asset: {inspiration_path}")

@@ -13,6 +13,7 @@ BACKEND = ROOT / "backend"
 sys.path.insert(0, str(BACKEND))
 
 from src.agent import LlmConfig, analyze_session  # noqa: E402
+from src.agent.display import AGENT_PROFILES  # noqa: E402
 from src.ingest.database import connect_sqlite  # noqa: E402
 from src.main import DISCLAIMER  # noqa: E402
 from src.sql import run_session_health_score, run_session_query  # noqa: E402
@@ -160,6 +161,41 @@ def _replace_seeded_finding(conn: sqlite3.Connection, session_id: int) -> None:
     conn.commit()
 
 
+def _provenance_records(conn: sqlite3.Connection) -> list[dict[str, str]]:
+    rows = _rows(
+        conn,
+        """
+        SELECT
+          v.make || ' ' || v.model AS vehicle,
+          substr(
+            s.notes,
+            instr(s.notes, 'drive_label=') + length('drive_label='),
+            instr(s.notes, '; license=') - instr(s.notes, 'drive_label=') - length('drive_label=')
+          ) AS drive_label,
+          substr(
+            s.notes,
+            instr(s.notes, 'source_file=') + length('source_file='),
+            instr(s.notes, '; drive_label=') - instr(s.notes, 'source_file=') - length('source_file=')
+          ) AS source_file,
+          substr(
+            s.notes,
+            instr(s.notes, '; license=') + length('license='),
+            length(s.notes) - instr(s.notes, '; license=') - length('license=') - 1
+          ) AS license,
+          CASE
+            WHEN s.notes LIKE '%KIT/RADAR%' THEN 'KIT/RADAR Automotive OBD-II Dataset'
+            WHEN s.notes LIKE '%VED%' THEN 'Vehicle Energy Dataset (VED)'
+            ELSE 'Public OBD-II archive'
+          END AS dataset_name
+        FROM drive_sessions s
+        JOIN vehicles v ON v.vehicle_id = s.vehicle_id
+        WHERE s.source = 'public'
+        ORDER BY s.session_id
+        """,
+    )
+    return rows
+
+
 def _public_source_entries(conn: sqlite3.Connection) -> list[str]:
     rows = conn.execute(
         """
@@ -227,7 +263,7 @@ def _dashboard_payload(
     return {
         "project": "corvus",
         "version": "v1",
-        "statement": "OBD-II telemetry analyzed in SQL",
+        "statement": "Log a drive. SQL scores it. Ravens explain it.",
         "focus": focus,
         "sessions": _rows(
             conn,
@@ -269,30 +305,63 @@ def _dashboard_payload(
         "finding": _finding(conn, focus_session_id),
         "agentTrace": analysis["agent_trace"],
         "agentTraceId": analysis["agent_trace_id"],
+        "agents": {
+            key: profile
+            for key, profile in AGENT_PROFILES.items()
+            if key in {"huginn", "muninn"}
+        },
         "disclaimer": analysis["disclaimer"],
+        "healthGuide": {
+            "title": "Drive health score",
+            "body": (
+                "0 to 100 from SQL. Higher is better. "
+                "Uses directional default thresholds you can edit in config."
+            ),
+        },
+        "trendGuide": {
+            "title": "Air flow into the engine",
+            "body": (
+                "Grams of air per second (mass air flow). "
+                "Bars show a rolling SQL average over the logged drive."
+            ),
+        },
+        "faultGuide": {
+            "title": "Fault codes",
+            "body": (
+                "OBD-II trouble codes logged during the drive. "
+                "None logged means no code was stored in this public file."
+            ),
+        },
         "method": [
-            "SQL computes score, trend, deviation, and diagnostic windows.",
-            "Huginn reads the current session facts.",
-            "Muninn recalls stored baselines.",
-            "Trace IDs tie each finding to its evidence.",
+            "SQL computes every number on this page.",
+            "Huginn reads the current drive.",
+            "Muninn compares it to stored healthy ranges.",
+            "Each finding links to a trace id and SQL evidence.",
         ],
         "workflow": [
             {
-                "label": "Select drive",
-                "body": "Use a logged session with known source and vehicle metadata.",
+                "label": "Pick a car",
+                "body": "Choose one of the three real public drives in the list.",
             },
             {
-                "label": "Check score",
-                "body": "Review directional penalties before reading the detailed rows.",
+                "label": "Read the score",
+                "body": "Check the health number before reading sensor rows.",
             },
             {
-                "label": "Read evidence",
-            "body": "Use airflow, baseline, and diagnostic windows to decide the next inspection.",
+                "label": "Read the charts",
+                "body": "Use air flow and fault panels as SQL-backed evidence.",
             },
             {
-                "label": "Audit trace",
-                "body": "Confirm which SQL rows Huginn and Muninn summarized.",
+                "label": "Follow the ravens",
+                "body": "See what Huginn read and what Muninn recalled for this drive.",
             },
+        ],
+        "readOrder": [
+            "Pick a real drive from the list.",
+            "Read the health score.",
+            "Scan air flow and fault code panels.",
+            "Read Huginn and Muninn steps below.",
+            "Open provenance to see the exact public file.",
         ],
         "dataSource": {
             "summary": "Three real OBD-II vehicles from public archives.",
@@ -312,9 +381,10 @@ def _dashboard_payload(
             ],
             "entries": _public_source_entries(conn),
             "note": (
-                "Public v1 charts mass air flow. KIT rows omit fuel-trim fields. "
-                "VED rows include fuel trim from Ann Arbor, Michigan week logs."
+                "Each row below is one real public OBD-II log. "
+                "KIT files are Seat Leon drives. VED files are de-identified U.S. vehicles."
             ),
+            "records": _provenance_records(conn),
         },
         "inspiration": {
             "label": "F-Type P340 / Mustang GT 5.0",

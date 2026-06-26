@@ -1,7 +1,7 @@
 {
   "project": "corvus",
   "version": "v1",
-  "statement": "OBD-II telemetry analyzed in SQL",
+  "statement": "Log a drive. SQL scores it. Ravens explain it.",
   "focus": {
     "session_id": 3,
     "vehicle": "Seat Leon",
@@ -238,83 +238,146 @@
     "expected_range": "directional editable scoring config",
     "likely_cause": "No DTC rows were logged for this session.",
     "recommended_fix": "Inspect SQL evidence and confirm mechanically before repair.",
-    "agent_trace_id": "agent-35e9fd1543394dd08c52bb30b5e8979d"
+    "agent_trace_id": "agent-eabe8fc055b942fab184a15fef46add8"
   },
   "agentTrace": [
     {
       "agent": "corvus",
       "node": "agent_trace",
       "kind": "deterministic",
-      "summary": "Trace created before analysis output."
+      "summary": "Trace created before analysis output.",
+      "title": "Open trace",
+      "body": "Trace created before analysis output.",
+      "agent_name": "Corvus",
+      "agent_tagline": "Writes the report"
     },
     {
       "agent": "huginn",
       "node": "ingest_normalizer",
       "kind": "deterministic",
-      "summary": "Loaded an existing normalized session from SQLite."
+      "summary": "Loaded the logged drive from the database.",
+      "title": "Load the drive",
+      "body": "Loaded the logged drive from the database.",
+      "agent_name": "Huginn",
+      "agent_tagline": "Reads this drive"
     },
     {
       "agent": "huginn",
       "node": "sql_deviation",
       "kind": "deterministic",
-      "summary": "Ran SQL deviation, drift, correlation, and health-score queries."
+      "summary": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
+      "title": "Run SQL checks",
+      "body": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
+      "agent_name": "Huginn",
+      "agent_tagline": "Reads this drive"
     },
     {
       "agent": "huginn",
       "node": "dtc_interpreter",
       "kind": "deterministic",
-      "summary": "Interpreted DTC rows from logged data."
+      "summary": "Listed diagnostic trouble codes logged on this drive.",
+      "title": "Read fault codes",
+      "body": "Listed diagnostic trouble codes logged on this drive.",
+      "agent_name": "Huginn",
+      "agent_tagline": "Reads this drive"
     },
     {
       "agent": "muninn",
       "node": "baseline_recall",
       "kind": "deterministic",
-      "summary": "Loaded stored baseline rows for the session vehicle."
+      "summary": "Loaded stored healthy ranges for this vehicle.",
+      "title": "Load healthy ranges",
+      "body": "Loaded stored healthy ranges for this vehicle.",
+      "agent_name": "Muninn",
+      "agent_tagline": "Recalls what normal looks like"
     },
     {
       "agent": "muninn",
       "node": "correlation",
       "kind": "deterministic",
-      "summary": "Summarized SQL DTC-to-telemetry correlation output."
+      "summary": "Matched fault timestamps to nearby engine sensor rows.",
+      "title": "Match faults to sensors",
+      "body": "Matched fault timestamps to nearby engine sensor rows.",
+      "agent_name": "Muninn",
+      "agent_tagline": "Recalls what normal looks like"
     },
     {
       "agent": "muninn",
       "node": "recommendation",
       "kind": "deterministic",
-      "summary": "Prepared recommendations from SQL output."
+      "summary": "Ranked what to inspect next from SQL facts only.",
+      "title": "State next checks",
+      "body": "Ranked what to inspect next from SQL facts only.",
+      "agent_name": "Muninn",
+      "agent_tagline": "Recalls what normal looks like"
     },
     {
       "agent": "corvus",
       "node": "report_writer",
       "kind": "deterministic",
-      "summary": "Wrote finding row with agent_trace_id."
+      "summary": "Saved the finding with trace id for audit.",
+      "title": "Save finding",
+      "body": "Saved the finding with trace id for audit.",
+      "agent_name": "Corvus",
+      "agent_tagline": "Writes the report"
     }
   ],
-  "agentTraceId": "agent-35e9fd1543394dd08c52bb30b5e8979d",
+  "agentTraceId": "agent-eabe8fc055b942fab184a15fef46add8",
+  "agents": {
+    "huginn": {
+      "name": "Huginn",
+      "tagline": "Reads this drive",
+      "role": "Looks at the logged drive in front of it: sensor rows, fault codes, and SQL scores."
+    },
+    "muninn": {
+      "name": "Muninn",
+      "tagline": "Recalls what normal looks like",
+      "role": "Compares this drive to stored healthy ranges and states what to inspect next."
+    }
+  },
   "disclaimer": "Directional diagnostic guidance based on logged data - not a substitute for inspection by a certified technician.",
+  "healthGuide": {
+    "title": "Drive health score",
+    "body": "0 to 100 from SQL. Higher is better. Uses directional default thresholds you can edit in config."
+  },
+  "trendGuide": {
+    "title": "Air flow into the engine",
+    "body": "Grams of air per second (mass air flow). Bars show a rolling SQL average over the logged drive."
+  },
+  "faultGuide": {
+    "title": "Fault codes",
+    "body": "OBD-II trouble codes logged during the drive. None logged means no code was stored in this public file."
+  },
   "method": [
-    "SQL computes score, trend, deviation, and diagnostic windows.",
-    "Huginn reads the current session facts.",
-    "Muninn recalls stored baselines.",
-    "Trace IDs tie each finding to its evidence."
+    "SQL computes every number on this page.",
+    "Huginn reads the current drive.",
+    "Muninn compares it to stored healthy ranges.",
+    "Each finding links to a trace id and SQL evidence."
   ],
   "workflow": [
     {
-      "label": "Select drive",
-      "body": "Use a logged session with known source and vehicle metadata."
+      "label": "Pick a car",
+      "body": "Choose one of the three real public drives in the list."
     },
     {
-      "label": "Check score",
-      "body": "Review directional penalties before reading the detailed rows."
+      "label": "Read the score",
+      "body": "Check the health number before reading sensor rows."
     },
     {
-      "label": "Read evidence",
-      "body": "Use airflow, baseline, and diagnostic windows to decide the next inspection."
+      "label": "Read the charts",
+      "body": "Use air flow and fault panels as SQL-backed evidence."
     },
     {
-      "label": "Audit trace",
-      "body": "Confirm which SQL rows Huginn and Muninn summarized."
+      "label": "Follow the ravens",
+      "body": "See what Huginn read and what Muninn recalled for this drive."
     }
+  ],
+  "readOrder": [
+    "Pick a real drive from the list.",
+    "Read the health score.",
+    "Scan air flow and fault code panels.",
+    "Read Huginn and Muninn steps below.",
+    "Open provenance to see the exact public file."
   ],
   "dataSource": {
     "summary": "Three real OBD-II vehicles from public archives.",
@@ -337,7 +400,30 @@
       "VED_171101_week.csv; VehId=108; Trip=784",
       "VED_171101_week.csv; VehId=8; Trip=708"
     ],
-    "note": "Public v1 charts mass air flow. KIT rows omit fuel-trim fields. VED rows include fuel trim from Ann Arbor, Michigan week logs."
+    "note": "Each row below is one real public OBD-II log. KIT files are Seat Leon drives. VED files are de-identified U.S. vehicles.",
+    "records": [
+      {
+        "vehicle": "Seat Leon",
+        "drive_label": "normal commuter drive",
+        "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+        "license": "e=CC BY 4.",
+        "dataset_name": "KIT/RADAR Automotive OBD-II Dataset"
+      },
+      {
+        "vehicle": "VED ICE 6.0L V8",
+        "drive_label": "Ann Arbor week log",
+        "source_file": "VED_171101_week.csv; VehId=108; Trip=784",
+        "license": "e=Apache-2.",
+        "dataset_name": "Vehicle Energy Dataset (VED)"
+      },
+      {
+        "vehicle": "VED Car 1.5L",
+        "drive_label": "Ann Arbor week log",
+        "source_file": "VED_171101_week.csv; VehId=8; Trip=708",
+        "license": "e=Apache-2.",
+        "dataset_name": "Vehicle Energy Dataset (VED)"
+      }
+    ]
   },
   "inspiration": {
     "label": "F-Type P340 / Mustang GT 5.0",

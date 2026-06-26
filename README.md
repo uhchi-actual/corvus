@@ -10,7 +10,7 @@ to explain SQL output in plain language.
 
 ## Current Status
 
-Phase 5 static dashboard is in place:
+Phase 5 static dashboard is in place. Phase 6 readability polish is in place:
 
 - Backend FastAPI health scaffold.
 - Frontend Next.js 15 static dashboard with uhchi design tokens.
@@ -48,6 +48,17 @@ Phase 5 static dashboard is in place:
 
 Directional diagnostic guidance based on logged data - not a substitute for
 inspection by a certified technician.
+
+## Resume bullets
+
+- Built an OBD-II vehicle-health analyzer: ingested live engine telemetry and
+  diagnostic trouble codes, modeled them in a normalized SQL schema, and computed
+  baseline-deviation metrics with SQL window functions.
+- Designed a Power BI report pack and static dashboard surfacing mass-air-flow
+  trends, fault-to-telemetry correlation, and per-drive health scores from public
+  OBD-II logs.
+- Added a LangGraph layer (Huginn and Muninn) that explains SQL-computed facts and
+  ranks likely faults with trace ids, keeping all numeric analysis deterministic.
 
 ## Method
 

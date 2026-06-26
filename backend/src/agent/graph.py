@@ -11,6 +11,7 @@ from langgraph.graph import END, START, StateGraph
 
 from ..ingest.database import connect_sqlite
 from ..sql import QueryRunner, run_session_health_score, run_session_query
+from .display import enrich_trace_step
 from .llm import LlmClient, LlmConfig
 
 
@@ -111,7 +112,7 @@ def _ingest_normalizer(state: AnalysisState) -> dict[str, Any]:
         "huginn",
         "ingest_normalizer",
         "deterministic",
-        "Loaded an existing normalized session from SQLite.",
+        "Loaded the logged drive from the database.",
     )
 
 
@@ -148,7 +149,7 @@ def _sql_deviation(state: AnalysisState) -> dict[str, Any]:
         "huginn",
         "sql_deviation",
         "deterministic",
-        "Ran SQL deviation, drift, correlation, and health-score queries.",
+        "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
     )
     update["sql_facts"] = facts
     return update
@@ -177,7 +178,7 @@ def _dtc_interpreter(state: AnalysisState) -> dict[str, Any]:
         "huginn",
         "dtc_interpreter",
         "llm" if state["llm"].enabled else "deterministic",
-        "Interpreted DTC rows from logged data.",
+        "Listed diagnostic trouble codes logged on this drive.",
     )
     update["dtc_events"] = dtc_events
     update["dtc_summary"] = summary
@@ -196,7 +197,7 @@ def _baseline_recall(state: AnalysisState) -> dict[str, Any]:
         "muninn",
         "baseline_recall",
         "deterministic",
-        "Loaded stored baseline rows for the session vehicle.",
+        "Loaded stored healthy ranges for this vehicle.",
     )
     update["baselines"] = baselines
     return update
@@ -218,7 +219,7 @@ def _correlation(state: AnalysisState) -> dict[str, Any]:
         "muninn",
         "correlation",
         "llm" if state["llm"].enabled else "deterministic",
-        "Summarized SQL DTC-to-telemetry correlation output.",
+        "Matched fault timestamps to nearby engine sensor rows.",
     )
     update["correlation_summary"] = summary
     return update
@@ -242,7 +243,7 @@ def _recommendation(state: AnalysisState) -> dict[str, Any]:
         "muninn",
         "recommendation",
         "llm" if state["llm"].enabled else "deterministic",
-        "Prepared recommendations from SQL output.",
+        "Ranked what to inspect next from SQL facts only.",
     )
     update["recommendations"] = [text]
     return update
@@ -286,7 +287,7 @@ def _report_writer(state: AnalysisState) -> dict[str, Any]:
         "corvus",
         "report_writer",
         "deterministic",
-        "Wrote finding row with agent_trace_id.",
+        "Saved the finding with trace id for audit.",
     )
     update["findings"] = [
         {
@@ -333,7 +334,7 @@ def _response(state: AnalysisState) -> dict[str, Any]:
         "session_id": state["session_id"],
         "disclaimer": state["disclaimer"],
         "agent_trace_id": state["agent_trace_id"],
-        "agent_trace": state["agent_trace"],
+        "agent_trace": [enrich_trace_step(step) for step in state["agent_trace"]],
         "sql_facts": state.get("sql_facts", {}),
         "dtc_summary": state.get("dtc_summary"),
         "correlation_summary": state.get("correlation_summary"),

@@ -1,42 +1,56 @@
--- Showcase A: baseline deviation.
--- Compares coolant samples to the best baseline band for this vehicle:
--- session-derived bands for public logs, warm bands for synthetic demos.
--- Null coolant readings are ignored, not treated as failures.
-SELECT
-  b.metric,
-  b.context,
-  SUM(CASE WHEN t.coolant_temp_c IS NOT NULL THEN 1 ELSE 0 END) AS sample_count,
-  SUM(
-    CASE
-      WHEN t.coolant_temp_c IS NULL THEN 0
-      WHEN t.coolant_temp_c NOT BETWEEN b.healthy_min AND b.healthy_max THEN 1
-      ELSE 0
-    END
-  ) AS out_of_range_samples,
-  ROUND(
-    100.0 * SUM(
+-- Showcase A: baseline deviation per metric for this session.
+-- Uses the same metric list and vehicle baselines as session_health_score.sql.
+-- Null readings are ignored, not treated as failures.
+WITH metric_samples AS (
+  SELECT
+    b.metric,
+    b.context,
+    b.healthy_min,
+    b.healthy_max,
+    CASE b.metric
+      WHEN 'coolant_temp_c' THEN t.coolant_temp_c
+      WHEN 'ltft_b1_pct' THEN t.ltft_b1_pct
+      WHEN 'stft_b1_pct' THEN t.stft_b1_pct
+      WHEN 'engine_load_pct' THEN t.engine_load_pct
+      WHEN 'timing_adv_deg' THEN t.timing_adv_deg
+    END AS observed_value
+  FROM telemetry_samples t
+  JOIN drive_sessions s
+    ON s.session_id = t.session_id
+  JOIN baselines b
+    ON b.vehicle_id = s.vehicle_id
+   AND b.metric IN (
+     'coolant_temp_c',
+     'ltft_b1_pct',
+     'stft_b1_pct',
+     'engine_load_pct',
+     'timing_adv_deg'
+   )
+  WHERE t.session_id = :session_id
+),
+metric_deviation AS (
+  SELECT
+    metric,
+    context,
+    COUNT(observed_value) AS sample_count,
+    SUM(
       CASE
-        WHEN t.coolant_temp_c IS NULL THEN 0
-        WHEN t.coolant_temp_c NOT BETWEEN b.healthy_min AND b.healthy_max THEN 1
+        WHEN observed_value NOT BETWEEN healthy_min AND healthy_max THEN 1
         ELSE 0
       END
-    ) / NULLIF(SUM(CASE WHEN t.coolant_temp_c IS NOT NULL THEN 1 ELSE 0 END), 0),
+    ) AS out_of_range_samples
+  FROM metric_samples
+  WHERE observed_value IS NOT NULL
+  GROUP BY metric, context
+)
+SELECT
+  metric,
+  context,
+  sample_count,
+  out_of_range_samples,
+  ROUND(
+    100.0 * out_of_range_samples / NULLIF(sample_count, 0),
     1
   ) AS pct_out_of_range
-FROM telemetry_samples t
-JOIN drive_sessions s
-  ON s.session_id = t.session_id
-JOIN baselines b
-  ON b.vehicle_id = s.vehicle_id
- AND b.metric = 'coolant_temp_c'
- AND b.baseline_id = (
-   SELECT b2.baseline_id
-   FROM baselines b2
-   WHERE b2.vehicle_id = s.vehicle_id
-     AND b2.metric = 'coolant_temp_c'
-   ORDER BY CASE WHEN b2.source = 'derived' THEN 0 WHEN b2.context = 'warm' THEN 1 WHEN b2.context = 'session' THEN 2 ELSE 3 END
-   LIMIT 1
- )
-WHERE t.session_id = :session_id
-GROUP BY b.metric, b.context
-ORDER BY b.metric, b.context;
+FROM metric_deviation
+ORDER BY metric, context;

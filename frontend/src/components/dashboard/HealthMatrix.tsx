@@ -28,11 +28,11 @@ const AXIS_META: Record<string, AxisMeta> = {
   },
   baseline_fit: {
     code: "BF",
-    hint: "Coolant fit against this vehicle's session-derived band.",
+    hint: "How well this drive fits this vehicle's baseline bands (per metric, this session only).",
   },
   airflow: {
     code: "AF",
-    hint: "Stability of mass airflow across the logged window.",
+    hint: "MAF stability while moving on this drive (not compared to other vehicles).",
   },
   fault_clearance: {
     code: "FC",
@@ -40,7 +40,7 @@ const AXIS_META: Record<string, AxisMeta> = {
   },
   sensor_balance: {
     code: "SB",
-    hint: "Evenness of load and trim penalties from SQL.",
+    hint: "Load, trim, and timing fit against this vehicle's bands on this drive.",
   },
 };
 

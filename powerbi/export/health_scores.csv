@@ -1,4 +1,4 @@
 dtc_count,dtc_penalty_points,ended_at,health_score,metric_penalty_points,score_basis,session_id,started_at,telemetry_samples
 0,0.0,2018-03-26T18:10:32.038Z,100.0,0.0,directional editable scoring config,3,2018-03-26T18:06:33.719Z,240
-0,0.0,2017-11-02T13:30:47.520Z,96.2,3.9,directional editable scoring config,4,2017-11-02T13:27:31.820Z,240
-0,0.0,2017-11-02T13:55:03.506Z,95.0,4.9,directional editable scoring config,5,2017-11-02T13:51:53.106Z,240
+0,0.0,2017-11-02T13:30:47.520Z,100.0,0.0,directional editable scoring config,4,2017-11-02T13:27:31.820Z,240
+0,0.0,2017-11-02T13:55:03.506Z,99.7,0.3,directional editable scoring config,5,2017-11-02T13:51:53.106Z,240

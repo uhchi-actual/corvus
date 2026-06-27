@@ -7,10 +7,10 @@ baseline_id,vehicle_id,metric,context,healthy_min,healthy_max,unit,source
 16,4,coolant_temp_c,warming,15.0,95.0,C,manual
 17,4,ltft_b1_pct,cruise,-10.0,10.0,%,manual
 18,4,stft_b1_pct,cruise,-10.0,10.0,%,manual
-19,4,engine_load_pct,idle,12.0,35.0,%,manual
-20,4,timing_adv_deg,cruise,10.0,45.0,deg,manual
+19,4,timing_adv_deg,cruise,10.0,45.0,deg,manual
+20,4,engine_load_pct,session,5.2,48.5,%,derived
 21,5,coolant_temp_c,warming,15.0,95.0,C,manual
 22,5,ltft_b1_pct,cruise,-10.0,10.0,%,manual
 23,5,stft_b1_pct,cruise,-10.0,10.0,%,manual
-24,5,engine_load_pct,idle,12.0,35.0,%,manual
-25,5,timing_adv_deg,cruise,10.0,45.0,deg,manual
+24,5,timing_adv_deg,cruise,10.0,45.0,deg,manual
+25,5,engine_load_pct,session,3.6,100.0,%,derived

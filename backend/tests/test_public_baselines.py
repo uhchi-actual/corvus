@@ -90,4 +90,5 @@ def test_ved_without_coolant_pid_uses_warming_fallback_band() -> None:
     assert band["context"] == "warming"
     assert band["source"] == "manual"
     assert coolant_samples == 0
-    assert baseline[0]["sample_count"] == 0
+    assert not any(row["metric"] == "coolant_temp_c" for row in baseline)
+    assert any(row["metric"] == "engine_load_pct" for row in baseline)

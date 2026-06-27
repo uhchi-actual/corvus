@@ -112,9 +112,34 @@ def insert_vehicle_baselines_from_session(
     rows: list[tuple[str, str, float, float, str, str]] = [
         ("ltft_b1_pct", "cruise", -10.0, 10.0, "%", "manual"),
         ("stft_b1_pct", "cruise", -10.0, 10.0, "%", "manual"),
-        ("engine_load_pct", "idle", 12.0, 35.0, "%", "manual"),
         ("timing_adv_deg", "cruise", 10.0, 45.0, "deg", "manual"),
     ]
+
+    load = conn.execute(
+        """
+        SELECT MIN(engine_load_pct), MAX(engine_load_pct), COUNT(engine_load_pct)
+        FROM telemetry_samples
+        WHERE session_id = ?
+        """,
+        (session_id,),
+    ).fetchone()
+    if load and load[2] and load[0] is not None and load[1] is not None:
+        min_load = float(load[0])
+        max_load = float(load[1])
+        span = max(5.0, max_load - min_load)
+        pad = max(2.0, span * 0.12)
+        rows.append(
+            (
+                "engine_load_pct",
+                "session",
+                round(max(0.0, min_load - pad), 1),
+                round(min(100.0, max_load + pad), 1),
+                "%",
+                "derived",
+            )
+        )
+    else:
+        rows.append(("engine_load_pct", "idle", 12.0, 35.0, "%", "manual"))
 
     coolant = conn.execute(
         """

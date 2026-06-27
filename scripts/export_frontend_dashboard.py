@@ -257,13 +257,14 @@ def _session_view(
 ) -> dict[str, Any]:
     focus = _focus_row(conn, session_id)
     trend = _airflow_rows(conn, session_id)
-    matrix = health_matrix(focus, trend)
+    baseline_rows = run_session_query(conn, QUERY_DIR, "baseline_deviation", session_id)
+    matrix = health_matrix(focus, trend, baseline_rows)
     return {
         "focus": focus,
         "trend": trend,
         "dtcEvidence": _dtc_rows(conn, session_id),
         "healthMatrix": matrix,
-        "performanceConcerns": performance_concerns(focus, matrix),
+        "performanceConcerns": performance_concerns(focus, matrix, baseline_rows),
         "agentTrace": analysis["agent_trace"],
         "agentTraceId": analysis["agent_trace_id"],
         "dtcSummary": analysis.get("dtc_summary", ""),
@@ -307,7 +308,18 @@ def _focus_row(conn: sqlite3.Connection, session_id: int) -> dict[str, Any]:
           ON s.session_id = h.session_id
         JOIN vehicles v
           ON v.vehicle_id = s.vehicle_id
-        LEFT JOIN dashboard_baseline b
+        LEFT JOIN (
+          SELECT
+            session_id,
+            SUM(sample_count) AS sample_count,
+            SUM(out_of_range_samples) AS out_of_range_samples,
+            ROUND(
+              100.0 * SUM(out_of_range_samples) / NULLIF(SUM(sample_count), 0),
+              1
+            ) AS pct_out_of_range
+          FROM dashboard_baseline
+          GROUP BY session_id
+        ) b
           ON b.session_id = h.session_id
         WHERE h.session_id = ?
         """,
@@ -355,7 +367,18 @@ def _dashboard_payload(
           ON s.session_id = h.session_id
         JOIN vehicles v
           ON v.vehicle_id = s.vehicle_id
-        LEFT JOIN dashboard_baseline b
+        LEFT JOIN (
+          SELECT
+            session_id,
+            SUM(sample_count) AS sample_count,
+            SUM(out_of_range_samples) AS out_of_range_samples,
+            ROUND(
+              100.0 * SUM(out_of_range_samples) / NULLIF(SUM(sample_count), 0),
+              1
+            ) AS pct_out_of_range
+          FROM dashboard_baseline
+          GROUP BY session_id
+        ) b
           ON b.session_id = h.session_id
         WHERE s.source = 'public'
         ORDER BY h.session_id
@@ -430,6 +453,7 @@ def _airflow_rows(conn: sqlite3.Connection, session_id: int) -> list[dict[str, A
         WITH airflow AS (
           SELECT
             ts,
+            speed_kph,
             maf_gps,
             ROUND(
               AVG(maf_gps) OVER (
@@ -445,6 +469,7 @@ def _airflow_rows(conn: sqlite3.Connection, session_id: int) -> list[dict[str, A
         indexed AS (
           SELECT
             ts,
+            speed_kph,
             maf_gps,
             maf_30s,
             ROW_NUMBER() OVER (ORDER BY ts) AS rn,
@@ -454,6 +479,7 @@ def _airflow_rows(conn: sqlite3.Connection, session_id: int) -> list[dict[str, A
         stepped AS (
           SELECT
             ts,
+            speed_kph,
             maf_gps,
             maf_30s,
             rn,
@@ -477,6 +503,7 @@ def _airflow_rows(conn: sqlite3.Connection, session_id: int) -> list[dict[str, A
         )
         SELECT
           ts,
+          printf('%.2f', speed_kph) AS speed_kph,
           printf('%.2f', maf_gps) AS maf_gps,
           printf('%.2f', maf_30s) AS maf_30s,
           printf(

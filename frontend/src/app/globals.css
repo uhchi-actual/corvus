@@ -13,6 +13,10 @@
   --ease-smooth: cubic-bezier(0.19, 1, 0.22, 1);
   --motion-slow: 760ms;
   --motion-medium: 540ms;
+  --gradient-heading: linear-gradient(165deg, #ecd9be 0%, #d3bc9b 52%, #a89170 100%);
+  --text-eyebrow: 10px;
+  --text-title: 21px;
+  --text-sub: 11px;
   --type-ui:
     ui-rounded,
     "Segoe UI Variable Text",
@@ -111,7 +115,8 @@ a {
   align-items: center;
   margin-bottom: 26px;
   color: var(--uhchi-teal);
-  font-size: 13px;
+  font-size: var(--text-eyebrow);
+  font-style: italic;
   font-weight: 950;
   line-height: 1.2;
   text-transform: uppercase;
@@ -152,8 +157,11 @@ a {
 .statement {
   max-width: 560px;
   margin: 28px 0 0;
-  color: var(--ink);
-  font-size: 23px;
+  background: var(--gradient-heading);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 17px;
   font-weight: 950;
   line-height: 1.35;
 }
@@ -248,7 +256,8 @@ a {
 .panelHead p {
   margin: 0;
   color: var(--uhchi-teal);
-  font-size: 13px;
+  font-size: var(--text-eyebrow);
+  font-style: italic;
   font-weight: 950;
   line-height: 1.2;
   text-transform: uppercase;
@@ -256,8 +265,11 @@ a {
 
 .panelHead h2 {
   margin: 0;
-  color: var(--ink);
-  font-size: 28px;
+  background: var(--gradient-heading);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: var(--text-title);
   font-weight: 950;
   line-height: 1.05;
   text-align: right;
@@ -629,7 +641,7 @@ a {
 .microCopy {
   margin: 18px 0 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--text-sub);
   font-weight: 850;
   line-height: 1.45;
 }
@@ -637,7 +649,7 @@ a {
 .guideCopy {
   margin: 16px 0 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--text-sub);
   font-weight: 850;
   line-height: 1.45;
 }
@@ -909,7 +921,7 @@ a {
 
 .panelHead.compactHead h2 {
   text-align: left;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .panelHead.airflowHead {
@@ -977,6 +989,10 @@ a {
   stroke-width: 1;
 }
 
+.matrixAxisUnit {
+  pointer-events: none;
+}
+
 .matrixAxisBadgeCircle {
   fill: rgba(31, 113, 108, 0.28);
   stroke: rgba(31, 113, 108, 0.72);
@@ -988,15 +1004,19 @@ a {
   font-family: var(--type-ui);
   font-size: 11px;
   font-weight: 950;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  text-anchor: middle;
+  dominant-baseline: middle;
 }
 
 .matrixAxisSpokeValue {
   fill: var(--muted);
   font-family: var(--type-ui);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 950;
   font-variant-numeric: tabular-nums;
+  text-anchor: middle;
+  dominant-baseline: middle;
 }
 
 .matrixLegendPanel {
@@ -1009,7 +1029,8 @@ a {
 .matrixLegendTitle {
   margin: 0 0 14px;
   color: var(--uhchi-teal);
-  font-size: 12px;
+  font-size: var(--text-eyebrow);
+  font-style: italic;
   font-weight: 950;
   line-height: 1.2;
   text-transform: uppercase;
@@ -1026,13 +1047,20 @@ a {
 
 .matrixLegendCard {
   position: relative;
-  display: grid;
-  gap: 10px;
-  padding: 14px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 12px 12px 16px;
   border-radius: 8px;
   background: rgba(211, 188, 155, 0.04);
   box-shadow: inset 0 0 0 1px rgba(211, 188, 155, 0.1);
-  min-height: 118px;
+  min-height: 112px;
+}
+
+.matrixLegendRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .matrixLegendRail {
@@ -1047,35 +1075,40 @@ a {
 
 .matrixAxisBadge {
   display: inline-flex;
-  width: 32px;
-  height: 32px;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
   background: rgba(31, 113, 108, 0.24);
   box-shadow: inset 0 0 0 1px rgba(31, 113, 108, 0.62);
   color: var(--ink);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 950;
   line-height: 1;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
 .matrixLegendCopy {
   display: grid;
-  gap: 6px;
+  gap: 5px;
+  min-width: 0;
 }
 
 .matrixLegendHead {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 8px;
+  gap: 5px 7px;
   align-items: baseline;
 }
 
 .matrixLegendHead strong {
-  color: var(--ink);
-  font-size: 22px;
+  background: var(--gradient-heading);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 17px;
   font-weight: 950;
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -1083,7 +1116,7 @@ a {
 
 .matrixLegendHead span {
   color: var(--ink);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 900;
   line-height: 1.25;
 }
@@ -1091,7 +1124,7 @@ a {
 .matrixLegendCopy p {
   margin: 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--text-sub);
   font-weight: 850;
   line-height: 1.4;
 }
@@ -1118,7 +1151,7 @@ a {
   background: rgba(204, 41, 54, 0.08);
   box-shadow: inset 0 0 0 1px rgba(204, 41, 54, 0.22);
   color: var(--ink);
-  font-size: 15px;
+  font-size: var(--text-sub);
   font-weight: 850;
   line-height: 1.45;
 }
@@ -1143,7 +1176,8 @@ a {
   background: var(--panel-soft);
   color: var(--muted);
   font-family: var(--type-ui);
-  font-size: 12px;
+  font-size: var(--text-eyebrow);
+  font-style: italic;
   font-weight: 950;
   line-height: 1.2;
   text-transform: uppercase;
@@ -1175,7 +1209,7 @@ a {
 .traceLead {
   margin: 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--text-sub);
   font-weight: 850;
   line-height: 1.45;
 }
@@ -1332,8 +1366,8 @@ a {
 .footer {
   margin-top: 28px;
   color: var(--muted);
-  font-size: 13px;
-  font-weight: 900;
+  font-size: var(--text-sub);
+  font-weight: 850;
   line-height: 1.45;
   text-align: center;
 }

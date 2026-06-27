@@ -67,7 +67,7 @@ export function Dashboard({ data }: Props) {
       </section>
 
       <section className="grid twoCol">
-        <HealthScorePanel focus={focus} axes={view.healthMatrix} />
+        <HealthScorePanel focus={focus} />
 
         <DrivePicker
           sessions={data.sessions}

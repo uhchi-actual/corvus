@@ -330,9 +330,9 @@ a {
   line-height: 1;
 }
 
-.healthScoreBreakdown {
+.healthScoreContext {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   min-width: 0;
 }
 
@@ -345,129 +345,48 @@ a {
   line-height: 1.25;
 }
 
-.axisMiniBars {
+.healthScoreFacts {
   display: grid;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.axisMiniRow {
-  display: grid;
-  grid-template-columns: 28px minmax(0, 1fr) 42px;
-  gap: 8px;
-  align-items: center;
-}
-
-.axisMiniCode {
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 950;
-  line-height: 1;
-}
-
-.axisMiniTrack {
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(211, 188, 155, 0.12);
-  overflow: hidden;
-}
-
-.axisMiniFill {
-  display: block;
-  height: 100%;
-  width: var(--bar-width);
-  border-radius: inherit;
-  background: var(--bar-color);
-}
-
-.axisMiniValue {
-  color: var(--ink);
-  font-size: 12px;
-  font-weight: 950;
-  line-height: 1;
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-.healthScoreGauges {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
+  margin: 0;
 }
 
-.gaugeCard {
-  display: grid;
-  gap: 8px;
-  padding: 14px;
+.healthScoreFacts div {
+  padding: 12px 14px;
   border-radius: 8px;
   background: var(--panel-soft);
   box-shadow: inset 0 0 0 1px rgba(211, 188, 155, 0.1);
 }
 
-.gaugeCardStat {
-  align-content: center;
-}
-
-.gaugeLabel {
+.healthScoreFacts dt {
   color: var(--muted);
   font-size: 11px;
   font-weight: 950;
   line-height: 1.2;
-  letter-spacing: 0.02em;
 }
 
-.gaugeTrack {
-  height: 10px;
-  border-radius: 999px;
-  background: rgba(211, 188, 155, 0.12);
-  overflow: hidden;
-}
-
-.gaugeFill {
-  display: block;
-  height: 100%;
-  width: var(--gauge-width);
-  border-radius: inherit;
-  background: var(--gauge-color);
-}
-
-.penaltySplit {
-  display: flex;
-  height: 10px;
-  border-radius: 999px;
-  overflow: hidden;
-  background: rgba(211, 188, 155, 0.12);
-}
-
-.penaltyMetric {
-  background: linear-gradient(90deg, var(--uhchi-teal), rgba(31, 113, 108, 0.55));
-  min-width: 4px;
-}
-
-.penaltyDtc {
-  background: linear-gradient(90deg, var(--uhchi-red-deep), var(--uhchi-red));
-  min-width: 4px;
-}
-
-.gaugeStat {
+.healthScoreFacts dd {
+  margin: 5px 0 0;
   color: var(--ink);
-  font-size: 28px;
+  font-size: 17px;
   font-weight: 950;
-  line-height: 1;
+  line-height: 1.2;
   font-variant-numeric: tabular-nums;
 }
 
-.gaugeMeta {
+.healthScoreFacts dd.healthScoreMeta {
+  margin-top: 4px;
   color: var(--muted);
   font-size: 11px;
   font-weight: 950;
   line-height: 1.35;
 }
 
-.factGridCompact {
-  margin-top: 0;
+.healthScoreFacts dd.factFile {
+  font-size: 12px;
+  line-height: 1.35;
+  font-variant-numeric: normal;
+  word-break: break-word;
 }
 
 .meterLabel {
@@ -1757,10 +1676,6 @@ a {
     grid-template-columns: 1fr;
     justify-items: center;
     text-align: left;
-  }
-
-  .healthScoreGauges {
-    grid-template-columns: 1fr;
   }
 
   .scoreRingLarge {

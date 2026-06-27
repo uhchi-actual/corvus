@@ -35,3 +35,30 @@ export function trendChartAxes(trend: TrendPoint[]) {
     maxG: maxG.toFixed(1),
   };
 }
+
+export function formatDriveWindow(startedAt: string, endedAt: string) {
+  const startMs = Date.parse(startedAt);
+  const endMs = Date.parse(endedAt);
+  const clock = (ms: number) =>
+    new Date(ms).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+  if (!Number.isFinite(startMs) || !Number.isFinite(endMs) || endMs <= startMs) {
+    return {
+      clock: "—",
+      durationSec: 0,
+      duration: "—",
+    };
+  }
+
+  const durationSec = Math.round((endMs - startMs) / 1000);
+  const minutes = Math.floor(durationSec / 60);
+  const seconds = durationSec % 60;
+  const duration =
+    minutes > 0 ? `${minutes}m ${String(seconds).padStart(2, "0")}s` : `${seconds}s`;
+
+  return {
+    clock: `${clock(startMs)} – ${clock(endMs)}`,
+    durationSec,
+    duration,
+  };
+}

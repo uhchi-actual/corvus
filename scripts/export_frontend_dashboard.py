@@ -378,10 +378,7 @@ def _dashboard_payload(
         "disclaimer": DISCLAIMER,
         "healthGuide": {
             "title": "Drive health score",
-            "body": (
-                "0 to 100 from SQL. Higher is better. "
-                "Uses directional default thresholds you can edit in config."
-            ),
+            "body": "Composite SQL score for the selected session.",
         },
         "trendGuide": {
             "body": (

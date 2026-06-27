@@ -11,10 +11,10 @@ export function DrivePicker({ sessions, activeSessionId, onSelect }: Props) {
   return (
     <article className="panel sessionsPanel flowIn delayedTwo">
       <div className="panelHead">
-        <p>Three real cars</p>
-        <h2>Pick a drive</h2>
+        <p>Public source data</p>
+        <h2>Engine list</h2>
       </div>
-      <p className="guideCopy">Click a row to reload every panel for that vehicle.</p>
+      <p className="guideCopy">Select a vehicle to load its panels.</p>
       <div className="sessionList">
         {sessions.map((session) => {
           const isActive = session.session_id === activeSessionId;

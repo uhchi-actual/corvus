@@ -1,4 +1,5 @@
 import type { HealthAxis } from "../../types/dashboard";
+import { scoreColor } from "../../lib/score";
 
 type Props = {
   axes: HealthAxis[];
@@ -59,17 +60,6 @@ function polygonPoints(axes: HealthAxis[], count: number, scale: number) {
       return `${x},${y}`;
     })
     .join(" ");
-}
-
-/** 0 = red, 100 = teal (chart blue). */
-export function scoreColor(value: number): string {
-  const t = Math.max(0, Math.min(1, value / 100));
-  const red = { r: 168, g: 34, b: 46 };
-  const teal = { r: 31, g: 113, b: 108 };
-  const r = Math.round(red.r + (teal.r - red.r) * t);
-  const g = Math.round(red.g + (teal.g - red.g) * t);
-  const b = Math.round(red.b + (teal.b - red.b) * t);
-  return `rgb(${r},${g},${b})`;
 }
 
 function spokeValueLabel(angle: number, x: number, y: number) {
@@ -216,7 +206,7 @@ export function HealthMatrix({ axes, score }: Props) {
       </div>
 
       <div className="matrixLegendPanel">
-        <p className="matrixLegendTitle">Axis legend · high to low</p>
+        <p className="matrixLegendTitle">Axis legend, high to low</p>
         <ol className="matrixLegendGrid" aria-label="Performance axis legend sorted by score">
           {legendItems.map(({ axis, meta, value }) => {
             const railColor = scoreColor(value);

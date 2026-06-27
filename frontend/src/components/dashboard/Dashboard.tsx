@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 
 import type { DashboardData, CssVars, DtcRow } from "../../types/dashboard";
-import { cleanSourceFile } from "../../lib/format";
 import { DrivePicker } from "./DrivePicker";
+import { HealthScorePanel } from "./HealthScorePanel";
 import { HealthMatrix } from "./HealthMatrix";
 import { SourceProvenanceTabs } from "./SourceProvenanceTabs";
 
@@ -41,7 +41,7 @@ export function Dashboard({ data }: Props) {
         <div className="heroCopy">
           <div className="topLine">
             <span>{data.version}</span>
-            <span>real public telemetry</span>
+            <span>Real public telemetry</span>
           </div>
           <h1 id="corvus-title" className="wordmark" data-text="corvus">
             corvus
@@ -65,50 +65,7 @@ export function Dashboard({ data }: Props) {
       </section>
 
       <section className="grid twoCol">
-        <article className="panel scorePanel flowIn delayedOne">
-          <div className="panelHead">
-            <p>{data.healthGuide.title}</p>
-            <h2>{focus.vehicle}</h2>
-          </div>
-          <div
-            className="scoreRing"
-            style={{ "--score-width": focus.health_score_width } as CssVars}
-            aria-label={`Drive health ${focus.health_score}`}
-          >
-            <span>{focus.health_score}</span>
-          </div>
-          <p className="guideCopy">{data.healthGuide.body}</p>
-          <div className="meterBlock">
-            <div className="meterLabel">
-              <span>{focus.drive_label}</span>
-              <span>{focus.health_score_width}</span>
-            </div>
-            <div className="meterTrack">
-              <span
-                className="meterFill"
-                style={{ "--score-width": focus.health_score_width } as CssVars}
-              />
-            </div>
-          </div>
-          <dl className="factGrid">
-            <div>
-              <dt>Data points</dt>
-              <dd>{focus.telemetry_samples}</dd>
-            </div>
-            <div>
-              <dt>Fault codes</dt>
-              <dd>{focus.dtc_count}</dd>
-            </div>
-            <div>
-              <dt>Metric penalties</dt>
-              <dd>{focus.metric_penalty_points}</dd>
-            </div>
-            <div>
-              <dt>Source file</dt>
-              <dd className="factFile">{cleanSourceFile(focus.source_file)}</dd>
-            </div>
-          </dl>
-        </article>
+        <HealthScorePanel focus={focus} axes={view.healthMatrix} />
 
         <DrivePicker
           sessions={data.sessions}
@@ -120,7 +77,7 @@ export function Dashboard({ data }: Props) {
       <section className="grid">
         <article className="panel flowIn delayedTwo" key={`profile-${activeSessionId}`}>
           <div className="panelHead">
-            <p>SQL-derived axes</p>
+            <p>Five SQL metrics</p>
             <h2>Performance profile</h2>
           </div>
           <div className="panelSwap">

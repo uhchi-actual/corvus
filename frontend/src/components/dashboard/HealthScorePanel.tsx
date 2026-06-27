@@ -17,7 +17,7 @@ export function HealthScorePanel({ focus }: Props) {
   return (
     <article className="panel scorePanel flowIn delayedOne">
       <div className="panelHead">
-        <p>Drive health score</p>
+        <p>Drive Health Score</p>
         <h2>{focus.vehicle}</h2>
       </div>
 

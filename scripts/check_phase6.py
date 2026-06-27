@@ -14,7 +14,7 @@ def main() -> None:
     if "components/dashboard/Dashboard" not in page:
         raise SystemExit("Frontend is missing modular dashboard shell")
 
-    if "HealthMatrix" not in dashboard or "Performance profile" not in dashboard:
+    if "HealthMatrix" not in dashboard or "Performance Profile" not in dashboard:
         raise SystemExit("Frontend is missing performance profile chart")
 
     if "PipelineStrip" in dashboard or "SqlModuleGrid" in dashboard:
@@ -27,7 +27,7 @@ def main() -> None:
         if key not in payload:
             raise SystemExit(f"Dashboard payload is missing readability block: {key}")
 
-    if "sessionViews" not in payload or len(payload["sessionViews"]) < 3:
+    if "sessionViews" not in payload or len(payload["sessionViews"]) < 4:
         raise SystemExit("Dashboard payload is missing per-session views")
 
     default_view = payload["sessionViews"][str(payload["defaultSessionId"])]
@@ -40,7 +40,7 @@ def main() -> None:
         raise SystemExit("Dashboard payload is missing performance concerns")
 
     records = payload["dataSource"].get("records", [])
-    if len(records) < 3:
+    if len(records) < 4:
         raise SystemExit("Provenance records are missing public drive entries")
 
     resume = (ROOT / "README.md").read_text(encoding="utf-8")

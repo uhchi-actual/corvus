@@ -18,6 +18,9 @@ PUBLIC_SEED_SOURCES = {
         "source_file": "2018-03-26_Seat_Leon_S_RT_Stau.csv",
         "min_warm_coolant_c": WARM_COOLANT_MIN_C,
     },
+    "public_obd_kit_cold.csv": {
+        "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+    },
 }
 
 SOURCE_COLUMNS = {

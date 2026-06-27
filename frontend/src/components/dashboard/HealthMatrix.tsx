@@ -202,7 +202,7 @@ export function HealthMatrix({ axes, score }: Props) {
       </div>
 
       <div className="matrixLegendPanel">
-        <p className="matrixLegendTitle">Axis legend, high to low</p>
+        <p className="matrixLegendTitle">Axis Legend, High to Low</p>
         <ol className="matrixLegendGrid" aria-label="Performance axis legend sorted by score">
           {legendItems.map(({ axis, meta, value }) => {
             const railColor = scoreColor(value);

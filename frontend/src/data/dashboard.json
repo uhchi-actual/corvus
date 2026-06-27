@@ -3,36 +3,36 @@
   "version": "v1",
   "statement": "OBD-II telemetry ingestion, SQL analytics, and drive health scoring.",
   "focus": {
-    "session_id": 5,
-    "vehicle": "VED Car 1.5L",
+    "session_id": 4,
+    "vehicle": "Seat Leon",
     "source": "public",
-    "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=8; Trip=708; drive_label=Ann Arbor week log; license=Apache-2.0.",
-    "source_file": "VED_171101_week.csv",
-    "drive_label": "Ann Arbor week log",
-    "started_at": "2017-11-02T13:51:53.106Z",
-    "ended_at": "2017-11-02T13:55:03.506Z",
-    "health_score": "99.7",
-    "health_score_width": "99.7%",
-    "metric_penalty_points": "0.3",
+    "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=Cold Start Log; license=CC BY 4.0.",
+    "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+    "drive_label": "Cold Start Log",
+    "started_at": "2018-03-21T19:09:16.713Z",
+    "ended_at": "2018-03-21T19:13:15.061Z",
+    "health_score": "88.0",
+    "health_score_width": "88.0%",
+    "metric_penalty_points": "12.0",
     "dtc_penalty_points": "0.0",
     "dtc_count": "0",
     "telemetry_samples": "240",
     "score_basis": "directional editable scoring config",
-    "pct_out_of_range": "2.9",
-    "baseline_width": "2.9%",
-    "out_of_range_samples": "7",
+    "pct_out_of_range": "100.0",
+    "baseline_width": "100.0%",
+    "out_of_range_samples": "240",
     "sample_count": "240"
   },
-  "defaultSessionId": 5,
+  "defaultSessionId": 4,
   "sessionViews": {
     "3": {
       "focus": {
         "session_id": 3,
         "vehicle": "Seat Leon",
         "source": "public",
-        "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-26_Seat_Leon_S_RT_Stau.csv; drive_label=Traffic jam log; license=CC BY 4.0.",
+        "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-26_Seat_Leon_S_RT_Stau.csv; drive_label=Traffic Jam Log; license=CC BY 4.0.",
         "source_file": "2018-03-26_Seat_Leon_S_RT_Stau.csv",
-        "drive_label": "Traffic jam log",
+        "drive_label": "Traffic Jam Log",
         "started_at": "2018-03-26T18:06:33.719Z",
         "ended_at": "2018-03-26T18:10:32.038Z",
         "health_score": "100.0",
@@ -356,29 +356,371 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-339bb9a3a92d44b4b50aee72f405364f",
+      "agentTraceId": "agent-0dd5cc71ae424194a1a8725b0740ca2d",
       "dtcSummary": "No DTC rows were logged for this session."
     },
     "4": {
       "focus": {
         "session_id": 4,
-        "vehicle": "VED ICE 6.0L V8",
+        "vehicle": "Seat Leon",
         "source": "public",
-        "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=108; Trip=784; drive_label=Ann Arbor week log; license=Apache-2.0.",
-        "source_file": "VED_171101_week.csv",
-        "drive_label": "Ann Arbor week log",
-        "started_at": "2017-11-02T13:27:31.820Z",
-        "ended_at": "2017-11-02T13:30:47.520Z",
-        "health_score": "100.0",
-        "health_score_width": "100.0%",
-        "metric_penalty_points": "0.0",
+        "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=Cold Start Log; license=CC BY 4.0.",
+        "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+        "drive_label": "Cold Start Log",
+        "started_at": "2018-03-21T19:09:16.713Z",
+        "ended_at": "2018-03-21T19:13:15.061Z",
+        "health_score": "88.0",
+        "health_score_width": "88.0%",
+        "metric_penalty_points": "12.0",
         "dtc_penalty_points": "0.0",
         "dtc_count": "0",
         "telemetry_samples": "240",
         "score_basis": "directional editable scoring config",
-        "pct_out_of_range": "0.0",
-        "baseline_width": "0.0%",
-        "out_of_range_samples": "0",
+        "pct_out_of_range": "100.0",
+        "baseline_width": "100.0%",
+        "out_of_range_samples": "240",
+        "sample_count": "240"
+      },
+      "trend": [
+        {
+          "ts": "2018-03-21T19:09:16.713Z",
+          "speed_kph": "0.00",
+          "maf_gps": "0.88",
+          "maf_30s": "0.88",
+          "height_pct": "16.6%"
+        },
+        {
+          "ts": "2018-03-21T19:09:26.043Z",
+          "speed_kph": "0.00",
+          "maf_gps": "0.88",
+          "maf_30s": "0.88",
+          "height_pct": "16.6%"
+        },
+        {
+          "ts": "2018-03-21T19:09:36.003Z",
+          "speed_kph": "1.00",
+          "maf_gps": "16.94",
+          "maf_30s": "6.88",
+          "height_pct": "34.7%"
+        },
+        {
+          "ts": "2018-03-21T19:09:46.083Z",
+          "speed_kph": "2.00",
+          "maf_gps": "16.94",
+          "maf_30s": "10.07",
+          "height_pct": "44.3%"
+        },
+        {
+          "ts": "2018-03-21T19:09:56.013Z",
+          "speed_kph": "13.00",
+          "maf_gps": "25.49",
+          "maf_30s": "17.38",
+          "height_pct": "66.3%"
+        },
+        {
+          "ts": "2018-03-21T19:10:06.032Z",
+          "speed_kph": "21.00",
+          "maf_gps": "22.44",
+          "maf_30s": "21.62",
+          "height_pct": "79.1%"
+        },
+        {
+          "ts": "2018-03-21T19:10:16.022Z",
+          "speed_kph": "9.00",
+          "maf_gps": "16.69",
+          "maf_30s": "23.25",
+          "height_pct": "84.0%"
+        },
+        {
+          "ts": "2018-03-21T19:10:26.043Z",
+          "speed_kph": "19.00",
+          "maf_gps": "54.13",
+          "maf_30s": "22.60",
+          "height_pct": "82.0%"
+        },
+        {
+          "ts": "2018-03-21T19:10:36.062Z",
+          "speed_kph": "4.00",
+          "maf_gps": "16.94",
+          "maf_30s": "20.87",
+          "height_pct": "76.8%"
+        },
+        {
+          "ts": "2018-03-21T19:10:46.022Z",
+          "speed_kph": "1.00",
+          "maf_gps": "15.69",
+          "maf_30s": "19.02",
+          "height_pct": "71.3%"
+        },
+        {
+          "ts": "2018-03-21T19:10:56.012Z",
+          "speed_kph": "4.00",
+          "maf_gps": "16.05",
+          "maf_30s": "18.80",
+          "height_pct": "70.6%"
+        },
+        {
+          "ts": "2018-03-21T19:11:06.002Z",
+          "speed_kph": "29.00",
+          "maf_gps": "30.08",
+          "maf_30s": "19.88",
+          "height_pct": "73.9%"
+        },
+        {
+          "ts": "2018-03-21T19:11:16.052Z",
+          "speed_kph": "9.00",
+          "maf_gps": "27.08",
+          "maf_30s": "21.33",
+          "height_pct": "78.2%"
+        },
+        {
+          "ts": "2018-03-21T19:11:26.012Z",
+          "speed_kph": "0.00",
+          "maf_gps": "14.97",
+          "maf_30s": "21.82",
+          "height_pct": "79.7%"
+        },
+        {
+          "ts": "2018-03-21T19:11:36.062Z",
+          "speed_kph": "0.00",
+          "maf_gps": "14.97",
+          "maf_30s": "18.55",
+          "height_pct": "69.8%"
+        },
+        {
+          "ts": "2018-03-21T19:11:46.052Z",
+          "speed_kph": "4.00",
+          "maf_gps": "15.91",
+          "maf_30s": "16.52",
+          "height_pct": "63.7%"
+        },
+        {
+          "ts": "2018-03-21T19:11:56.042Z",
+          "speed_kph": "14.00",
+          "maf_gps": "16.74",
+          "maf_30s": "19.00",
+          "height_pct": "71.2%"
+        },
+        {
+          "ts": "2018-03-21T19:12:06.032Z",
+          "speed_kph": "0.00",
+          "maf_gps": "14.88",
+          "maf_30s": "18.84",
+          "height_pct": "70.7%"
+        },
+        {
+          "ts": "2018-03-21T19:12:16.082Z",
+          "speed_kph": "0.00",
+          "maf_gps": "9.72",
+          "maf_30s": "17.67",
+          "height_pct": "67.2%"
+        },
+        {
+          "ts": "2018-03-21T19:12:26.072Z",
+          "speed_kph": "19.00",
+          "maf_gps": "33.99",
+          "maf_30s": "13.78",
+          "height_pct": "55.5%"
+        },
+        {
+          "ts": "2018-03-21T19:12:36.032Z",
+          "speed_kph": "31.00",
+          "maf_gps": "12.91",
+          "maf_30s": "14.87",
+          "height_pct": "58.8%"
+        },
+        {
+          "ts": "2018-03-21T19:12:46.022Z",
+          "speed_kph": "0.00",
+          "maf_gps": "9.86",
+          "maf_30s": "14.43",
+          "height_pct": "57.4%"
+        },
+        {
+          "ts": "2018-03-21T19:12:56.012Z",
+          "speed_kph": "0.00",
+          "maf_gps": "9.66",
+          "maf_30s": "13.61",
+          "height_pct": "55.0%"
+        },
+        {
+          "ts": "2018-03-21T19:13:06.031Z",
+          "speed_kph": "0.00",
+          "maf_gps": "9.69",
+          "maf_30s": "10.00",
+          "height_pct": "44.1%"
+        },
+        {
+          "ts": "2018-03-21T19:13:15.061Z",
+          "speed_kph": "0.00",
+          "maf_gps": "9.33",
+          "maf_30s": "9.51",
+          "height_pct": "42.6%"
+        }
+      ],
+      "dtcEvidence": [
+        {
+          "code": "none logged",
+          "status": "none",
+          "description": "No diagnostic trouble code was logged in this real public entry.",
+          "fault_ts": "",
+          "ts": "",
+          "rpm": "n/a",
+          "engine_load_pct": "n/a",
+          "coolant_temp_c": "n/a"
+        }
+      ],
+      "healthMatrix": [
+        {
+          "id": "drive_health",
+          "label": "Drive health",
+          "value": "88.0",
+          "width_pct": "88.0%"
+        },
+        {
+          "id": "baseline_fit",
+          "label": "Baseline fit",
+          "value": "0.0",
+          "width_pct": "0.0%"
+        },
+        {
+          "id": "airflow",
+          "label": "Airflow",
+          "value": "74.6",
+          "width_pct": "74.6%"
+        },
+        {
+          "id": "fault_clearance",
+          "label": "Fault clearance",
+          "value": "100.0",
+          "width_pct": "100.0%"
+        },
+        {
+          "id": "sensor_balance",
+          "label": "Sensor balance",
+          "value": "52.0",
+          "width_pct": "52.0%"
+        }
+      ],
+      "performanceConcerns": [
+        {
+          "level": "watch",
+          "text": "Several logged metrics sat outside this vehicle's baseline bands for this drive \u2014 check sensors and drive context before assuming normal operation."
+        },
+        {
+          "level": "watch",
+          "text": "Coolant readings mostly sat outside the expected warm band \u2014 check the cooling system or the sensor before assuming normal operation."
+        },
+        {
+          "level": "watch",
+          "text": "Engine load and trim readings added measurable penalty points \u2014 the engine may have been working harder or running less evenly than a clean reference drive."
+        }
+      ],
+      "agentTrace": [
+        {
+          "agent": "corvus",
+          "node": "agent_trace",
+          "kind": "deterministic",
+          "summary": "Trace created before analysis output.",
+          "title": "Open trace",
+          "body": "Trace created before analysis output.",
+          "agent_name": "Corvus",
+          "agent_tagline": "Writes the report"
+        },
+        {
+          "agent": "huginn",
+          "node": "ingest_normalizer",
+          "kind": "deterministic",
+          "summary": "Loaded the logged drive from the database.",
+          "title": "Load the drive",
+          "body": "Loaded the logged drive from the database.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "huginn",
+          "node": "sql_deviation",
+          "kind": "deterministic",
+          "summary": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
+          "title": "Run SQL checks",
+          "body": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "huginn",
+          "node": "dtc_interpreter",
+          "kind": "deterministic",
+          "summary": "Listed diagnostic trouble codes logged on this drive.",
+          "title": "Read fault codes",
+          "body": "Listed diagnostic trouble codes logged on this drive.",
+          "agent_name": "Huginn",
+          "agent_tagline": "Reads this drive"
+        },
+        {
+          "agent": "muninn",
+          "node": "baseline_recall",
+          "kind": "deterministic",
+          "summary": "Loaded stored healthy ranges for this vehicle.",
+          "title": "Load healthy ranges",
+          "body": "Loaded stored healthy ranges for this vehicle.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "muninn",
+          "node": "correlation",
+          "kind": "deterministic",
+          "summary": "Matched fault timestamps to nearby engine sensor rows.",
+          "title": "Match faults to sensors",
+          "body": "Matched fault timestamps to nearby engine sensor rows.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "muninn",
+          "node": "recommendation",
+          "kind": "deterministic",
+          "summary": "Ranked what to inspect next from SQL facts only.",
+          "title": "State next checks",
+          "body": "Ranked what to inspect next from SQL facts only.",
+          "agent_name": "Muninn",
+          "agent_tagline": "Recalls what normal looks like"
+        },
+        {
+          "agent": "corvus",
+          "node": "report_writer",
+          "kind": "deterministic",
+          "summary": "Saved the finding with trace id for audit.",
+          "title": "Save finding",
+          "body": "Saved the finding with trace id for audit.",
+          "agent_name": "Corvus",
+          "agent_tagline": "Writes the report"
+        }
+      ],
+      "agentTraceId": "agent-fc41471e16ca4c4aab2379335e685807",
+      "dtcSummary": "No DTC rows were logged for this session."
+    },
+    "5": {
+      "focus": {
+        "session_id": 5,
+        "vehicle": "VED ICE 6.0L V8",
+        "source": "public",
+        "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=108; Trip=784; drive_label=Ann Arbor Week Log; license=Apache-2.0.",
+        "source_file": "VED_171101_week.csv",
+        "drive_label": "Ann Arbor Week Log",
+        "started_at": "2017-11-02T13:27:31.820Z",
+        "ended_at": "2017-11-02T13:30:47.520Z",
+        "health_score": "96.2",
+        "health_score_width": "96.2%",
+        "metric_penalty_points": "3.9",
+        "dtc_penalty_points": "0.0",
+        "dtc_count": "0",
+        "telemetry_samples": "240",
+        "score_basis": "directional editable scoring config",
+        "pct_out_of_range": "32.1",
+        "baseline_width": "32.1%",
+        "out_of_range_samples": "77",
         "sample_count": "240"
       },
       "trend": [
@@ -574,14 +916,14 @@
         {
           "id": "drive_health",
           "label": "Drive health",
-          "value": "100.0",
-          "width_pct": "100.0%"
+          "value": "96.2",
+          "width_pct": "96.2%"
         },
         {
           "id": "baseline_fit",
           "label": "Baseline fit",
-          "value": "100.0",
-          "width_pct": "100.0%"
+          "value": "67.9",
+          "width_pct": "67.9%"
         },
         {
           "id": "airflow",
@@ -598,8 +940,8 @@
         {
           "id": "sensor_balance",
           "label": "Sensor balance",
-          "value": "100.0",
-          "width_pct": "100.0%"
+          "value": "67.9",
+          "width_pct": "67.9%"
         }
       ],
       "performanceConcerns": [
@@ -690,29 +1032,29 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-cf2fe58f26a34dc7aab4faeb8a926626",
+      "agentTraceId": "agent-2f4a4bf7ba234c6084bc8774461d9f48",
       "dtcSummary": "No DTC rows were logged for this session."
     },
-    "5": {
+    "6": {
       "focus": {
-        "session_id": 5,
+        "session_id": 6,
         "vehicle": "VED Car 1.5L",
         "source": "public",
-        "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=8; Trip=708; drive_label=Ann Arbor week log; license=Apache-2.0.",
+        "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=8; Trip=708; drive_label=Ann Arbor Week Log; license=Apache-2.0.",
         "source_file": "VED_171101_week.csv",
-        "drive_label": "Ann Arbor week log",
+        "drive_label": "Ann Arbor Week Log",
         "started_at": "2017-11-02T13:51:53.106Z",
         "ended_at": "2017-11-02T13:55:03.506Z",
-        "health_score": "99.7",
-        "health_score_width": "99.7%",
-        "metric_penalty_points": "0.3",
+        "health_score": "95.0",
+        "health_score_width": "95.0%",
+        "metric_penalty_points": "4.9",
         "dtc_penalty_points": "0.0",
         "dtc_count": "0",
         "telemetry_samples": "240",
         "score_basis": "directional editable scoring config",
-        "pct_out_of_range": "2.9",
-        "baseline_width": "2.9%",
-        "out_of_range_samples": "7",
+        "pct_out_of_range": "41.3",
+        "baseline_width": "41.3%",
+        "out_of_range_samples": "99",
         "sample_count": "240"
       },
       "trend": [
@@ -908,14 +1250,14 @@
         {
           "id": "drive_health",
           "label": "Drive health",
-          "value": "99.7",
-          "width_pct": "99.7%"
+          "value": "95.0",
+          "width_pct": "95.0%"
         },
         {
           "id": "baseline_fit",
           "label": "Baseline fit",
-          "value": "97.1",
-          "width_pct": "97.1%"
+          "value": "58.7",
+          "width_pct": "58.7%"
         },
         {
           "id": "airflow",
@@ -932,8 +1274,8 @@
         {
           "id": "sensor_balance",
           "label": "Sensor balance",
-          "value": "97.1",
-          "width_pct": "97.1%"
+          "value": "58.7",
+          "width_pct": "58.7%"
         }
       ],
       "performanceConcerns": [
@@ -1024,7 +1366,7 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-32769ac74c8a43f29b33a96bc8107cae",
+      "agentTraceId": "agent-ef766090d0a34289b8bb635b96b6a47b",
       "dtcSummary": "No DTC rows were logged for this session."
     }
   },
@@ -1033,9 +1375,9 @@
       "session_id": 3,
       "vehicle": "Seat Leon",
       "source": "public",
-      "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-26_Seat_Leon_S_RT_Stau.csv; drive_label=Traffic jam log; license=CC BY 4.0.",
+      "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-26_Seat_Leon_S_RT_Stau.csv; drive_label=Traffic Jam Log; license=CC BY 4.0.",
       "source_file": "2018-03-26_Seat_Leon_S_RT_Stau.csv",
-      "drive_label": "Traffic jam log",
+      "drive_label": "Traffic Jam Log",
       "health_score": "100.0",
       "health_score_width": "100.0%",
       "telemetry_samples": "240",
@@ -1045,208 +1387,222 @@
     },
     {
       "session_id": 4,
-      "vehicle": "VED ICE 6.0L V8",
+      "vehicle": "Seat Leon",
       "source": "public",
-      "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=108; Trip=784; drive_label=Ann Arbor week log; license=Apache-2.0.",
-      "source_file": "VED_171101_week.csv",
-      "drive_label": "Ann Arbor week log",
-      "health_score": "100.0",
-      "health_score_width": "100.0%",
+      "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=Cold Start Log; license=CC BY 4.0.",
+      "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+      "drive_label": "Cold Start Log",
+      "health_score": "88.0",
+      "health_score_width": "88.0%",
       "telemetry_samples": "240",
       "dtc_count": "0",
-      "pct_out_of_range": "0.0",
-      "baseline_width": "0.0%"
+      "pct_out_of_range": "100.0",
+      "baseline_width": "100.0%"
     },
     {
       "session_id": 5,
-      "vehicle": "VED Car 1.5L",
+      "vehicle": "VED ICE 6.0L V8",
       "source": "public",
-      "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=8; Trip=708; drive_label=Ann Arbor week log; license=Apache-2.0.",
+      "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=108; Trip=784; drive_label=Ann Arbor Week Log; license=Apache-2.0.",
       "source_file": "VED_171101_week.csv",
-      "drive_label": "Ann Arbor week log",
-      "health_score": "99.7",
-      "health_score_width": "99.7%",
+      "drive_label": "Ann Arbor Week Log",
+      "health_score": "96.2",
+      "health_score_width": "96.2%",
       "telemetry_samples": "240",
       "dtc_count": "0",
-      "pct_out_of_range": "2.9",
-      "baseline_width": "2.9%"
+      "pct_out_of_range": "32.1",
+      "baseline_width": "32.1%"
+    },
+    {
+      "session_id": 6,
+      "vehicle": "VED Car 1.5L",
+      "source": "public",
+      "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=8; Trip=708; drive_label=Ann Arbor Week Log; license=Apache-2.0.",
+      "source_file": "VED_171101_week.csv",
+      "drive_label": "Ann Arbor Week Log",
+      "health_score": "95.0",
+      "health_score_width": "95.0%",
+      "telemetry_samples": "240",
+      "dtc_count": "0",
+      "pct_out_of_range": "41.3",
+      "baseline_width": "41.3%"
     }
   ],
   "trend": [
     {
-      "ts": "2017-11-02T13:51:53.106Z",
-      "speed_kph": "16.00",
-      "maf_gps": "6.70",
-      "maf_30s": "6.70",
-      "height_pct": "43.4%"
-    },
-    {
-      "ts": "2017-11-02T13:51:58.906Z",
-      "speed_kph": "31.00",
-      "maf_gps": "15.60",
-      "maf_30s": "12.36",
-      "height_pct": "68.2%"
-    },
-    {
-      "ts": "2017-11-02T13:52:06.606Z",
-      "speed_kph": "26.00",
-      "maf_gps": "4.48",
-      "maf_30s": "9.86",
-      "height_pct": "57.3%"
-    },
-    {
-      "ts": "2017-11-02T13:52:12.806Z",
-      "speed_kph": "18.00",
-      "maf_gps": "9.54",
-      "maf_30s": "8.63",
-      "height_pct": "51.9%"
-    },
-    {
-      "ts": "2017-11-02T13:52:19.306Z",
-      "speed_kph": "35.00",
-      "maf_gps": "15.69",
-      "maf_30s": "9.55",
-      "height_pct": "55.9%"
-    },
-    {
-      "ts": "2017-11-02T13:52:26.706Z",
-      "speed_kph": "44.00",
-      "maf_gps": "6.91",
-      "maf_30s": "9.80",
-      "height_pct": "57.0%"
-    },
-    {
-      "ts": "2017-11-02T13:52:36.206Z",
-      "speed_kph": "49.00",
-      "maf_gps": "18.97",
-      "maf_30s": "12.01",
-      "height_pct": "66.7%"
-    },
-    {
-      "ts": "2017-11-02T13:52:43.506Z",
-      "speed_kph": "40.00",
-      "maf_gps": "6.15",
-      "maf_30s": "11.14",
-      "height_pct": "62.9%"
-    },
-    {
-      "ts": "2017-11-02T13:52:53.806Z",
-      "speed_kph": "45.00",
-      "maf_gps": "2.93",
-      "maf_30s": "9.18",
-      "height_pct": "54.3%"
-    },
-    {
-      "ts": "2017-11-02T13:53:03.306Z",
-      "speed_kph": "48.00",
-      "maf_gps": "2.96",
-      "maf_30s": "6.52",
-      "height_pct": "42.6%"
-    },
-    {
-      "ts": "2017-11-02T13:53:13.806Z",
-      "speed_kph": "53.00",
-      "maf_gps": "3.55",
-      "maf_30s": "3.48",
-      "height_pct": "29.3%"
-    },
-    {
-      "ts": "2017-11-02T13:53:19.106Z",
-      "speed_kph": "29.00",
-      "maf_gps": "3.52",
-      "maf_30s": "3.31",
-      "height_pct": "28.5%"
-    },
-    {
-      "ts": "2017-11-02T13:53:24.806Z",
+      "ts": "2018-03-21T19:09:16.713Z",
       "speed_kph": "0.00",
-      "maf_gps": "16.65",
-      "maf_30s": "3.90",
-      "height_pct": "31.1%"
+      "maf_gps": "0.88",
+      "maf_30s": "0.88",
+      "height_pct": "16.6%"
     },
     {
-      "ts": "2017-11-02T13:53:30.706Z",
-      "speed_kph": "31.00",
-      "maf_gps": "21.33",
-      "maf_30s": "8.19",
-      "height_pct": "49.9%"
+      "ts": "2018-03-21T19:09:26.043Z",
+      "speed_kph": "0.00",
+      "maf_gps": "0.88",
+      "maf_30s": "0.88",
+      "height_pct": "16.6%"
     },
     {
-      "ts": "2017-11-02T13:53:37.906Z",
-      "speed_kph": "43.00",
-      "maf_gps": "22.01",
-      "maf_30s": "12.26",
-      "height_pct": "67.8%"
+      "ts": "2018-03-21T19:09:36.003Z",
+      "speed_kph": "1.00",
+      "maf_gps": "16.94",
+      "maf_30s": "6.88",
+      "height_pct": "34.7%"
     },
     {
-      "ts": "2017-11-02T13:53:48.606Z",
-      "speed_kph": "40.00",
-      "maf_gps": "3.64",
-      "maf_30s": "15.31",
-      "height_pct": "81.2%"
+      "ts": "2018-03-21T19:09:46.083Z",
+      "speed_kph": "2.00",
+      "maf_gps": "16.94",
+      "maf_30s": "10.07",
+      "height_pct": "44.3%"
     },
     {
-      "ts": "2017-11-02T13:53:59.006Z",
+      "ts": "2018-03-21T19:09:56.013Z",
       "speed_kph": "13.00",
-      "maf_gps": "2.93",
-      "maf_30s": "11.13",
-      "height_pct": "62.8%"
+      "maf_gps": "25.49",
+      "maf_30s": "17.38",
+      "height_pct": "66.3%"
     },
     {
-      "ts": "2017-11-02T13:54:09.406Z",
-      "speed_kph": "38.00",
-      "maf_gps": "21.90",
-      "maf_30s": "11.17",
-      "height_pct": "63.0%"
+      "ts": "2018-03-21T19:10:06.032Z",
+      "speed_kph": "21.00",
+      "maf_gps": "22.44",
+      "maf_30s": "21.62",
+      "height_pct": "79.1%"
     },
     {
-      "ts": "2017-11-02T13:54:19.206Z",
-      "speed_kph": "55.00",
-      "maf_gps": "23.93",
-      "maf_30s": "14.85",
-      "height_pct": "79.2%"
-    },
-    {
-      "ts": "2017-11-02T13:54:25.706Z",
-      "speed_kph": "54.00",
-      "maf_gps": "5.69",
-      "maf_30s": "15.95",
+      "ts": "2018-03-21T19:10:16.022Z",
+      "speed_kph": "9.00",
+      "maf_gps": "16.69",
+      "maf_30s": "23.25",
       "height_pct": "84.0%"
     },
     {
-      "ts": "2017-11-02T13:54:34.106Z",
-      "speed_kph": "57.00",
-      "maf_gps": "3.58",
-      "maf_30s": "12.95",
-      "height_pct": "70.8%"
+      "ts": "2018-03-21T19:10:26.043Z",
+      "speed_kph": "19.00",
+      "maf_gps": "54.13",
+      "maf_30s": "22.60",
+      "height_pct": "82.0%"
     },
     {
-      "ts": "2017-11-02T13:54:43.406Z",
-      "speed_kph": "56.00",
-      "maf_gps": "3.67",
-      "maf_30s": "5.73",
-      "height_pct": "39.1%"
+      "ts": "2018-03-21T19:10:36.062Z",
+      "speed_kph": "4.00",
+      "maf_gps": "16.94",
+      "maf_30s": "20.87",
+      "height_pct": "76.8%"
     },
     {
-      "ts": "2017-11-02T13:54:50.706Z",
-      "speed_kph": "47.00",
-      "maf_gps": "2.58",
-      "maf_30s": "4.14",
-      "height_pct": "32.2%"
+      "ts": "2018-03-21T19:10:46.022Z",
+      "speed_kph": "1.00",
+      "maf_gps": "15.69",
+      "maf_30s": "19.02",
+      "height_pct": "71.3%"
     },
     {
-      "ts": "2017-11-02T13:54:58.006Z",
-      "speed_kph": "50.00",
-      "maf_gps": "23.54",
-      "maf_30s": "5.46",
-      "height_pct": "38.0%"
+      "ts": "2018-03-21T19:10:56.012Z",
+      "speed_kph": "4.00",
+      "maf_gps": "16.05",
+      "maf_30s": "18.80",
+      "height_pct": "70.6%"
     },
     {
-      "ts": "2017-11-02T13:55:03.506Z",
-      "speed_kph": "68.00",
-      "maf_gps": "23.80",
-      "maf_30s": "11.88",
-      "height_pct": "66.1%"
+      "ts": "2018-03-21T19:11:06.002Z",
+      "speed_kph": "29.00",
+      "maf_gps": "30.08",
+      "maf_30s": "19.88",
+      "height_pct": "73.9%"
+    },
+    {
+      "ts": "2018-03-21T19:11:16.052Z",
+      "speed_kph": "9.00",
+      "maf_gps": "27.08",
+      "maf_30s": "21.33",
+      "height_pct": "78.2%"
+    },
+    {
+      "ts": "2018-03-21T19:11:26.012Z",
+      "speed_kph": "0.00",
+      "maf_gps": "14.97",
+      "maf_30s": "21.82",
+      "height_pct": "79.7%"
+    },
+    {
+      "ts": "2018-03-21T19:11:36.062Z",
+      "speed_kph": "0.00",
+      "maf_gps": "14.97",
+      "maf_30s": "18.55",
+      "height_pct": "69.8%"
+    },
+    {
+      "ts": "2018-03-21T19:11:46.052Z",
+      "speed_kph": "4.00",
+      "maf_gps": "15.91",
+      "maf_30s": "16.52",
+      "height_pct": "63.7%"
+    },
+    {
+      "ts": "2018-03-21T19:11:56.042Z",
+      "speed_kph": "14.00",
+      "maf_gps": "16.74",
+      "maf_30s": "19.00",
+      "height_pct": "71.2%"
+    },
+    {
+      "ts": "2018-03-21T19:12:06.032Z",
+      "speed_kph": "0.00",
+      "maf_gps": "14.88",
+      "maf_30s": "18.84",
+      "height_pct": "70.7%"
+    },
+    {
+      "ts": "2018-03-21T19:12:16.082Z",
+      "speed_kph": "0.00",
+      "maf_gps": "9.72",
+      "maf_30s": "17.67",
+      "height_pct": "67.2%"
+    },
+    {
+      "ts": "2018-03-21T19:12:26.072Z",
+      "speed_kph": "19.00",
+      "maf_gps": "33.99",
+      "maf_30s": "13.78",
+      "height_pct": "55.5%"
+    },
+    {
+      "ts": "2018-03-21T19:12:36.032Z",
+      "speed_kph": "31.00",
+      "maf_gps": "12.91",
+      "maf_30s": "14.87",
+      "height_pct": "58.8%"
+    },
+    {
+      "ts": "2018-03-21T19:12:46.022Z",
+      "speed_kph": "0.00",
+      "maf_gps": "9.86",
+      "maf_30s": "14.43",
+      "height_pct": "57.4%"
+    },
+    {
+      "ts": "2018-03-21T19:12:56.012Z",
+      "speed_kph": "0.00",
+      "maf_gps": "9.66",
+      "maf_30s": "13.61",
+      "height_pct": "55.0%"
+    },
+    {
+      "ts": "2018-03-21T19:13:06.031Z",
+      "speed_kph": "0.00",
+      "maf_gps": "9.69",
+      "maf_30s": "10.00",
+      "height_pct": "44.1%"
+    },
+    {
+      "ts": "2018-03-21T19:13:15.061Z",
+      "speed_kph": "0.00",
+      "maf_gps": "9.33",
+      "maf_30s": "9.51",
+      "height_pct": "42.6%"
     }
   ],
   "dtcEvidence": [
@@ -1343,7 +1699,7 @@
       "agent_tagline": "Writes the report"
     }
   ],
-  "agentTraceId": "agent-32769ac74c8a43f29b33a96bc8107cae",
+  "agentTraceId": "agent-fc41471e16ca4c4aab2379335e685807",
   "disclaimer": "Directional diagnostic guidance based on logged data - not a substitute for inspection by a certified technician.",
   "healthGuide": {
     "title": "Drive health score",
@@ -1374,6 +1730,7 @@
     ],
     "entries": [
       "2018-03-26_Seat_Leon_S_RT_Stau.csv",
+      "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
       "VED_171101_week.csv",
       "VED_171101_week.csv"
     ],
@@ -1381,21 +1738,28 @@
     "records": [
       {
         "vehicle": "Seat Leon",
-        "drive_label": "Traffic jam log",
+        "drive_label": "Traffic Jam Log",
         "source_file": "2018-03-26_Seat_Leon_S_RT_Stau.csv",
         "license": "e=CC BY 4.",
         "dataset_name": "KIT/RADAR Automotive OBD-II Dataset"
       },
       {
+        "vehicle": "Seat Leon",
+        "drive_label": "Cold Start Log",
+        "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+        "license": "e=CC BY 4.",
+        "dataset_name": "KIT/RADAR Automotive OBD-II Dataset"
+      },
+      {
         "vehicle": "VED ICE 6.0L V8",
-        "drive_label": "Ann Arbor week log",
+        "drive_label": "Ann Arbor Week Log",
         "source_file": "VED_171101_week.csv",
         "license": "e=Apache-2.",
         "dataset_name": "Vehicle Energy Dataset (VED)"
       },
       {
         "vehicle": "VED Car 1.5L",
-        "drive_label": "Ann Arbor week log",
+        "drive_label": "Ann Arbor Week Log",
         "source_file": "VED_171101_week.csv",
         "license": "e=Apache-2.",
         "dataset_name": "Vehicle Energy Dataset (VED)"

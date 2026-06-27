@@ -79,8 +79,8 @@ export function Dashboard({ data }: Props) {
       <section className="grid">
         <article className="panel flowIn delayedTwo" key={`profile-${activeSessionId}`}>
           <div className="panelHead">
-            <p>Five SQL metrics</p>
-            <h2>Performance profile</h2>
+            <p>Five SQL Metrics</p>
+            <h2>Performance Profile</h2>
           </div>
           <div className="panelSwap">
             <HealthMatrix axes={view.healthMatrix} score={focus.health_score} />
@@ -98,7 +98,7 @@ export function Dashboard({ data }: Props) {
       <section className="grid twoCol evidenceGrid">
         <article className="panel flowIn delayedThree" key={`airflow-${activeSessionId}`}>
           <div className="panelHead airflowHead">
-            <h2>Airflow data</h2>
+            <h2>Airflow Data</h2>
           </div>
           <div className="panelSwap">
             <div className="barChartFrame">

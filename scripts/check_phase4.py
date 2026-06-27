@@ -49,7 +49,7 @@ def main() -> None:
 
     telemetry_rows = _csv_count(EXPORT_DIR / "telemetry_samples.csv")
     health_rows = _csv_count(EXPORT_DIR / "health_scores.csv")
-    if telemetry_rows != 720 or health_rows != 3:
+    if telemetry_rows != 960 or health_rows != 4:
         raise SystemExit(
             f"Unexpected Power BI export counts: telemetry={telemetry_rows}, health={health_rows}"
         )

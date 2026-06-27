@@ -11,8 +11,8 @@ export function DrivePicker({ sessions, activeSessionId, onSelect }: Props) {
   return (
     <article className="panel sessionsPanel flowIn delayedTwo">
       <div className="panelHead">
-        <p>Public source data</p>
-        <h2>Engine list</h2>
+        <p>Public Source Data</p>
+        <h2>Engine List</h2>
       </div>
       <p className="guideCopy">Select a vehicle to load its panels.</p>
       <div className="sessionList">

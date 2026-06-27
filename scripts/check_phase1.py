@@ -46,7 +46,7 @@ def main() -> None:
         public_sessions = conn.execute(
             "SELECT COUNT(*) FROM drive_sessions WHERE source = 'public'"
         ).fetchone()[0]
-        if telemetry_count != 744 or dtc_count != 2 or baseline_count != 25 or public_sessions != 3:
+        if telemetry_count != 984 or dtc_count != 2 or baseline_count != 30 or public_sessions != 4:
             raise SystemExit(
                 "Unexpected seed counts: "
                 f"telemetry={telemetry_count}, dtc={dtc_count}, baselines={baseline_count}, "

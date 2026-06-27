@@ -16,7 +16,6 @@ from src.ingest.database import (  # noqa: E402
     initialize_database,
     insert_demo_baselines,
     insert_reference_baselines,
-    insert_vehicle_baselines_from_session,
 )
 from src.ingest.emulator_adapter import ingest_emulator_csv  # noqa: E402
 
@@ -24,7 +23,7 @@ PUBLIC_DRIVE_SOURCES = [
     {
         "seed_file": "public_obd_kit_normal.csv",
         "source_file": "2018-03-26_Seat_Leon_S_RT_Stau.csv",
-        "label": "Traffic jam log",
+        "label": "Traffic Jam Log",
         "vehicle": VehicleMetadata(
             vin=None,
             make="Seat",
@@ -37,10 +36,25 @@ PUBLIC_DRIVE_SOURCES = [
         "license": "CC BY 4.0",
     },
     {
+        "seed_file": "public_obd_kit_cold.csv",
+        "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
+        "label": "Cold Start Log",
+        "vehicle": VehicleMetadata(
+            vin=None,
+            make="Seat",
+            model="Leon",
+            year=None,
+            engine=None,
+            notes="Public KIT cold-start slice; DOI 10.35097/1130.",
+        ),
+        "dataset": "KIT/RADAR Automotive OBD-II Dataset",
+        "license": "CC BY 4.0",
+    },
+    {
         "seed_file": "public_obd_ved_6l_v8.csv",
         "source_file": "VED_171101_week.csv",
         "source_detail": "VehId=108; Trip=784",
-        "label": "Ann Arbor week log",
+        "label": "Ann Arbor Week Log",
         "vehicle": VehicleMetadata(
             vin=None,
             make="VED",
@@ -51,13 +65,12 @@ PUBLIC_DRIVE_SOURCES = [
         ),
         "dataset": "Vehicle Energy Dataset (VED)",
         "license": "Apache-2.0",
-        "session_derived_baseline": True,
     },
     {
         "seed_file": "public_obd_ved_car_1p5l.csv",
         "source_file": "VED_171101_week.csv",
         "source_detail": "VehId=8; Trip=708",
-        "label": "Ann Arbor week log",
+        "label": "Ann Arbor Week Log",
         "vehicle": VehicleMetadata(
             vin=None,
             make="VED",
@@ -68,7 +81,6 @@ PUBLIC_DRIVE_SOURCES = [
         ),
         "dataset": "Vehicle Energy Dataset (VED)",
         "license": "Apache-2.0",
-        "session_derived_baseline": True,
     },
 ]
 
@@ -130,14 +142,7 @@ def main() -> None:
                     ),
                 ),
             )
-            if source.get("session_derived_baseline"):
-                insert_vehicle_baselines_from_session(
-                    conn,
-                    public_result.vehicle_id,
-                    public_result.session_id,
-                )
-            else:
-                insert_reference_baselines(conn, public_result.vehicle_id)
+            insert_reference_baselines(conn, public_result.vehicle_id)
             public_results.append(public_result)
         conn.commit()
 

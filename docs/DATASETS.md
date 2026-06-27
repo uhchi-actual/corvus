@@ -9,7 +9,9 @@ Corvus ships synthetic seed logs plus normalized slices from public OBD-II archi
 - Repository page: https://www.radar-service.eu/radar/en/dataset/bCtGxdTklQlfQcAq
 - License: CC BY 4.0
 - Dashboard vehicle: Seat Leon
-- Dashboard source file: `2018-03-26_Seat_Leon_S_RT_Stau.csv` (traffic jam; warm engine, coolant ~88–91°C)
+- Dashboard source files:
+  - `2018-03-26_Seat_Leon_S_RT_Stau.csv` — warm traffic jam (good fit)
+  - `2018-03-21_Seat_Leon_KA_RT_Normal.csv` — cold start (coolant below warm band)
 
 `scripts/fetch_public_obd_dataset.py` downloads the archive, extracts the source CSV,
 forward-fills staggered PID rows, and writes `data/seed/public_obd_kit_normal.csv`.

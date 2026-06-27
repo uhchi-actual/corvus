@@ -59,7 +59,7 @@ export function SourceProvenanceTabs({ records, trace, traceId }: Props) {
             aria-selected={tab === "source"}
             onClick={() => setTab("source")}
           >
-            Source data
+            Source Data
           </button>
           <button
             type="button"
@@ -71,7 +71,7 @@ export function SourceProvenanceTabs({ records, trace, traceId }: Props) {
             Provenance
           </button>
         </div>
-        <h2>{tab === "source" ? "Source data" : "Provenance"}</h2>
+        <h2>{tab === "source" ? "Source Data" : "Provenance"}</h2>
       </div>
 
       {tab === "source" ? (

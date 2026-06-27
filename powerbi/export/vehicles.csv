@@ -1,4 +1,4 @@
 vehicle_id,vin,make,model,year,engine,notes
 3,,Seat,Leon,,,Public KIT Automotive OBD-II Dataset sample; DOI 10.35097/1130.
-4,,VED,ICE 6.0L V8,,8-4V/FI 6.0L,Public VED OBD-II slice; Apache 2.0; de-identified participant vehicle.
-5,,VED,Car 1.5L,,4-FI 1.5L,Public VED OBD-II slice; Apache 2.0; de-identified participant vehicle.
+4,,VED,ICE 6.0L V8,,8-4V/FI 6.0L,Public VED OBD-II slice; Apache 2.0; week export has no coolant PID.
+5,,VED,Car 1.5L,,4-FI 1.5L,Public VED OBD-II slice; Apache 2.0; week export has no coolant PID.

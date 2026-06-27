@@ -13,7 +13,7 @@ DB_PATH = ROOT / "data" / "seed" / "corvus.db"
 
 
 @pytest.mark.skipif(not DB_PATH.exists(), reason="seed database missing")
-def test_seat_leon_scores_against_warm_reference_band() -> None:
+def test_seat_leon_warm_drive_fits_warm_reference_band() -> None:
     with connect_sqlite(DB_PATH) as conn:
         seat_leon = conn.execute(
             """
@@ -45,7 +45,7 @@ def test_seat_leon_scores_against_warm_reference_band() -> None:
     assert band is not None
     assert band["context"] == "warm"
     assert band["source"] == "manual"
-    assert baseline[0]["pct_out_of_range"] >= 90.0
+    assert baseline[0]["pct_out_of_range"] <= 10.0
 
 
 @pytest.mark.skipif(not DB_PATH.exists(), reason="seed database missing")

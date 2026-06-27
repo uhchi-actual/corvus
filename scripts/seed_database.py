@@ -23,8 +23,8 @@ from src.ingest.emulator_adapter import ingest_emulator_csv  # noqa: E402
 PUBLIC_DRIVE_SOURCES = [
     {
         "seed_file": "public_obd_kit_normal.csv",
-        "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
-        "label": "normal commuter drive",
+        "source_file": "2018-03-26_Seat_Leon_S_RT_Stau.csv",
+        "label": "Traffic jam log",
         "vehicle": VehicleMetadata(
             vin=None,
             make="Seat",
@@ -47,7 +47,7 @@ PUBLIC_DRIVE_SOURCES = [
             model="ICE 6.0L V8",
             year=None,
             engine="8-4V/FI 6.0L",
-            notes="Public VED OBD-II slice; Apache 2.0; de-identified participant vehicle.",
+            notes="Public VED OBD-II slice; Apache 2.0; week export has no coolant PID.",
         ),
         "dataset": "Vehicle Energy Dataset (VED)",
         "license": "Apache-2.0",
@@ -64,7 +64,7 @@ PUBLIC_DRIVE_SOURCES = [
             model="Car 1.5L",
             year=None,
             engine="4-FI 1.5L",
-            notes="Public VED OBD-II slice; Apache 2.0; de-identified participant vehicle.",
+            notes="Public VED OBD-II slice; Apache 2.0; week export has no coolant PID.",
         ),
         "dataset": "Vehicle Energy Dataset (VED)",
         "license": "Apache-2.0",

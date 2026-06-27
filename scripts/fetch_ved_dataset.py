@@ -150,6 +150,7 @@ def _normalized_rows(
             output_row["speed_kph"] = speed
             output_row["engine_load_pct"] = load
             output_row["maf_gps"] = maf
+            output_row["intake_temp_c"] = _float_text(row.get("OAT[DegC]"))
             output_row["stft_b1_pct"] = _float_text(row.get("Short Term Fuel Trim Bank 1[%]"))
             output_row["ltft_b1_pct"] = _float_text(row.get("Long Term Fuel Trim Bank 1[%]"))
             rows.append(output_row)

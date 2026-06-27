@@ -15,6 +15,7 @@ from src.ingest.database import (  # noqa: E402
     connect_sqlite,
     initialize_database,
     insert_demo_baselines,
+    insert_reference_baselines,
     insert_vehicle_baselines_from_session,
 )
 from src.ingest.emulator_adapter import ingest_emulator_csv  # noqa: E402
@@ -50,6 +51,7 @@ PUBLIC_DRIVE_SOURCES = [
         ),
         "dataset": "Vehicle Energy Dataset (VED)",
         "license": "Apache-2.0",
+        "session_derived_baseline": True,
     },
     {
         "seed_file": "public_obd_ved_car_1p5l.csv",
@@ -66,6 +68,7 @@ PUBLIC_DRIVE_SOURCES = [
         ),
         "dataset": "Vehicle Energy Dataset (VED)",
         "license": "Apache-2.0",
+        "session_derived_baseline": True,
     },
 ]
 
@@ -84,7 +87,7 @@ def main() -> None:
         model="Corvette",
         year=2002,
         engine="LS1 5.7L V8",
-        notes="Synthetic demo vehicle; not a real VIN.",
+        notes="Synthetic control vehicle for agent pipeline testing; not a real VIN.",
     )
 
     with connect_sqlite(db_path) as conn:
@@ -127,11 +130,14 @@ def main() -> None:
                     ),
                 ),
             )
-            insert_vehicle_baselines_from_session(
-                conn,
-                public_result.vehicle_id,
-                public_result.session_id,
-            )
+            if source.get("session_derived_baseline"):
+                insert_vehicle_baselines_from_session(
+                    conn,
+                    public_result.vehicle_id,
+                    public_result.session_id,
+                )
+            else:
+                insert_reference_baselines(conn, public_result.vehicle_id)
             public_results.append(public_result)
         conn.commit()
 

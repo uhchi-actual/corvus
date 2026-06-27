@@ -34,7 +34,7 @@ JOIN baselines b
    FROM baselines b2
    WHERE b2.vehicle_id = s.vehicle_id
      AND b2.metric = 'coolant_temp_c'
-   ORDER BY CASE b2.context WHEN 'session' THEN 0 WHEN 'warming' THEN 1 ELSE 2 END
+   ORDER BY CASE WHEN b2.source = 'derived' THEN 0 WHEN b2.context = 'warm' THEN 1 WHEN b2.context = 'session' THEN 2 ELSE 3 END
    LIMIT 1
  )
 WHERE t.session_id = :session_id

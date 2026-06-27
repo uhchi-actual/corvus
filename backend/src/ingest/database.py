@@ -82,6 +82,11 @@ def insert_session(
 
 
 def insert_demo_baselines(conn: sqlite3.Connection, vehicle_id: int) -> None:
+    insert_reference_baselines(conn, vehicle_id)
+
+
+def insert_reference_baselines(conn: sqlite3.Connection, vehicle_id: int) -> None:
+    """Fixed OBD reference bands (warm coolant, cruise trims) for scoring real logs."""
     rows = [
         ("coolant_temp_c", "warm", 82.0, 105.0, "C", "manual"),
         ("ltft_b1_pct", "cruise", -10.0, 10.0, "%", "manual"),
@@ -136,7 +141,7 @@ def insert_vehicle_baselines_from_session(
             ),
         )
     else:
-        rows.insert(0, ("coolant_temp_c", "warm", 82.0, 105.0, "C", "manual"))
+        rows.insert(0, ("coolant_temp_c", "warming", 15.0, 95.0, "C", "manual"))
 
     conn.executemany(
         """

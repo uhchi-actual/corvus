@@ -98,3 +98,52 @@ def insert_demo_baselines(conn: sqlite3.Connection, vehicle_id: int) -> None:
         [(vehicle_id, *row) for row in rows],
     )
 
+
+def insert_vehicle_baselines_from_session(
+    conn: sqlite3.Connection,
+    vehicle_id: int,
+    session_id: int,
+) -> None:
+    rows: list[tuple[str, str, float, float, str, str]] = [
+        ("ltft_b1_pct", "cruise", -10.0, 10.0, "%", "manual"),
+        ("stft_b1_pct", "cruise", -10.0, 10.0, "%", "manual"),
+        ("engine_load_pct", "idle", 12.0, 35.0, "%", "manual"),
+        ("timing_adv_deg", "cruise", 10.0, 45.0, "deg", "manual"),
+    ]
+
+    coolant = conn.execute(
+        """
+        SELECT MIN(coolant_temp_c), MAX(coolant_temp_c), COUNT(coolant_temp_c)
+        FROM telemetry_samples
+        WHERE session_id = ?
+        """,
+        (session_id,),
+    ).fetchone()
+    if coolant and coolant[2] and coolant[0] is not None and coolant[1] is not None:
+        min_c = float(coolant[0])
+        max_c = float(coolant[1])
+        span = max(5.0, max_c - min_c)
+        pad = max(2.0, span * 0.12)
+        rows.insert(
+            0,
+            (
+                "coolant_temp_c",
+                "session",
+                round(min_c - pad, 1),
+                round(max_c + pad, 1),
+                "C",
+                "derived",
+            ),
+        )
+    else:
+        rows.insert(0, ("coolant_temp_c", "warm", 82.0, 105.0, "C", "manual"))
+
+    conn.executemany(
+        """
+        INSERT INTO baselines
+          (vehicle_id, metric, context, healthy_min, healthy_max, unit, source)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        """,
+        [(vehicle_id, *row) for row in rows],
+    )
+

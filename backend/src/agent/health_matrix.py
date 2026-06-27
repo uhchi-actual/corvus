@@ -50,14 +50,15 @@ def performance_concerns(
     concerns: list[dict[str, str]] = []
 
     baseline_pct = float(focus.get("pct_out_of_range") or 0)
-    if baseline_pct >= 50.0:
+    sample_count = int(float(focus.get("sample_count") or 0))
+    if baseline_pct >= 50.0 and sample_count > 0:
         concerns.append(
             {
                 "level": "watch",
                 "text": (
-                    "Coolant temperature mostly sat outside the stored healthy range "
-                    "for this log — check the cooling system or the sensor before "
-                    "assuming normal operation."
+                    "Coolant readings mostly sat outside the expected range "
+                    "for this drive profile — check the cooling system or the "
+                    "sensor before assuming normal operation."
                 ),
             }
         )

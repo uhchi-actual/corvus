@@ -15,6 +15,7 @@ from src.ingest.database import (  # noqa: E402
     connect_sqlite,
     initialize_database,
     insert_demo_baselines,
+    insert_vehicle_baselines_from_session,
 )
 from src.ingest.emulator_adapter import ingest_emulator_csv  # noqa: E402
 
@@ -125,7 +126,11 @@ def main() -> None:
                     ),
                 ),
             )
-            insert_demo_baselines(conn, public_result.vehicle_id)
+            insert_vehicle_baselines_from_session(
+                conn,
+                public_result.vehicle_id,
+                public_result.session_id,
+            )
             public_results.append(public_result)
         conn.commit()
 

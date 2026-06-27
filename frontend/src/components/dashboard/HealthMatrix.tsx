@@ -24,7 +24,7 @@ const AXIS_META: Record<string, AxisMeta> = {
   },
   baseline_fit: {
     code: "BF",
-    hint: "How closely readings stayed inside stored baseline bands.",
+    hint: "Coolant fit against this vehicle's session-derived band.",
   },
   airflow: {
     code: "AF",

@@ -1,5 +1,5 @@
 baseline_id,vehicle_id,metric,context,healthy_min,healthy_max,unit,source
-11,3,coolant_temp_c,warm,82.0,105.0,C,manual
+11,3,coolant_temp_c,session,15.0,36.0,C,derived
 12,3,ltft_b1_pct,cruise,-10.0,10.0,%,manual
 13,3,stft_b1_pct,cruise,-10.0,10.0,%,manual
 14,3,engine_load_pct,idle,12.0,35.0,%,manual

@@ -12,9 +12,8 @@ const CENTER = SIZE / 2;
 const RADIUS = 118;
 const BADGE_RADIUS = 13;
 const BADGE_RING = RADIUS + 34;
-const VALUE_LABEL_GAP = 14; // 25% closer than prior 18px gap past badge edge
-const VALUE_RING = BADGE_RING + BADGE_RADIUS + VALUE_LABEL_GAP;
-const SPOKE_LABEL_NUDGE = 2;
+const VALUE_LABEL_GAP = 14;
+const VALUE_OFFSET = BADGE_RADIUS + VALUE_LABEL_GAP;
 
 type AxisMeta = {
   code: string;
@@ -64,20 +63,14 @@ function polygonPoints(axes: HealthAxis[], count: number, scale: number) {
     .join(" ");
 }
 
-function spokeValueLabel(angle: number, x: number, y: number) {
-  const cos = Math.cos(angle);
-  const sin = Math.sin(angle);
-  let textAnchor: "start" | "middle" | "end" = "middle";
-  if (cos > 0.45) {
-    textAnchor = "start";
-  } else if (cos < -0.45) {
-    textAnchor = "end";
-  }
-  const nudge = textAnchor === "middle" ? 0 : SPOKE_LABEL_NUDGE;
+function spokeAngle(index: number, count: number) {
+  return (Math.PI * 2 * index) / count - Math.PI / 2;
+}
+
+function spokeValuePosition(badgeX: number, badgeY: number, angle: number) {
   return {
-    x: x + cos * nudge,
-    y: y + sin * nudge,
-    textAnchor,
+    x: badgeX + Math.cos(angle) * VALUE_OFFSET,
+    y: badgeY + Math.sin(angle) * VALUE_OFFSET,
   };
 }
 
@@ -93,10 +86,10 @@ export function HealthMatrix({ axes, score }: Props) {
 
   const axisLayouts = axes.map((axis, index) => {
     const value = Number(axis.value);
+    const angle = spokeAngle(index, count);
     const vertex = polarPoint(index, count, value);
     const badge = polarPoint(index, count, 100, BADGE_RING);
-    const valuePoint = polarPoint(index, count, 100, VALUE_RING);
-    const valueLabel = spokeValueLabel(vertex.angle, valuePoint.x, valuePoint.y);
+    const valueLabel = spokeValuePosition(badge.x, badge.y, angle);
     const meta = AXIS_META[axis.id] ?? { code: String(index + 1), hint: axis.label };
     return { axis, index, vertex, badge, meta, valueLabel, value };
   });
@@ -197,7 +190,7 @@ export function HealthMatrix({ axes, score }: Props) {
                 className="matrixAxisSpokeValue"
                 x={valueLabel.x}
                 y={valueLabel.y}
-                textAnchor={valueLabel.textAnchor}
+                textAnchor="middle"
                 dominantBaseline="central"
               >
                 {axes[index].value}

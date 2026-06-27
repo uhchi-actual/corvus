@@ -1164,6 +1164,7 @@ a {
   font-size: 12px;
   font-weight: 950;
   font-variant-numeric: tabular-nums;
+  text-anchor: middle;
   dominant-baseline: central;
 }
 

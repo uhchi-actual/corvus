@@ -15,6 +15,9 @@ const BADGE_RADIUS = 13;
 const BADGE_RING = RADIUS + 34;
 const VALUE_LABEL_GAP = 14;
 const VALUE_OFFSET = BADGE_RADIUS + VALUE_LABEL_GAP;
+const AXIS_BADGE_NUDGE: Partial<Record<string, { x: number; y: number }>> = {
+  fault_clearance: { x: -14, y: 0 },
+};
 
 type AxisMeta = {
   code: string;
@@ -89,7 +92,9 @@ export function HealthMatrix({ axes, score }: Props) {
     const value = Number(axis.value);
     const angle = spokeAngle(index, count);
     const vertex = polarPoint(index, count, value);
-    const badge = polarPoint(index, count, 100, BADGE_RING);
+    const badgePoint = polarPoint(index, count, 100, BADGE_RING);
+    const nudge = AXIS_BADGE_NUDGE[axis.id] ?? { x: 0, y: 0 };
+    const badge = { x: badgePoint.x + nudge.x, y: badgePoint.y + nudge.y };
     const valueLabel = spokeValuePosition(badge.x, badge.y, angle);
     const meta = AXIS_META[axis.id] ?? { code: String(index + 1), hint: axis.label };
     return { axis, index, vertex, badge, meta, valueLabel, value };

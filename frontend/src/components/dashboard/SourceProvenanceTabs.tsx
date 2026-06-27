@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import type { ProvenanceRecord, TraceStep } from "../../types/dashboard";
+import { cleanSourceFile } from "../../lib/format";
 
 const PSEUDO_STEPS: Record<string, string[]> = {
   agent_trace: ["trace_id := new_agent_trace()", "audit_log.open(trace_id)"],
@@ -78,8 +79,8 @@ export function SourceProvenanceTabs({ records, trace, traceId }: Props) {
           {records.map((record) => (
             <div className="provenanceRecord" key={`${record.vehicle}-${record.source_file}`}>
               <strong>{record.vehicle}</strong>
-              <span>{record.drive_label}</span>
-              <code>{record.source_file}</code>
+              <span className="provenanceEyebrow">{record.drive_label}</span>
+              <code>{cleanSourceFile(record.source_file)}</code>
               <span className="licenseTag">{record.license}</span>
             </div>
           ))}

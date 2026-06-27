@@ -6,8 +6,8 @@
     "session_id": 5,
     "vehicle": "VED Car 1.5L",
     "source": "public",
-    "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; VehId=8; Trip=708; drive_label=Ann Arbor week log; license=Apache-2.0.",
-    "source_file": "VED_171101_week.csv; VehId=8; Trip=708",
+    "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=8; Trip=708; drive_label=Ann Arbor week log; license=Apache-2.0.",
+    "source_file": "VED_171101_week.csv",
     "drive_label": "Ann Arbor week log",
     "started_at": "2017-11-02T13:51:53.106Z",
     "ended_at": "2017-11-02T13:55:03.506Z",
@@ -331,7 +331,7 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-80e401b5241e4023ae932c437c9b3fbc",
+      "agentTraceId": "agent-d32cc13ac8824d318200ab6c07a9f9f2",
       "dtcSummary": "No DTC rows were logged for this session."
     },
     "4": {
@@ -339,8 +339,8 @@
         "session_id": 4,
         "vehicle": "VED ICE 6.0L V8",
         "source": "public",
-        "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; VehId=108; Trip=784; drive_label=Ann Arbor week log; license=Apache-2.0.",
-        "source_file": "VED_171101_week.csv; VehId=108; Trip=784",
+        "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=108; Trip=784; drive_label=Ann Arbor week log; license=Apache-2.0.",
+        "source_file": "VED_171101_week.csv",
         "drive_label": "Ann Arbor week log",
         "started_at": "2017-11-02T13:27:31.820Z",
         "ended_at": "2017-11-02T13:30:47.520Z",
@@ -640,7 +640,7 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-3164f76aba1c4727a70c21838feff354",
+      "agentTraceId": "agent-b41e622b2c85451d9e91a7105af5f6aa",
       "dtcSummary": "No DTC rows were logged for this session."
     },
     "5": {
@@ -648,8 +648,8 @@
         "session_id": 5,
         "vehicle": "VED Car 1.5L",
         "source": "public",
-        "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; VehId=8; Trip=708; drive_label=Ann Arbor week log; license=Apache-2.0.",
-        "source_file": "VED_171101_week.csv; VehId=8; Trip=708",
+        "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=8; Trip=708; drive_label=Ann Arbor week log; license=Apache-2.0.",
+        "source_file": "VED_171101_week.csv",
         "drive_label": "Ann Arbor week log",
         "started_at": "2017-11-02T13:51:53.106Z",
         "ended_at": "2017-11-02T13:55:03.506Z",
@@ -949,7 +949,7 @@
           "agent_tagline": "Writes the report"
         }
       ],
-      "agentTraceId": "agent-9c7bf92f10194f8b8d02537a1950a4fe",
+      "agentTraceId": "agent-6fecf094f366465dbbf9df52e5036ddf",
       "dtcSummary": "No DTC rows were logged for this session."
     }
   },
@@ -972,8 +972,8 @@
       "session_id": 4,
       "vehicle": "VED ICE 6.0L V8",
       "source": "public",
-      "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; VehId=108; Trip=784; drive_label=Ann Arbor week log; license=Apache-2.0.",
-      "source_file": "VED_171101_week.csv; VehId=108; Trip=784",
+      "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=108; Trip=784; drive_label=Ann Arbor week log; license=Apache-2.0.",
+      "source_file": "VED_171101_week.csv",
       "drive_label": "Ann Arbor week log",
       "health_score": "96.2",
       "health_score_width": "96.2%",
@@ -986,8 +986,8 @@
       "session_id": 5,
       "vehicle": "VED Car 1.5L",
       "source": "public",
-      "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; VehId=8; Trip=708; drive_label=Ann Arbor week log; license=Apache-2.0.",
-      "source_file": "VED_171101_week.csv; VehId=8; Trip=708",
+      "notes": "Vehicle Energy Dataset (VED) real OBD-II entry; source_file=VED_171101_week.csv; trip_ref=VehId=8; Trip=708; drive_label=Ann Arbor week log; license=Apache-2.0.",
+      "source_file": "VED_171101_week.csv",
       "drive_label": "Ann Arbor week log",
       "health_score": "95.0",
       "health_score_width": "95.0%",
@@ -1243,7 +1243,7 @@
       "agent_tagline": "Writes the report"
     }
   ],
-  "agentTraceId": "agent-9c7bf92f10194f8b8d02537a1950a4fe",
+  "agentTraceId": "agent-6fecf094f366465dbbf9df52e5036ddf",
   "disclaimer": "Directional diagnostic guidance based on logged data - not a substitute for inspection by a certified technician.",
   "healthGuide": {
     "title": "Drive health score",
@@ -1274,8 +1274,8 @@
     ],
     "entries": [
       "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
-      "VED_171101_week.csv; VehId=108; Trip=784",
-      "VED_171101_week.csv; VehId=8; Trip=708"
+      "VED_171101_week.csv",
+      "VED_171101_week.csv"
     ],
     "note": "Each row below is one real public OBD-II log. KIT files are Seat Leon drives. VED files are de-identified U.S. vehicles.",
     "records": [
@@ -1289,14 +1289,14 @@
       {
         "vehicle": "VED ICE 6.0L V8",
         "drive_label": "Ann Arbor week log",
-        "source_file": "VED_171101_week.csv; VehId=108; Trip=784",
+        "source_file": "VED_171101_week.csv",
         "license": "e=Apache-2.",
         "dataset_name": "Vehicle Energy Dataset (VED)"
       },
       {
         "vehicle": "VED Car 1.5L",
         "drive_label": "Ann Arbor week log",
-        "source_file": "VED_171101_week.csv; VehId=8; Trip=708",
+        "source_file": "VED_171101_week.csv",
         "license": "e=Apache-2.",
         "dataset_name": "Vehicle Energy Dataset (VED)"
       }

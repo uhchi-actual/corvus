@@ -110,8 +110,8 @@ def main() -> None:
 
         public_results = []
         for source in PUBLIC_DRIVE_SOURCES:
-            source_detail = source.get("source_detail", "")
-            detail_suffix = f"; {source_detail}" if source_detail else ""
+            trip_ref = source.get("source_detail", "")
+            trip_suffix = f"trip_ref={trip_ref}; " if trip_ref else ""
             public_result = ingest_drive_csv(
                 conn,
                 ROOT / "data" / "seed" / source["seed_file"],
@@ -120,7 +120,8 @@ def main() -> None:
                     source="public",
                     notes=(
                         f"{source['dataset']} real OBD-II entry; "
-                        f"source_file={source['source_file']}{detail_suffix}; "
+                        f"source_file={source['source_file']}; "
+                        f"{trip_suffix}"
                         f"drive_label={source['label']}; "
                         f"license={source['license']}."
                     ),

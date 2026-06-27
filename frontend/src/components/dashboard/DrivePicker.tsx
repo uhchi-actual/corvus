@@ -1,4 +1,5 @@
 import type { CssVars, SessionRow } from "../../types/dashboard";
+import { cleanSourceFile } from "../../lib/format";
 
 type Props = {
   sessions: SessionRow[];
@@ -25,10 +26,10 @@ export function DrivePicker({ sessions, activeSessionId, onSelect }: Props) {
               onClick={() => onSelect(session.session_id)}
               aria-pressed={isActive}
             >
-              <div>
-                <span>{session.drive_label}</span>
-                <strong>{session.vehicle}</strong>
-                <small>{session.source_file}</small>
+              <div className="sessionMeta">
+                <span className="sessionEyebrow">{session.drive_label}</span>
+                <strong className="sessionVehicle">{session.vehicle}</strong>
+                <span className="sessionFile">{cleanSourceFile(session.source_file)}</span>
               </div>
               <div className="miniMeters">
                 <span>{session.health_score}</span>

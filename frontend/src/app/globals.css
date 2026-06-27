@@ -13,10 +13,10 @@
   --ease-smooth: cubic-bezier(0.19, 1, 0.22, 1);
   --motion-slow: 760ms;
   --motion-medium: 540ms;
-  --gradient-heading: linear-gradient(165deg, #ecd9be 0%, #d3bc9b 52%, #a89170 100%);
-  --text-eyebrow: 10px;
-  --text-title: 21px;
-  --text-sub: 11px;
+  --text-eyebrow: 12px;
+  --text-title: 22px;
+  --text-lead: 17px;
+  --text-sub: 12px;
   --type-ui:
     ui-rounded,
     "Segoe UI Variable Text",
@@ -157,21 +157,22 @@ a {
 .statement {
   max-width: 560px;
   margin: 28px 0 0;
-  background: var(--gradient-heading);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-size: 17px;
+  color: var(--ink);
+  font-size: var(--text-lead);
   font-weight: 950;
   line-height: 1.35;
 }
 
 .sourceLine {
-  margin: 18px 0 0;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 900;
-  line-height: 1.4;
+  margin: 16px 0 0;
+  color: var(--ink);
+  font-size: var(--text-sub);
+  font-weight: 950;
+  line-height: 1.35;
+}
+
+.sourceLine a {
+  color: var(--uhchi-teal);
 }
 
 .sourceLine a:hover {
@@ -259,18 +260,16 @@ a {
   font-size: var(--text-eyebrow);
   font-style: italic;
   font-weight: 950;
-  line-height: 1.2;
+  line-height: 1.25;
   text-transform: uppercase;
 }
 
 .panelHead h2 {
   margin: 0;
-  background: var(--gradient-heading);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--ink);
+  font-family: var(--type-display);
   font-size: var(--text-title);
-  font-weight: 950;
+  font-weight: 900;
   line-height: 1.05;
   text-align: right;
 }
@@ -315,11 +314,20 @@ a {
   justify-content: space-between;
   gap: 14px;
   margin-bottom: 10px;
-  color: var(--muted);
   font-size: 12px;
-  font-weight: 900;
-  line-height: 1.35;
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.meterLabel span:first-child {
+  color: var(--uhchi-teal);
+  font-style: italic;
   text-transform: uppercase;
+}
+
+.meterLabel span:last-child {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
 }
 
 .meterTrack {
@@ -356,14 +364,15 @@ a {
 
 .factGrid dt {
   color: var(--muted);
-  font-size: 12px;
-  font-weight: 900;
+  font-size: 11px;
+  font-weight: 950;
   line-height: 1.2;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .factGrid dd {
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   color: var(--ink);
   font-size: 18px;
   font-weight: 950;
@@ -388,29 +397,38 @@ a {
   box-shadow: inset 0 0 0 1px rgba(211, 188, 155, 0.1);
 }
 
-.sessionRow span,
-.sessionRow small {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 900;
+.sessionMeta {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.sessionEyebrow,
+.provenanceEyebrow {
+  color: var(--uhchi-teal);
+  font-size: 11px;
+  font-style: italic;
+  font-weight: 950;
   line-height: 1.2;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 
-.sessionRow small {
-  margin-top: 8px;
-  overflow-wrap: anywhere;
-  text-transform: none;
-}
-
-.sessionRow strong {
+.sessionVehicle {
   display: block;
-  margin-top: 7px;
   color: var(--ink);
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 950;
   line-height: 1.15;
+}
+
+.sessionFile {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 950;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
 .sessionButton {
@@ -606,10 +624,15 @@ a {
 .miniMeters > span {
   color: var(--ink);
   font-size: 20px;
+  font-weight: 950;
   text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
 .miniMeters small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 950;
   text-align: right;
 }
 
@@ -639,19 +662,19 @@ a {
 }
 
 .microCopy {
-  margin: 18px 0 0;
+  margin: 14px 0 0;
   color: var(--muted);
   font-size: var(--text-sub);
-  font-weight: 850;
-  line-height: 1.45;
+  font-weight: 950;
+  line-height: 1.4;
 }
 
 .guideCopy {
-  margin: 16px 0 0;
+  margin: 14px 0 0;
   color: var(--muted);
   font-size: var(--text-sub);
-  font-weight: 850;
-  line-height: 1.45;
+  font-weight: 950;
+  line-height: 1.4;
 }
 
 .agentPanel .agentRole {
@@ -729,8 +752,9 @@ a {
 }
 
 .factFile {
-  font-size: 12px;
-  line-height: 1.35;
+  font-size: 13px;
+  font-weight: 950;
+  line-height: 1.3;
   word-break: break-word;
 }
 
@@ -756,10 +780,10 @@ a {
   line-height: 1.2;
 }
 
-.provenanceRecord span {
+.provenanceRecord span:not(.licenseTag):not(.provenanceEyebrow) {
   color: var(--muted);
   font-size: 14px;
-  font-weight: 850;
+  font-weight: 950;
   line-height: 1.35;
 }
 
@@ -767,7 +791,7 @@ a {
   color: var(--ink);
   font-family: var(--type-ui);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 950;
   line-height: 1.35;
   word-break: break-all;
 }
@@ -978,15 +1002,14 @@ a {
 }
 
 .matrixVertex {
-  fill: var(--uhchi-red-deep);
-  stroke: rgba(211, 188, 155, 0.55);
+  stroke: rgba(211, 188, 155, 0.45);
   stroke-width: 1.5;
 }
 
 .matrixVertexRing {
   fill: none;
-  stroke: rgba(204, 41, 54, 0.35);
   stroke-width: 1;
+  opacity: 0.55;
 }
 
 .matrixAxisUnit {
@@ -1002,11 +1025,11 @@ a {
 .matrixAxisBadgeCode {
   fill: var(--ink);
   font-family: var(--type-ui);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 950;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-anchor: middle;
-  dominant-baseline: middle;
+  dominant-baseline: central;
 }
 
 .matrixAxisSpokeValue {
@@ -1016,7 +1039,7 @@ a {
   font-weight: 950;
   font-variant-numeric: tabular-nums;
   text-anchor: middle;
-  dominant-baseline: middle;
+  dominant-baseline: central;
 }
 
 .matrixLegendPanel {
@@ -1070,7 +1093,6 @@ a {
   bottom: 10px;
   width: 3px;
   border-radius: 999px;
-  background: linear-gradient(180deg, var(--uhchi-red), var(--uhchi-teal));
 }
 
 .matrixAxisBadge {
@@ -1104,11 +1126,8 @@ a {
 }
 
 .matrixLegendHead strong {
-  background: var(--gradient-heading);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-size: 17px;
+  color: var(--ink);
+  font-size: 18px;
   font-weight: 950;
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -1127,13 +1146,6 @@ a {
   font-size: var(--text-sub);
   font-weight: 850;
   line-height: 1.4;
-}
-
-.matrixLegendIndex {
-  color: rgba(31, 113, 108, 0.85);
-  font-size: 11px;
-  font-weight: 950;
-  line-height: 1;
 }
 
 .matrixFlags {
@@ -1518,7 +1530,7 @@ a {
   }
 
   .statement {
-    font-size: 19px;
+    font-size: 15px;
   }
 
   .panelHead {

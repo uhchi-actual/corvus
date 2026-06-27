@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import type { DashboardData, CssVars, DtcRow } from "../../types/dashboard";
+import { cleanSourceFile } from "../../lib/format";
 import { DrivePicker } from "./DrivePicker";
 import { HealthMatrix } from "./HealthMatrix";
 import { SourceProvenanceTabs } from "./SourceProvenanceTabs";
@@ -56,7 +57,6 @@ export function Dashboard({ data }: Props) {
               </span>
             ))}
           </p>
-          <p className="sourceDetail">{data.dataSource.summary}</p>
         </div>
         <figure className="inspirationPlate" aria-label={data.inspiration.label}>
           <img src={data.inspiration.image} alt={data.inspiration.label} />
@@ -105,7 +105,7 @@ export function Dashboard({ data }: Props) {
             </div>
             <div>
               <dt>Source file</dt>
-              <dd className="factFile">{focus.source_file}</dd>
+              <dd className="factFile">{cleanSourceFile(focus.source_file)}</dd>
             </div>
           </dl>
         </article>

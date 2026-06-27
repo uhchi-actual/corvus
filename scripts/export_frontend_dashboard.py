@@ -24,6 +24,20 @@ CONFIG_PATH = ROOT / "data" / "health_score_config.json"
 OUT_PATH = ROOT / "frontend" / "src" / "data" / "dashboard.json"
 
 
+def _clean_source_file(raw: str) -> str:
+    text = str(raw or "").strip()
+    if not text:
+        return text
+    lower = text.lower()
+    csv_idx = lower.find(".csv")
+    if csv_idx != -1:
+        return text[:csv_idx + 4]
+    semi = text.find(";")
+    if semi != -1:
+        return text[:semi].strip()
+    return text
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Export static Corvus dashboard data.")
     parser.add_argument("--database", default=str(DB_PATH))
@@ -214,6 +228,8 @@ def _provenance_records(conn: sqlite3.Connection) -> list[dict[str, str]]:
         ORDER BY s.session_id
         """,
     )
+    for row in rows:
+        row["source_file"] = _clean_source_file(row["source_file"])
     return rows
 
 
@@ -231,7 +247,7 @@ def _public_source_entries(conn: sqlite3.Connection) -> list[str]:
         ORDER BY s.session_id
         """
     ).fetchall()
-    return [str(row["source_file"]) for row in rows]
+    return [_clean_source_file(str(row["source_file"])) for row in rows]
 
 
 def _session_view(
@@ -255,7 +271,7 @@ def _session_view(
 
 
 def _focus_row(conn: sqlite3.Connection, session_id: int) -> dict[str, Any]:
-    return _one(
+    row = _one(
         conn,
         """
         SELECT
@@ -297,6 +313,8 @@ def _focus_row(conn: sqlite3.Connection, session_id: int) -> dict[str, Any]:
         """,
         (session_id,),
     )
+    row["source_file"] = _clean_source_file(row["source_file"])
+    return row
 
 
 def _dashboard_payload(
@@ -308,6 +326,43 @@ def _dashboard_payload(
     focus = default_view["focus"]
     analysis_trace = default_view["agentTrace"]
     analysis_trace_id = default_view["agentTraceId"]
+    sessions = _rows(
+        conn,
+        """
+        SELECT
+          h.session_id,
+          v.make || ' ' || v.model AS vehicle,
+          s.source,
+          s.notes AS notes,
+          substr(
+            s.notes,
+            instr(s.notes, 'source_file=') + length('source_file='),
+            instr(s.notes, '; drive_label=') - instr(s.notes, 'source_file=') - length('source_file=')
+          ) AS source_file,
+          substr(
+            s.notes,
+            instr(s.notes, 'drive_label=') + length('drive_label='),
+            instr(s.notes, '; license=') - instr(s.notes, 'drive_label=') - length('drive_label=')
+          ) AS drive_label,
+          printf('%.1f', h.health_score) AS health_score,
+          printf('%.1f%%', h.health_score) AS health_score_width,
+          CAST(h.telemetry_samples AS TEXT) AS telemetry_samples,
+          CAST(h.dtc_count AS TEXT) AS dtc_count,
+          printf('%.1f', COALESCE(b.pct_out_of_range, 0.0)) AS pct_out_of_range,
+          printf('%.1f%%', COALESCE(b.pct_out_of_range, 0.0)) AS baseline_width
+        FROM dashboard_health h
+        JOIN drive_sessions s
+          ON s.session_id = h.session_id
+        JOIN vehicles v
+          ON v.vehicle_id = s.vehicle_id
+        LEFT JOIN dashboard_baseline b
+          ON b.session_id = h.session_id
+        WHERE s.source = 'public'
+        ORDER BY h.session_id
+        """,
+    )
+    for session in sessions:
+        session["source_file"] = _clean_source_file(session["source_file"])
     return {
         "project": "corvus",
         "version": "v1",
@@ -315,41 +370,7 @@ def _dashboard_payload(
         "focus": focus,
         "defaultSessionId": default_session_id,
         "sessionViews": session_views,
-        "sessions": _rows(
-            conn,
-            """
-            SELECT
-              h.session_id,
-              v.make || ' ' || v.model AS vehicle,
-              s.source,
-              s.notes AS notes,
-              substr(
-                s.notes,
-                instr(s.notes, 'source_file=') + length('source_file='),
-                instr(s.notes, '; drive_label=') - instr(s.notes, 'source_file=') - length('source_file=')
-              ) AS source_file,
-              substr(
-                s.notes,
-                instr(s.notes, 'drive_label=') + length('drive_label='),
-                instr(s.notes, '; license=') - instr(s.notes, 'drive_label=') - length('drive_label=')
-              ) AS drive_label,
-              printf('%.1f', h.health_score) AS health_score,
-              printf('%.1f%%', h.health_score) AS health_score_width,
-              CAST(h.telemetry_samples AS TEXT) AS telemetry_samples,
-              CAST(h.dtc_count AS TEXT) AS dtc_count,
-              printf('%.1f', COALESCE(b.pct_out_of_range, 0.0)) AS pct_out_of_range,
-              printf('%.1f%%', COALESCE(b.pct_out_of_range, 0.0)) AS baseline_width
-            FROM dashboard_health h
-            JOIN drive_sessions s
-              ON s.session_id = h.session_id
-            JOIN vehicles v
-              ON v.vehicle_id = s.vehicle_id
-            LEFT JOIN dashboard_baseline b
-              ON b.session_id = h.session_id
-            WHERE s.source = 'public'
-            ORDER BY h.session_id
-            """,
-        ),
+        "sessions": sessions,
         "trend": default_view["trend"],
         "dtcEvidence": default_view["dtcEvidence"],
         "agentTrace": analysis_trace,

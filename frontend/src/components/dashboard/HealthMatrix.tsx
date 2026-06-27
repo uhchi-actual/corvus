@@ -10,7 +10,7 @@ const CENTER = SIZE / 2;
 const RADIUS = 128;
 const BADGE_RADIUS = 13;
 const BADGE_RING = RADIUS + 30;
-const SPOKE_VALUE_OFFSET = 24;
+const VALUE_OFFSET = 22;
 
 type AxisMeta = {
   code: string;
@@ -60,6 +60,16 @@ function polygonPoints(axes: HealthAxis[], count: number, scale: number) {
     .join(" ");
 }
 
+function scoreColor(value: number): string {
+  const t = Math.max(0, Math.min(1, value / 100));
+  const red = { r: 168, g: 34, b: 46 };
+  const teal = { r: 31, g: 113, b: 108 };
+  const r = Math.round(red.r + (teal.r - red.r) * t);
+  const g = Math.round(red.g + (teal.g - red.g) * t);
+  const b = Math.round(red.b + (teal.b - red.b) * t);
+  return `rgb(${r},${g},${b})`;
+}
+
 export function HealthMatrix({ axes, score }: Props) {
   const count = axes.length;
   const gridLevels = [0.25, 0.5, 0.75, 1];
@@ -75,7 +85,9 @@ export function HealthMatrix({ axes, score }: Props) {
     const vertex = polarPoint(index, count, value);
     const badge = polarPoint(index, count, 100, BADGE_RING);
     const meta = AXIS_META[axis.id] ?? { code: String(index + 1), hint: axis.label };
-    return { axis, index, vertex, badge, meta };
+    const outwardX = badge.x + Math.cos(vertex.angle) * VALUE_OFFSET;
+    const outwardY = badge.y + Math.sin(vertex.angle) * VALUE_OFFSET;
+    return { axis, index, vertex, badge, meta, outwardX, outwardY, value };
   });
 
   return (
@@ -130,37 +142,68 @@ export function HealthMatrix({ axes, score }: Props) {
           })}
           <polygon className="healthMatrixRef" points={referencePoints} />
           <polygon className="healthMatrixShape" points={dataPoints} />
-          {axisLayouts.map(({ vertex, index }) => (
-            <g key={`vertex-${index}`} className="matrixVertexGroup">
-              <circle className="matrixVertex" cx={vertex.x} cy={vertex.y} r="5" />
-              <circle className="matrixVertexRing" cx={vertex.x} cy={vertex.y} r="8" />
-            </g>
-          ))}
-          {axisLayouts.map(({ badge, meta, vertex, index }) => {
-            const angleDeg = (vertex.angle * 180) / Math.PI + 90;
+          {axisLayouts.map(({ vertex, value, index }) => {
+            const dotColor = scoreColor(value);
             return (
-              <g
-                key={`badge-${index}`}
-                className="matrixAxisUnit"
-                transform={`translate(${badge.x} ${badge.y}) rotate(${angleDeg})`}
-              >
-                <circle className="matrixAxisBadgeCircle" cx={0} cy={0} r={BADGE_RADIUS} />
-                <text className="matrixAxisBadgeCode" x={0} y={0}>{meta.code}</text>
-                <text className="matrixAxisSpokeValue" x={0} y={SPOKE_VALUE_OFFSET}>
-                  {axes[index].value}
-                </text>
+              <g key={`vertex-${index}`} className="matrixVertexGroup">
+                <circle
+                  className="matrixVertexRing"
+                  cx={vertex.x}
+                  cy={vertex.y}
+                  r="8"
+                  stroke={dotColor}
+                />
+                <circle
+                  className="matrixVertex"
+                  cx={vertex.x}
+                  cy={vertex.y}
+                  r="5"
+                  fill={dotColor}
+                />
               </g>
             );
           })}
+          {axisLayouts.map(({ badge, meta, outwardX, outwardY, index }) => (
+            <g key={`badge-${index}`} className="matrixAxisUnit">
+              <circle
+                className="matrixAxisBadgeCircle"
+                cx={badge.x}
+                cy={badge.y}
+                r={BADGE_RADIUS}
+              />
+              <text
+                className="matrixAxisBadgeCode"
+                x={badge.x}
+                y={badge.y}
+                textAnchor="middle"
+                dominantBaseline="central"
+              >
+                {meta.code}
+              </text>
+              <text
+                className="matrixAxisSpokeValue"
+                x={outwardX}
+                y={outwardY}
+                textAnchor="middle"
+                dominantBaseline="central"
+              >
+                {axes[index].value}
+              </text>
+            </g>
+          ))}
         </svg>
       </div>
 
       <div className="matrixLegendPanel">
         <p className="matrixLegendTitle">Axis legend</p>
         <ol className="matrixLegendGrid" aria-label="Performance axis legend">
-          {axisLayouts.map(({ axis, meta, index }) => (
+          {axisLayouts.map(({ axis, meta, value }) => (
             <li key={axis.id} className="matrixLegendCard">
-              <span className="matrixLegendRail" aria-hidden />
+              <span
+                className="matrixLegendRail"
+                aria-hidden
+                style={{ backgroundColor: scoreColor(value) }}
+              />
               <div className="matrixLegendRow">
                 <span className="matrixAxisBadge" title={meta.hint}>{meta.code}</span>
                 <div className="matrixLegendHead">
@@ -169,7 +212,6 @@ export function HealthMatrix({ axes, score }: Props) {
                 </div>
               </div>
               <p>{meta.hint}</p>
-              <span className="matrixLegendIndex">{String(index + 1).padStart(2, "0")}</span>
             </li>
           ))}
         </ol>

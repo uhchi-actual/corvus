@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import type { DashboardData, CssVars, DtcRow } from "../../types/dashboard";
+import { trendChartAxes } from "../../lib/format";
 import { DrivePicker } from "./DrivePicker";
 import { HealthScorePanel } from "./HealthScorePanel";
 import { HealthMatrix } from "./HealthMatrix";
@@ -34,6 +35,7 @@ export function Dashboard({ data }: Props) {
   const flagLines = view.performanceConcerns
     .filter((concern) => concern.level !== "ok")
     .slice(0, 2);
+  const airflowAxes = trendChartAxes(view.trend);
 
   return (
     <main className="dashboard" aria-label="Corvus dashboard">
@@ -99,15 +101,28 @@ export function Dashboard({ data }: Props) {
             <h2>Airflow data</h2>
           </div>
           <div className="panelSwap">
-            <div className="barChart" aria-label="Mass air flow rolling trend">
-              {view.trend.map((point) => (
-                <span
-                  key={point.ts}
-                  className="bar"
-                  title={`${point.ts}: ${point.maf_30s} g/s`}
-                  style={{ "--bar-height": point.height_pct } as CssVars}
-                />
-              ))}
+            <div className="barChartFrame">
+              <div className="barChartAxisY" aria-hidden>
+                <span className="barChartTick">{airflowAxes.maxG}</span>
+                <span className="barChartUnit">g/s</span>
+              </div>
+              <div className="barChartPlot">
+                <div className="barChart" aria-label="Mass air flow rolling trend">
+                  {view.trend.map((point) => (
+                    <span
+                      key={point.ts}
+                      className="bar"
+                      title={`${point.ts}: ${point.maf_30s} g/s`}
+                      style={{ "--bar-height": point.height_pct } as CssVars}
+                    />
+                  ))}
+                </div>
+                <div className="barChartAxisX" aria-hidden>
+                  <span className="barChartTick">{airflowAxes.start}</span>
+                  <span className="barChartUnit">Time into drive</span>
+                  <span className="barChartTick">{airflowAxes.end}</span>
+                </div>
+              </div>
             </div>
             <p className="guideCopy">{data.trendGuide.body}</p>
             <p className="microCopy">Last rolling average: {view.trend.at(-1)?.maf_30s} g/s</p>

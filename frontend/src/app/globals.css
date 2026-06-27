@@ -794,6 +794,56 @@ a {
   text-align: right;
 }
 
+.barChartFrame {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 8px;
+  align-items: stretch;
+}
+
+.barChartAxisY {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0 34px;
+}
+
+.barChartPlot {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.barChartAxisX {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 0 6px;
+}
+
+.barChartTick {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.barChartUnit {
+  color: var(--uhchi-teal);
+  font-size: 10px;
+  font-style: italic;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.barChartAxisX .barChartUnit {
+  flex: 1;
+  text-align: center;
+}
+
 .barChart {
   display: flex;
   align-items: flex-end;

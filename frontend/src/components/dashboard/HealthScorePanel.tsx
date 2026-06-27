@@ -35,17 +35,17 @@ export function HealthScorePanel({ focus }: Props) {
           <p className="healthScoreLead">{focus.drive_label}</p>
           <dl className="healthScoreFacts">
             <div>
-              <dt>Drive window</dt>
+              <dt>Drive Window</dt>
               <dd>{driveWindow.clock}</dd>
               <dd className="healthScoreMeta">{driveWindow.duration}</dd>
             </div>
             <div>
-              <dt>Telemetry rows</dt>
+              <dt>Telemetry Rows</dt>
               <dd>{focus.telemetry_samples}</dd>
               <dd className="healthScoreMeta">{samplePace}</dd>
             </div>
             <div>
-              <dt>Source file</dt>
+              <dt>Source File</dt>
               <dd className="factFile">{cleanSourceFile(focus.source_file)}</dd>
             </div>
           </dl>

@@ -23,7 +23,7 @@
     "out_of_range_samples": "240",
     "sample_count": "240"
   },
-  "defaultSessionId": 4,
+  "defaultSessionId": 6,
   "sessionViews": {
     "3": {
       "focus": {
@@ -239,13 +239,13 @@
       "healthMatrix": [
         {
           "id": "drive_health",
-          "label": "Drive health",
+          "label": "Drive Health",
           "value": "100.0",
           "width_pct": "100.0%"
         },
         {
           "id": "baseline_fit",
-          "label": "Baseline fit",
+          "label": "Baseline Fit",
           "value": "100.0",
           "width_pct": "100.0%"
         },
@@ -257,13 +257,13 @@
         },
         {
           "id": "fault_clearance",
-          "label": "Fault clearance",
+          "label": "Fault Clearance",
           "value": "100.0",
           "width_pct": "100.0%"
         },
         {
           "id": "sensor_balance",
-          "label": "Sensor balance",
+          "label": "Sensor Balance",
           "value": "100.0",
           "width_pct": "100.0%"
         }
@@ -280,7 +280,7 @@
           "node": "agent_trace",
           "kind": "deterministic",
           "summary": "Trace created before analysis output.",
-          "title": "Open trace",
+          "title": "Open Trace",
           "body": "Trace created before analysis output.",
           "agent_name": "Corvus",
           "agent_tagline": "Writes the report"
@@ -290,7 +290,7 @@
           "node": "ingest_normalizer",
           "kind": "deterministic",
           "summary": "Loaded the logged drive from the database.",
-          "title": "Load the drive",
+          "title": "Load the Drive",
           "body": "Loaded the logged drive from the database.",
           "agent_name": "Huginn",
           "agent_tagline": "Reads this drive"
@@ -300,7 +300,7 @@
           "node": "sql_deviation",
           "kind": "deterministic",
           "summary": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
-          "title": "Run SQL checks",
+          "title": "Run SQL Checks",
           "body": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
           "agent_name": "Huginn",
           "agent_tagline": "Reads this drive"
@@ -310,7 +310,7 @@
           "node": "dtc_interpreter",
           "kind": "deterministic",
           "summary": "Listed diagnostic trouble codes logged on this drive.",
-          "title": "Read fault codes",
+          "title": "Read Fault Codes",
           "body": "Listed diagnostic trouble codes logged on this drive.",
           "agent_name": "Huginn",
           "agent_tagline": "Reads this drive"
@@ -320,7 +320,7 @@
           "node": "baseline_recall",
           "kind": "deterministic",
           "summary": "Loaded stored healthy ranges for this vehicle.",
-          "title": "Load healthy ranges",
+          "title": "Load Healthy Ranges",
           "body": "Loaded stored healthy ranges for this vehicle.",
           "agent_name": "Muninn",
           "agent_tagline": "Recalls what normal looks like"
@@ -330,7 +330,7 @@
           "node": "correlation",
           "kind": "deterministic",
           "summary": "Matched fault timestamps to nearby engine sensor rows.",
-          "title": "Match faults to sensors",
+          "title": "Match Faults to Sensors",
           "body": "Matched fault timestamps to nearby engine sensor rows.",
           "agent_name": "Muninn",
           "agent_tagline": "Recalls what normal looks like"
@@ -340,7 +340,7 @@
           "node": "recommendation",
           "kind": "deterministic",
           "summary": "Ranked what to inspect next from SQL facts only.",
-          "title": "State next checks",
+          "title": "State Next Checks",
           "body": "Ranked what to inspect next from SQL facts only.",
           "agent_name": "Muninn",
           "agent_tagline": "Recalls what normal looks like"
@@ -350,355 +350,13 @@
           "node": "report_writer",
           "kind": "deterministic",
           "summary": "Saved the finding with trace id for audit.",
-          "title": "Save finding",
+          "title": "Save Finding",
           "body": "Saved the finding with trace id for audit.",
           "agent_name": "Corvus",
           "agent_tagline": "Writes the report"
         }
       ],
       "agentTraceId": "agent-0dd5cc71ae424194a1a8725b0740ca2d",
-      "dtcSummary": "No DTC rows were logged for this session."
-    },
-    "4": {
-      "focus": {
-        "session_id": 4,
-        "vehicle": "Seat Leon",
-        "source": "public",
-        "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=Cold Start Log; license=CC BY 4.0.",
-        "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
-        "drive_label": "Cold Start Log",
-        "started_at": "2018-03-21T19:09:16.713Z",
-        "ended_at": "2018-03-21T19:13:15.061Z",
-        "health_score": "88.0",
-        "health_score_width": "88.0%",
-        "metric_penalty_points": "12.0",
-        "dtc_penalty_points": "0.0",
-        "dtc_count": "0",
-        "telemetry_samples": "240",
-        "score_basis": "directional editable scoring config",
-        "pct_out_of_range": "100.0",
-        "baseline_width": "100.0%",
-        "out_of_range_samples": "240",
-        "sample_count": "240"
-      },
-      "trend": [
-        {
-          "ts": "2018-03-21T19:09:16.713Z",
-          "speed_kph": "0.00",
-          "maf_gps": "0.88",
-          "maf_30s": "0.88",
-          "height_pct": "16.6%"
-        },
-        {
-          "ts": "2018-03-21T19:09:26.043Z",
-          "speed_kph": "0.00",
-          "maf_gps": "0.88",
-          "maf_30s": "0.88",
-          "height_pct": "16.6%"
-        },
-        {
-          "ts": "2018-03-21T19:09:36.003Z",
-          "speed_kph": "1.00",
-          "maf_gps": "16.94",
-          "maf_30s": "6.88",
-          "height_pct": "34.7%"
-        },
-        {
-          "ts": "2018-03-21T19:09:46.083Z",
-          "speed_kph": "2.00",
-          "maf_gps": "16.94",
-          "maf_30s": "10.07",
-          "height_pct": "44.3%"
-        },
-        {
-          "ts": "2018-03-21T19:09:56.013Z",
-          "speed_kph": "13.00",
-          "maf_gps": "25.49",
-          "maf_30s": "17.38",
-          "height_pct": "66.3%"
-        },
-        {
-          "ts": "2018-03-21T19:10:06.032Z",
-          "speed_kph": "21.00",
-          "maf_gps": "22.44",
-          "maf_30s": "21.62",
-          "height_pct": "79.1%"
-        },
-        {
-          "ts": "2018-03-21T19:10:16.022Z",
-          "speed_kph": "9.00",
-          "maf_gps": "16.69",
-          "maf_30s": "23.25",
-          "height_pct": "84.0%"
-        },
-        {
-          "ts": "2018-03-21T19:10:26.043Z",
-          "speed_kph": "19.00",
-          "maf_gps": "54.13",
-          "maf_30s": "22.60",
-          "height_pct": "82.0%"
-        },
-        {
-          "ts": "2018-03-21T19:10:36.062Z",
-          "speed_kph": "4.00",
-          "maf_gps": "16.94",
-          "maf_30s": "20.87",
-          "height_pct": "76.8%"
-        },
-        {
-          "ts": "2018-03-21T19:10:46.022Z",
-          "speed_kph": "1.00",
-          "maf_gps": "15.69",
-          "maf_30s": "19.02",
-          "height_pct": "71.3%"
-        },
-        {
-          "ts": "2018-03-21T19:10:56.012Z",
-          "speed_kph": "4.00",
-          "maf_gps": "16.05",
-          "maf_30s": "18.80",
-          "height_pct": "70.6%"
-        },
-        {
-          "ts": "2018-03-21T19:11:06.002Z",
-          "speed_kph": "29.00",
-          "maf_gps": "30.08",
-          "maf_30s": "19.88",
-          "height_pct": "73.9%"
-        },
-        {
-          "ts": "2018-03-21T19:11:16.052Z",
-          "speed_kph": "9.00",
-          "maf_gps": "27.08",
-          "maf_30s": "21.33",
-          "height_pct": "78.2%"
-        },
-        {
-          "ts": "2018-03-21T19:11:26.012Z",
-          "speed_kph": "0.00",
-          "maf_gps": "14.97",
-          "maf_30s": "21.82",
-          "height_pct": "79.7%"
-        },
-        {
-          "ts": "2018-03-21T19:11:36.062Z",
-          "speed_kph": "0.00",
-          "maf_gps": "14.97",
-          "maf_30s": "18.55",
-          "height_pct": "69.8%"
-        },
-        {
-          "ts": "2018-03-21T19:11:46.052Z",
-          "speed_kph": "4.00",
-          "maf_gps": "15.91",
-          "maf_30s": "16.52",
-          "height_pct": "63.7%"
-        },
-        {
-          "ts": "2018-03-21T19:11:56.042Z",
-          "speed_kph": "14.00",
-          "maf_gps": "16.74",
-          "maf_30s": "19.00",
-          "height_pct": "71.2%"
-        },
-        {
-          "ts": "2018-03-21T19:12:06.032Z",
-          "speed_kph": "0.00",
-          "maf_gps": "14.88",
-          "maf_30s": "18.84",
-          "height_pct": "70.7%"
-        },
-        {
-          "ts": "2018-03-21T19:12:16.082Z",
-          "speed_kph": "0.00",
-          "maf_gps": "9.72",
-          "maf_30s": "17.67",
-          "height_pct": "67.2%"
-        },
-        {
-          "ts": "2018-03-21T19:12:26.072Z",
-          "speed_kph": "19.00",
-          "maf_gps": "33.99",
-          "maf_30s": "13.78",
-          "height_pct": "55.5%"
-        },
-        {
-          "ts": "2018-03-21T19:12:36.032Z",
-          "speed_kph": "31.00",
-          "maf_gps": "12.91",
-          "maf_30s": "14.87",
-          "height_pct": "58.8%"
-        },
-        {
-          "ts": "2018-03-21T19:12:46.022Z",
-          "speed_kph": "0.00",
-          "maf_gps": "9.86",
-          "maf_30s": "14.43",
-          "height_pct": "57.4%"
-        },
-        {
-          "ts": "2018-03-21T19:12:56.012Z",
-          "speed_kph": "0.00",
-          "maf_gps": "9.66",
-          "maf_30s": "13.61",
-          "height_pct": "55.0%"
-        },
-        {
-          "ts": "2018-03-21T19:13:06.031Z",
-          "speed_kph": "0.00",
-          "maf_gps": "9.69",
-          "maf_30s": "10.00",
-          "height_pct": "44.1%"
-        },
-        {
-          "ts": "2018-03-21T19:13:15.061Z",
-          "speed_kph": "0.00",
-          "maf_gps": "9.33",
-          "maf_30s": "9.51",
-          "height_pct": "42.6%"
-        }
-      ],
-      "dtcEvidence": [
-        {
-          "code": "none logged",
-          "status": "none",
-          "description": "No diagnostic trouble code was logged in this real public entry.",
-          "fault_ts": "",
-          "ts": "",
-          "rpm": "n/a",
-          "engine_load_pct": "n/a",
-          "coolant_temp_c": "n/a"
-        }
-      ],
-      "healthMatrix": [
-        {
-          "id": "drive_health",
-          "label": "Drive health",
-          "value": "88.0",
-          "width_pct": "88.0%"
-        },
-        {
-          "id": "baseline_fit",
-          "label": "Baseline fit",
-          "value": "0.0",
-          "width_pct": "0.0%"
-        },
-        {
-          "id": "airflow",
-          "label": "Airflow",
-          "value": "74.6",
-          "width_pct": "74.6%"
-        },
-        {
-          "id": "fault_clearance",
-          "label": "Fault clearance",
-          "value": "100.0",
-          "width_pct": "100.0%"
-        },
-        {
-          "id": "sensor_balance",
-          "label": "Sensor balance",
-          "value": "52.0",
-          "width_pct": "52.0%"
-        }
-      ],
-      "performanceConcerns": [
-        {
-          "level": "watch",
-          "text": "Several logged metrics sat outside this vehicle's baseline bands for this drive \u2014 check sensors and drive context before assuming normal operation."
-        },
-        {
-          "level": "watch",
-          "text": "Coolant readings mostly sat outside the expected warm band \u2014 check the cooling system or the sensor before assuming normal operation."
-        },
-        {
-          "level": "watch",
-          "text": "Engine load and trim readings added measurable penalty points \u2014 the engine may have been working harder or running less evenly than a clean reference drive."
-        }
-      ],
-      "agentTrace": [
-        {
-          "agent": "corvus",
-          "node": "agent_trace",
-          "kind": "deterministic",
-          "summary": "Trace created before analysis output.",
-          "title": "Open trace",
-          "body": "Trace created before analysis output.",
-          "agent_name": "Corvus",
-          "agent_tagline": "Writes the report"
-        },
-        {
-          "agent": "huginn",
-          "node": "ingest_normalizer",
-          "kind": "deterministic",
-          "summary": "Loaded the logged drive from the database.",
-          "title": "Load the drive",
-          "body": "Loaded the logged drive from the database.",
-          "agent_name": "Huginn",
-          "agent_tagline": "Reads this drive"
-        },
-        {
-          "agent": "huginn",
-          "node": "sql_deviation",
-          "kind": "deterministic",
-          "summary": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
-          "title": "Run SQL checks",
-          "body": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
-          "agent_name": "Huginn",
-          "agent_tagline": "Reads this drive"
-        },
-        {
-          "agent": "huginn",
-          "node": "dtc_interpreter",
-          "kind": "deterministic",
-          "summary": "Listed diagnostic trouble codes logged on this drive.",
-          "title": "Read fault codes",
-          "body": "Listed diagnostic trouble codes logged on this drive.",
-          "agent_name": "Huginn",
-          "agent_tagline": "Reads this drive"
-        },
-        {
-          "agent": "muninn",
-          "node": "baseline_recall",
-          "kind": "deterministic",
-          "summary": "Loaded stored healthy ranges for this vehicle.",
-          "title": "Load healthy ranges",
-          "body": "Loaded stored healthy ranges for this vehicle.",
-          "agent_name": "Muninn",
-          "agent_tagline": "Recalls what normal looks like"
-        },
-        {
-          "agent": "muninn",
-          "node": "correlation",
-          "kind": "deterministic",
-          "summary": "Matched fault timestamps to nearby engine sensor rows.",
-          "title": "Match faults to sensors",
-          "body": "Matched fault timestamps to nearby engine sensor rows.",
-          "agent_name": "Muninn",
-          "agent_tagline": "Recalls what normal looks like"
-        },
-        {
-          "agent": "muninn",
-          "node": "recommendation",
-          "kind": "deterministic",
-          "summary": "Ranked what to inspect next from SQL facts only.",
-          "title": "State next checks",
-          "body": "Ranked what to inspect next from SQL facts only.",
-          "agent_name": "Muninn",
-          "agent_tagline": "Recalls what normal looks like"
-        },
-        {
-          "agent": "corvus",
-          "node": "report_writer",
-          "kind": "deterministic",
-          "summary": "Saved the finding with trace id for audit.",
-          "title": "Save finding",
-          "body": "Saved the finding with trace id for audit.",
-          "agent_name": "Corvus",
-          "agent_tagline": "Writes the report"
-        }
-      ],
-      "agentTraceId": "agent-fc41471e16ca4c4aab2379335e685807",
       "dtcSummary": "No DTC rows were logged for this session."
     },
     "5": {
@@ -915,13 +573,13 @@
       "healthMatrix": [
         {
           "id": "drive_health",
-          "label": "Drive health",
+          "label": "Drive Health",
           "value": "96.2",
           "width_pct": "96.2%"
         },
         {
           "id": "baseline_fit",
-          "label": "Baseline fit",
+          "label": "Baseline Fit",
           "value": "67.9",
           "width_pct": "67.9%"
         },
@@ -933,13 +591,13 @@
         },
         {
           "id": "fault_clearance",
-          "label": "Fault clearance",
+          "label": "Fault Clearance",
           "value": "100.0",
           "width_pct": "100.0%"
         },
         {
           "id": "sensor_balance",
-          "label": "Sensor balance",
+          "label": "Sensor Balance",
           "value": "67.9",
           "width_pct": "67.9%"
         }
@@ -956,7 +614,7 @@
           "node": "agent_trace",
           "kind": "deterministic",
           "summary": "Trace created before analysis output.",
-          "title": "Open trace",
+          "title": "Open Trace",
           "body": "Trace created before analysis output.",
           "agent_name": "Corvus",
           "agent_tagline": "Writes the report"
@@ -966,7 +624,7 @@
           "node": "ingest_normalizer",
           "kind": "deterministic",
           "summary": "Loaded the logged drive from the database.",
-          "title": "Load the drive",
+          "title": "Load the Drive",
           "body": "Loaded the logged drive from the database.",
           "agent_name": "Huginn",
           "agent_tagline": "Reads this drive"
@@ -976,7 +634,7 @@
           "node": "sql_deviation",
           "kind": "deterministic",
           "summary": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
-          "title": "Run SQL checks",
+          "title": "Run SQL Checks",
           "body": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
           "agent_name": "Huginn",
           "agent_tagline": "Reads this drive"
@@ -986,7 +644,7 @@
           "node": "dtc_interpreter",
           "kind": "deterministic",
           "summary": "Listed diagnostic trouble codes logged on this drive.",
-          "title": "Read fault codes",
+          "title": "Read Fault Codes",
           "body": "Listed diagnostic trouble codes logged on this drive.",
           "agent_name": "Huginn",
           "agent_tagline": "Reads this drive"
@@ -996,7 +654,7 @@
           "node": "baseline_recall",
           "kind": "deterministic",
           "summary": "Loaded stored healthy ranges for this vehicle.",
-          "title": "Load healthy ranges",
+          "title": "Load Healthy Ranges",
           "body": "Loaded stored healthy ranges for this vehicle.",
           "agent_name": "Muninn",
           "agent_tagline": "Recalls what normal looks like"
@@ -1006,7 +664,7 @@
           "node": "correlation",
           "kind": "deterministic",
           "summary": "Matched fault timestamps to nearby engine sensor rows.",
-          "title": "Match faults to sensors",
+          "title": "Match Faults to Sensors",
           "body": "Matched fault timestamps to nearby engine sensor rows.",
           "agent_name": "Muninn",
           "agent_tagline": "Recalls what normal looks like"
@@ -1016,7 +674,7 @@
           "node": "recommendation",
           "kind": "deterministic",
           "summary": "Ranked what to inspect next from SQL facts only.",
-          "title": "State next checks",
+          "title": "State Next Checks",
           "body": "Ranked what to inspect next from SQL facts only.",
           "agent_name": "Muninn",
           "agent_tagline": "Recalls what normal looks like"
@@ -1026,7 +684,7 @@
           "node": "report_writer",
           "kind": "deterministic",
           "summary": "Saved the finding with trace id for audit.",
-          "title": "Save finding",
+          "title": "Save Finding",
           "body": "Saved the finding with trace id for audit.",
           "agent_name": "Corvus",
           "agent_tagline": "Writes the report"
@@ -1249,13 +907,13 @@
       "healthMatrix": [
         {
           "id": "drive_health",
-          "label": "Drive health",
+          "label": "Drive Health",
           "value": "95.0",
           "width_pct": "95.0%"
         },
         {
           "id": "baseline_fit",
-          "label": "Baseline fit",
+          "label": "Baseline Fit",
           "value": "58.7",
           "width_pct": "58.7%"
         },
@@ -1267,13 +925,13 @@
         },
         {
           "id": "fault_clearance",
-          "label": "Fault clearance",
+          "label": "Fault Clearance",
           "value": "100.0",
           "width_pct": "100.0%"
         },
         {
           "id": "sensor_balance",
-          "label": "Sensor balance",
+          "label": "Sensor Balance",
           "value": "58.7",
           "width_pct": "58.7%"
         }
@@ -1290,7 +948,7 @@
           "node": "agent_trace",
           "kind": "deterministic",
           "summary": "Trace created before analysis output.",
-          "title": "Open trace",
+          "title": "Open Trace",
           "body": "Trace created before analysis output.",
           "agent_name": "Corvus",
           "agent_tagline": "Writes the report"
@@ -1300,7 +958,7 @@
           "node": "ingest_normalizer",
           "kind": "deterministic",
           "summary": "Loaded the logged drive from the database.",
-          "title": "Load the drive",
+          "title": "Load the Drive",
           "body": "Loaded the logged drive from the database.",
           "agent_name": "Huginn",
           "agent_tagline": "Reads this drive"
@@ -1310,7 +968,7 @@
           "node": "sql_deviation",
           "kind": "deterministic",
           "summary": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
-          "title": "Run SQL checks",
+          "title": "Run SQL Checks",
           "body": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
           "agent_name": "Huginn",
           "agent_tagline": "Reads this drive"
@@ -1320,7 +978,7 @@
           "node": "dtc_interpreter",
           "kind": "deterministic",
           "summary": "Listed diagnostic trouble codes logged on this drive.",
-          "title": "Read fault codes",
+          "title": "Read Fault Codes",
           "body": "Listed diagnostic trouble codes logged on this drive.",
           "agent_name": "Huginn",
           "agent_tagline": "Reads this drive"
@@ -1330,7 +988,7 @@
           "node": "baseline_recall",
           "kind": "deterministic",
           "summary": "Loaded stored healthy ranges for this vehicle.",
-          "title": "Load healthy ranges",
+          "title": "Load Healthy Ranges",
           "body": "Loaded stored healthy ranges for this vehicle.",
           "agent_name": "Muninn",
           "agent_tagline": "Recalls what normal looks like"
@@ -1340,7 +998,7 @@
           "node": "correlation",
           "kind": "deterministic",
           "summary": "Matched fault timestamps to nearby engine sensor rows.",
-          "title": "Match faults to sensors",
+          "title": "Match Faults to Sensors",
           "body": "Matched fault timestamps to nearby engine sensor rows.",
           "agent_name": "Muninn",
           "agent_tagline": "Recalls what normal looks like"
@@ -1350,7 +1008,7 @@
           "node": "recommendation",
           "kind": "deterministic",
           "summary": "Ranked what to inspect next from SQL facts only.",
-          "title": "State next checks",
+          "title": "State Next Checks",
           "body": "Ranked what to inspect next from SQL facts only.",
           "agent_name": "Muninn",
           "agent_tagline": "Recalls what normal looks like"
@@ -1360,7 +1018,7 @@
           "node": "report_writer",
           "kind": "deterministic",
           "summary": "Saved the finding with trace id for audit.",
-          "title": "Save finding",
+          "title": "Save Finding",
           "body": "Saved the finding with trace id for audit.",
           "agent_name": "Corvus",
           "agent_tagline": "Writes the report"
@@ -1384,20 +1042,6 @@
       "dtc_count": "0",
       "pct_out_of_range": "0.0",
       "baseline_width": "0.0%"
-    },
-    {
-      "session_id": 4,
-      "vehicle": "Seat Leon",
-      "source": "public",
-      "notes": "KIT/RADAR Automotive OBD-II Dataset real OBD-II entry; source_file=2018-03-21_Seat_Leon_KA_RT_Normal.csv; drive_label=Cold Start Log; license=CC BY 4.0.",
-      "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
-      "drive_label": "Cold Start Log",
-      "health_score": "88.0",
-      "health_score_width": "88.0%",
-      "telemetry_samples": "240",
-      "dtc_count": "0",
-      "pct_out_of_range": "100.0",
-      "baseline_width": "100.0%"
     },
     {
       "session_id": 5,
@@ -1623,7 +1267,7 @@
       "node": "agent_trace",
       "kind": "deterministic",
       "summary": "Trace created before analysis output.",
-      "title": "Open trace",
+      "title": "Open Trace",
       "body": "Trace created before analysis output.",
       "agent_name": "Corvus",
       "agent_tagline": "Writes the report"
@@ -1633,7 +1277,7 @@
       "node": "ingest_normalizer",
       "kind": "deterministic",
       "summary": "Loaded the logged drive from the database.",
-      "title": "Load the drive",
+      "title": "Load the Drive",
       "body": "Loaded the logged drive from the database.",
       "agent_name": "Huginn",
       "agent_tagline": "Reads this drive"
@@ -1643,7 +1287,7 @@
       "node": "sql_deviation",
       "kind": "deterministic",
       "summary": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
-      "title": "Run SQL checks",
+      "title": "Run SQL Checks",
       "body": "Ran SQL health score, baseline drift, trim trend, and fault-window queries.",
       "agent_name": "Huginn",
       "agent_tagline": "Reads this drive"
@@ -1653,7 +1297,7 @@
       "node": "dtc_interpreter",
       "kind": "deterministic",
       "summary": "Listed diagnostic trouble codes logged on this drive.",
-      "title": "Read fault codes",
+      "title": "Read Fault Codes",
       "body": "Listed diagnostic trouble codes logged on this drive.",
       "agent_name": "Huginn",
       "agent_tagline": "Reads this drive"
@@ -1663,7 +1307,7 @@
       "node": "baseline_recall",
       "kind": "deterministic",
       "summary": "Loaded stored healthy ranges for this vehicle.",
-      "title": "Load healthy ranges",
+      "title": "Load Healthy Ranges",
       "body": "Loaded stored healthy ranges for this vehicle.",
       "agent_name": "Muninn",
       "agent_tagline": "Recalls what normal looks like"
@@ -1673,7 +1317,7 @@
       "node": "correlation",
       "kind": "deterministic",
       "summary": "Matched fault timestamps to nearby engine sensor rows.",
-      "title": "Match faults to sensors",
+      "title": "Match Faults to Sensors",
       "body": "Matched fault timestamps to nearby engine sensor rows.",
       "agent_name": "Muninn",
       "agent_tagline": "Recalls what normal looks like"
@@ -1683,7 +1327,7 @@
       "node": "recommendation",
       "kind": "deterministic",
       "summary": "Ranked what to inspect next from SQL facts only.",
-      "title": "State next checks",
+      "title": "State Next Checks",
       "body": "Ranked what to inspect next from SQL facts only.",
       "agent_name": "Muninn",
       "agent_tagline": "Recalls what normal looks like"
@@ -1693,7 +1337,7 @@
       "node": "report_writer",
       "kind": "deterministic",
       "summary": "Saved the finding with trace id for audit.",
-      "title": "Save finding",
+      "title": "Save Finding",
       "body": "Saved the finding with trace id for audit.",
       "agent_name": "Corvus",
       "agent_tagline": "Writes the report"
@@ -1702,14 +1346,14 @@
   "agentTraceId": "agent-fc41471e16ca4c4aab2379335e685807",
   "disclaimer": "Directional diagnostic guidance based on logged data - not a substitute for inspection by a certified technician.",
   "healthGuide": {
-    "title": "Drive health score",
+    "title": "Drive Health Score",
     "body": "Composite SQL score for the selected session."
   },
   "trendGuide": {
     "body": "Grams of air per second (mass air flow). Bars show a rolling SQL average over the logged drive."
   },
   "faultGuide": {
-    "title": "Fault codes",
+    "title": "Fault Codes",
     "body": "OBD-II trouble codes logged during the drive. None logged means no code was stored in this public file."
   },
   "dataSource": {

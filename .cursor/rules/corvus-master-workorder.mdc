@@ -1,0 +1,27 @@
+---
+description: Corvus master work order — single source of truth for all agent work
+alwaysApply: true
+---
+
+# Corvus — read before any edit
+
+**Bible:** `docs/CORVUS_MASTER_WORKORDER.md` (supersedes all other handoffs).
+
+## Hard rules (agent broke these before)
+
+1. **One task at a time** from Section 4; run `cd frontend && NEXT_PUBLIC_BASE_PATH=/corvus npm run build` after each; exit 0 before next task.
+2. **Literal strings only** — use exact find/replace from the work order; no paraphrase, no drive-by reformat.
+3. **Never invent data** — no new vehicles, no score edits, no second copy of the same car, no synthetic drives.
+4. **Touch only files named by the current task.**
+5. **If unsure, stop and report** — smaller correct change beats confident wrong change.
+
+## Product truth
+
+- Portfolio demo, not a product. Make it **correct, consistent, beautiful** — do not add features or refactor architecture.
+- Public picker = **3 distinct vehicles** (1× Seat Leon, 2× VED). Never two Leons.
+- Scoring/baselines: **owner's call** — never oscillate or "sanitize."
+- Title Case for labels; sentence case for body/hints; `corvus` wordmark stays lowercase.
+- **Ban `font-weight: 950`** — max 800 (faux-bold causes crusty type).
+- Section 7 **DO NOT** list is absolute.
+
+When the work order and a prior chat conflict, **the work order wins**.

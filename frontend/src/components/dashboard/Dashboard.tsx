@@ -43,7 +43,7 @@ export function Dashboard({ data }: Props) {
         <div className="heroCopy">
           <div className="topLine">
             <span>{data.version}</span>
-            <span>Real public telemetry</span>
+            <span>Real Public Telemetry</span>
           </div>
           <h1 id="corvus-title" className="wordmark" data-text="corvus">
             corvus
@@ -119,7 +119,7 @@ export function Dashboard({ data }: Props) {
                 </div>
                 <div className="barChartAxisX" aria-hidden>
                   <span className="barChartTick">{airflowAxes.start}</span>
-                  <span className="barChartUnit">Time into drive</span>
+                  <span className="barChartUnit">Time Into Drive</span>
                   <span className="barChartTick">{airflowAxes.end}</span>
                 </div>
               </div>
@@ -132,7 +132,7 @@ export function Dashboard({ data }: Props) {
         <article className="panel flowIn delayedFour" key={`faults-${activeSessionId}`}>
           <div className="panelHead">
             <p>{data.faultGuide.title}</p>
-            <h2>{showFaultRows ? diagnosticCode?.code : "None logged"}</h2>
+            <h2>{showFaultRows ? diagnosticCode?.code : "None Logged"}</h2>
           </div>
           <div className="panelSwap">
             {showFaultRows ? (
@@ -154,7 +154,7 @@ export function Dashboard({ data }: Props) {
               </div>
             ) : (
               <div className="emptyEvidence">
-                <strong>No fault code in this file</strong>
+                <strong>No Fault Code in This File</strong>
                 <p>{diagnosticCode?.description}</p>
               </div>
             )}

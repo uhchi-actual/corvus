@@ -68,10 +68,10 @@ function spokeAngle(index: number, count: number) {
   return (Math.PI * 2 * index) / count - Math.PI / 2;
 }
 
-function spokeValuePosition(badgeX: number, badgeY: number, angle: number) {
+function spokeValuePosition(badgeX: number, badgeY: number, _angle: number) {
   return {
-    x: badgeX + Math.cos(angle) * VALUE_OFFSET,
-    y: badgeY + Math.sin(angle) * VALUE_OFFSET,
+    x: badgeX,
+    y: badgeY - VALUE_OFFSET,
   };
 }
 

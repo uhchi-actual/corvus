@@ -62,3 +62,21 @@ export function formatDriveWindow(startedAt: string, endedAt: string) {
     duration,
   };
 }
+
+/** Whole-number health score for display (e.g. 88.0 → 88). */
+export function formatHealthScore(raw: string): string {
+  const value = Number(raw);
+  if (!Number.isFinite(value)) {
+    return raw;
+  }
+  return String(Math.round(value));
+}
+
+/** Ring fill width using the same rounded score. */
+export function formatHealthScoreWidth(raw: string): string {
+  const value = Number(raw);
+  if (!Number.isFinite(value)) {
+    return "0%";
+  }
+  return `${Math.round(value)}%`;
+}

@@ -1,4 +1,5 @@
 import type { HealthAxis } from "../../types/dashboard";
+import { formatHealthScore } from "../../lib/format";
 import { scoreColor } from "../../lib/score";
 
 type Props = {
@@ -193,7 +194,7 @@ export function HealthMatrix({ axes, score }: Props) {
                 textAnchor="middle"
                 dominantBaseline="central"
               >
-                {axes[index].value}
+                {formatHealthScore(axes[index].value)}
               </text>
             </g>
           ))}
@@ -224,7 +225,7 @@ export function HealthMatrix({ axes, score }: Props) {
                     {meta.code}
                   </span>
                   <div className="matrixLegendHead">
-                    <strong style={{ color: railColor }}>{axis.value}</strong>
+                    <strong style={{ color: railColor }}>{formatHealthScore(axis.value)}</strong>
                     <span>{axis.label}</span>
                   </div>
                 </div>

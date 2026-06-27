@@ -1,5 +1,5 @@
 import type { CssVars, SessionRow } from "../../types/dashboard";
-import { cleanSourceFile } from "../../lib/format";
+import { cleanSourceFile, formatHealthScore, formatHealthScoreWidth } from "../../lib/format";
 
 type Props = {
   sessions: SessionRow[];
@@ -32,11 +32,11 @@ export function DrivePicker({ sessions, activeSessionId, onSelect }: Props) {
                 <span className="sessionFile">{cleanSourceFile(session.source_file)}</span>
               </div>
               <div className="miniMeters">
-                <span>{session.health_score}</span>
+                <span>{formatHealthScore(session.health_score)}</span>
                 <div className="meterTrack">
                   <span
                     className="meterFill"
-                    style={{ "--score-width": session.health_score_width } as CssVars}
+                    style={{ "--score-width": formatHealthScoreWidth(session.health_score) } as CssVars}
                   />
                 </div>
                 <small>{session.telemetry_samples} rows</small>

@@ -1,5 +1,5 @@
 import type { CssVars, FocusRow } from "../../types/dashboard";
-import { cleanSourceFile, formatDriveWindow } from "../../lib/format";
+import { cleanSourceFile, formatDriveWindow, formatHealthScore, formatHealthScoreWidth } from "../../lib/format";
 
 type Props = {
   focus: FocusRow;
@@ -7,6 +7,7 @@ type Props = {
 
 export function HealthScorePanel({ focus }: Props) {
   const driveWindow = formatDriveWindow(focus.started_at, focus.ended_at);
+  const healthScore = formatHealthScore(focus.health_score);
   const samples = Number(focus.telemetry_samples);
   const samplePace =
     samples > 0 && driveWindow.durationSec > 0
@@ -23,10 +24,10 @@ export function HealthScorePanel({ focus }: Props) {
       <div className="healthScoreHero">
         <div
           className="scoreRing scoreRingLarge"
-          style={{ "--score-width": focus.health_score_width } as CssVars}
-          aria-label={`Drive health ${focus.health_score} out of 100`}
+          style={{ "--score-width": formatHealthScoreWidth(focus.health_score) } as CssVars}
+          aria-label={`Drive health ${healthScore} out of 100`}
         >
-          <span className="scoreRingValue">{focus.health_score}</span>
+          <span className="scoreRingValue">{healthScore}</span>
           <span className="scoreRingCap">of 100</span>
         </div>
 

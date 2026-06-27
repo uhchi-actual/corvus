@@ -6,11 +6,12 @@ type Props = {
 };
 
 const SIZE = 480;
+const CHART_PAD = 40;
 const CENTER = SIZE / 2;
-const RADIUS = 128;
+const RADIUS = 118;
 const BADGE_RADIUS = 13;
-const BADGE_RING = RADIUS + 30;
-const VALUE_OFFSET = 22;
+const BADGE_RING = RADIUS + 34;
+const VALUE_RING = BADGE_RING + BADGE_RADIUS + 18;
 
 type AxisMeta = {
   code: string;
@@ -60,7 +61,8 @@ function polygonPoints(axes: HealthAxis[], count: number, scale: number) {
     .join(" ");
 }
 
-function scoreColor(value: number): string {
+/** 0 = red, 100 = teal (chart blue). */
+export function scoreColor(value: number): string {
   const t = Math.max(0, Math.min(1, value / 100));
   const red = { r: 168, g: 34, b: 46 };
   const teal = { r: 31, g: 113, b: 108 };
@@ -68,6 +70,23 @@ function scoreColor(value: number): string {
   const g = Math.round(red.g + (teal.g - red.g) * t);
   const b = Math.round(red.b + (teal.b - red.b) * t);
   return `rgb(${r},${g},${b})`;
+}
+
+function spokeValueLabel(angle: number, x: number, y: number) {
+  const cos = Math.cos(angle);
+  const sin = Math.sin(angle);
+  let textAnchor: "start" | "middle" | "end" = "middle";
+  if (cos > 0.45) {
+    textAnchor = "start";
+  } else if (cos < -0.45) {
+    textAnchor = "end";
+  }
+  const nudge = textAnchor === "middle" ? 0 : 3;
+  return {
+    x: x + cos * nudge,
+    y: y + sin * nudge,
+    textAnchor,
+  };
 }
 
 export function HealthMatrix({ axes, score }: Props) {
@@ -84,18 +103,20 @@ export function HealthMatrix({ axes, score }: Props) {
     const value = Number(axis.value);
     const vertex = polarPoint(index, count, value);
     const badge = polarPoint(index, count, 100, BADGE_RING);
+    const valuePoint = polarPoint(index, count, 100, VALUE_RING);
+    const valueLabel = spokeValueLabel(vertex.angle, valuePoint.x, valuePoint.y);
     const meta = AXIS_META[axis.id] ?? { code: String(index + 1), hint: axis.label };
-    const outwardX = badge.x + Math.cos(vertex.angle) * VALUE_OFFSET;
-    const outwardY = badge.y + Math.sin(vertex.angle) * VALUE_OFFSET;
-    return { axis, index, vertex, badge, meta, outwardX, outwardY, value };
+    return { axis, index, vertex, badge, meta, valueLabel, value };
   });
+
+  const legendItems = [...axisLayouts].sort((a, b) => b.value - a.value);
 
   return (
     <div className="healthMatrixWrap">
       <div className="matrixStage">
         <svg
           className="healthMatrixChart"
-          viewBox={`0 0 ${SIZE} ${SIZE}`}
+          viewBox={`-${CHART_PAD} -${CHART_PAD} ${SIZE + CHART_PAD * 2} ${SIZE + CHART_PAD * 2}`}
           role="img"
           aria-label={`Performance profile for drive score ${score}`}
         >
@@ -163,7 +184,7 @@ export function HealthMatrix({ axes, score }: Props) {
               </g>
             );
           })}
-          {axisLayouts.map(({ badge, meta, outwardX, outwardY, index }) => (
+          {axisLayouts.map(({ badge, meta, valueLabel, index }) => (
             <g key={`badge-${index}`} className="matrixAxisUnit">
               <circle
                 className="matrixAxisBadgeCircle"
@@ -182,9 +203,9 @@ export function HealthMatrix({ axes, score }: Props) {
               </text>
               <text
                 className="matrixAxisSpokeValue"
-                x={outwardX}
-                y={outwardY}
-                textAnchor="middle"
+                x={valueLabel.x}
+                y={valueLabel.y}
+                textAnchor={valueLabel.textAnchor}
                 dominantBaseline="central"
               >
                 {axes[index].value}
@@ -195,25 +216,37 @@ export function HealthMatrix({ axes, score }: Props) {
       </div>
 
       <div className="matrixLegendPanel">
-        <p className="matrixLegendTitle">Axis legend</p>
-        <ol className="matrixLegendGrid" aria-label="Performance axis legend">
-          {axisLayouts.map(({ axis, meta, value }) => (
-            <li key={axis.id} className="matrixLegendCard">
-              <span
-                className="matrixLegendRail"
-                aria-hidden
-                style={{ backgroundColor: scoreColor(value) }}
-              />
-              <div className="matrixLegendRow">
-                <span className="matrixAxisBadge" title={meta.hint}>{meta.code}</span>
-                <div className="matrixLegendHead">
-                  <strong>{axis.value}</strong>
-                  <span>{axis.label}</span>
+        <p className="matrixLegendTitle">Axis legend · high to low</p>
+        <ol className="matrixLegendGrid" aria-label="Performance axis legend sorted by score">
+          {legendItems.map(({ axis, meta, value }) => {
+            const railColor = scoreColor(value);
+            return (
+              <li key={axis.id} className="matrixLegendCard">
+                <span
+                  className="matrixLegendRail"
+                  aria-hidden
+                  style={{ backgroundColor: railColor }}
+                />
+                <div className="matrixLegendRow">
+                  <span
+                    className="matrixAxisBadge"
+                    title={meta.hint}
+                    style={{
+                      boxShadow: `inset 0 0 0 1.5px ${railColor}`,
+                      backgroundColor: `color-mix(in srgb, ${railColor} 22%, transparent)`,
+                    }}
+                  >
+                    {meta.code}
+                  </span>
+                  <div className="matrixLegendHead">
+                    <strong style={{ color: railColor }}>{axis.value}</strong>
+                    <span>{axis.label}</span>
+                  </div>
                 </div>
-              </div>
-              <p>{meta.hint}</p>
-            </li>
-          ))}
+                <p className="matrixLegendHint">{meta.hint}</p>
+              </li>
+            );
+          })}
         </ol>
       </div>
     </div>

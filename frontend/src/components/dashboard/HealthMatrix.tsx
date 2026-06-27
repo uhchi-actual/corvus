@@ -12,7 +12,9 @@ const CENTER = SIZE / 2;
 const RADIUS = 118;
 const BADGE_RADIUS = 13;
 const BADGE_RING = RADIUS + 34;
-const VALUE_RING = BADGE_RING + BADGE_RADIUS + 18;
+const VALUE_LABEL_GAP = 14; // 25% closer than prior 18px gap past badge edge
+const VALUE_RING = BADGE_RING + BADGE_RADIUS + VALUE_LABEL_GAP;
+const SPOKE_LABEL_NUDGE = 2;
 
 type AxisMeta = {
   code: string;
@@ -71,7 +73,7 @@ function spokeValueLabel(angle: number, x: number, y: number) {
   } else if (cos < -0.45) {
     textAnchor = "end";
   }
-  const nudge = textAnchor === "middle" ? 0 : 3;
+  const nudge = textAnchor === "middle" ? 0 : SPOKE_LABEL_NUDGE;
   return {
     x: x + cos * nudge,
     y: y + sin * nudge,

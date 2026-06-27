@@ -1,0 +1,35 @@
+{
+  "_note": "Per-engine-class baseline bands transmuted from VED reference engines (P5-P95).",
+  "profiles": {
+    "heavy": {
+      "source_file": "public_obd_ved_6l_v8.csv",
+      "engine_load_pct": {
+        "healthy_min": 11.4,
+        "healthy_max": 38.8,
+        "p50": 18.8,
+        "n": 240
+      },
+      "maf_gps": {
+        "healthy_min": 5.9,
+        "healthy_max": 38.4,
+        "p50": 9.1,
+        "n": 240
+      }
+    },
+    "light": {
+      "source_file": "public_obd_ved_car_1p5l.csv",
+      "engine_load_pct": {
+        "healthy_min": 14.5,
+        "healthy_max": 81.2,
+        "p50": 24.3,
+        "n": 240
+      },
+      "maf_gps": {
+        "healthy_min": 2.9,
+        "healthy_max": 24.3,
+        "p50": 5.8,
+        "n": 240
+      }
+    }
+  }
+}

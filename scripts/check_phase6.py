@@ -27,7 +27,7 @@ def main() -> None:
         if key not in payload:
             raise SystemExit(f"Dashboard payload is missing readability block: {key}")
 
-    if "sessionViews" not in payload or len(payload["sessionViews"]) < 4:
+    if "sessionViews" not in payload or len(payload["sessionViews"]) < 3:
         raise SystemExit("Dashboard payload is missing per-session views")
 
     default_view = payload["sessionViews"][str(payload["defaultSessionId"])]
@@ -40,7 +40,7 @@ def main() -> None:
         raise SystemExit("Dashboard payload is missing performance concerns")
 
     records = payload["dataSource"].get("records", [])
-    if len(records) < 4:
+    if len(records) < 3:
         raise SystemExit("Provenance records are missing public drive entries")
 
     resume = (ROOT / "README.md").read_text(encoding="utf-8")

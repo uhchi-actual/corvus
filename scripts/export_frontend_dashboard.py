@@ -175,12 +175,18 @@ def _focus_session_id(conn: sqlite3.Connection) -> int:
         JOIN drive_sessions s
           ON s.session_id = h.session_id
         WHERE s.source = 'public'
+          AND EXISTS (
+            SELECT 1
+            FROM telemetry_samples t
+            WHERE t.session_id = h.session_id
+              AND t.maf_gps IS NOT NULL
+          )
         ORDER BY h.health_score ASC, h.session_id ASC
         LIMIT 1
         """
     ).fetchone()
     if row is None:
-        raise ValueError("No dashboard health rows available")
+        raise ValueError("No dashboard health rows with MAF telemetry available")
     return int(row["session_id"])
 
 
@@ -219,7 +225,8 @@ def _provenance_records(conn: sqlite3.Connection) -> list[dict[str, str]]:
           ) AS license,
           CASE
             WHEN s.notes LIKE '%KIT/RADAR%' THEN 'KIT/RADAR Automotive OBD-II Dataset'
-            WHEN s.notes LIKE '%VED%' THEN 'Vehicle Energy Dataset (VED)'
+            WHEN s.notes LIKE '%carOBD%' THEN 'carOBD (Toyota Etios)'
+            WHEN s.notes LIKE '%OBD2 panel Opel%' THEN 'OBD2 panel Opel 2012'
             ELSE 'Public OBD-II archive'
           END AS dataset_name
         FROM drive_sessions s
@@ -426,16 +433,22 @@ def _dashboard_payload(
                     "url": "https://doi.org/10.35097/1130",
                 },
                 {
-                    "name": "Vehicle Energy Dataset (VED)",
-                    "license": "Apache-2.0",
-                    "licenseUrl": "https://www.apache.org/licenses/LICENSE-2.0",
-                    "url": "https://github.com/gsoh/VED",
+                    "name": "carOBD (Toyota Etios)",
+                    "license": "Open / cite author",
+                    "licenseUrl": "https://github.com/eron93br/carOBD",
+                    "url": "https://github.com/eron93br/carOBD",
+                },
+                {
+                    "name": "OBD2 panel Opel 2012",
+                    "license": "CC BY 4.0",
+                    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/deed.en",
+                    "url": "https://huggingface.co/datasets/PedroCuisinier2025/OBD2_panel_opel_2012",
                 },
             ],
             "entries": _public_source_entries(conn),
             "note": (
                 "Each row below is one real public OBD-II log. "
-                "KIT files are Seat Leon drives. VED files are de-identified U.S. vehicles."
+                "Three makes: Seat Leon (Germany), Toyota Etios (Brazil), Opel Corsa (Spain)."
             ),
             "records": _provenance_records(conn),
         },

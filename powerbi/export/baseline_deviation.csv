@@ -1,5 +1,9 @@
 session_id,metric,context,sample_count,out_of_range_samples,pct_out_of_range
 3,coolant_temp_c,warm,240,0,0.0
-4,coolant_temp_c,warm,240,240,100.0
-5,engine_load_pct,idle,240,77,32.1
-6,engine_load_pct,idle,240,99,41.3
+4,coolant_temp_c,warm,240,62,25.8
+4,engine_load_pct,class,240,0,0.0
+4,ltft_b1_pct,cruise,240,0,0.0
+4,stft_b1_pct,cruise,240,0,0.0
+4,timing_adv_deg,cruise,240,195,81.3
+5,coolant_temp_c,warm,231,0,0.0
+5,engine_load_pct,class,240,110,45.8

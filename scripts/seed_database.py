@@ -36,51 +36,34 @@ PUBLIC_DRIVE_SOURCES = [
         "license": "CC BY 4.0",
     },
     {
-        "seed_file": "public_obd_kit_cold.csv",
-        "source_file": "2018-03-21_Seat_Leon_KA_RT_Normal.csv",
-        "label": "Cold Start Log",
+        "seed_file": "public_obd_caro_etios_1p5l.csv",
+        "source_file": "carOBD live1.csv (Toyota Etios 2014)",
+        "label": "City Commute Log",
         "vehicle": VehicleMetadata(
             vin=None,
-            make="Seat",
-            model="Leon",
-            year=None,
-            engine=None,
-            notes="Public KIT cold-start slice; DOI 10.35097/1130.",
-        ),
-        "dataset": "KIT/RADAR Automotive OBD-II Dataset",
-        "license": "CC BY 4.0",
-    },
-    {
-        "seed_file": "public_obd_ved_6l_v8.csv",
-        "source_file": "VED_171101_week.csv",
-        "source_detail": "VehId=108; Trip=784",
-        "label": "Ann Arbor Week Log",
-        "vehicle": VehicleMetadata(
-            vin=None,
-            make="VED",
-            model="ICE 6.0L V8",
-            year=None,
-            engine="8-4V/FI 6.0L",
-            notes="Public VED OBD-II slice; Apache 2.0; week export has no coolant PID.",
-        ),
-        "dataset": "Vehicle Energy Dataset (VED)",
-        "license": "Apache-2.0",
-    },
-    {
-        "seed_file": "public_obd_ved_car_1p5l.csv",
-        "source_file": "VED_171101_week.csv",
-        "source_detail": "VehId=8; Trip=708",
-        "label": "Ann Arbor Week Log",
-        "vehicle": VehicleMetadata(
-            vin=None,
-            make="VED",
-            model="Car 1.5L",
-            year=None,
+            make="Toyota",
+            model="Etios 1.5L",
+            year=2014,
             engine="4-FI 1.5L",
-            notes="Public VED OBD-II slice; Apache 2.0; week export has no coolant PID.",
+            notes="Public carOBD dataset (eron93br/carOBD); 1496cc; free with citation.",
         ),
-        "dataset": "Vehicle Energy Dataset (VED)",
-        "license": "Apache-2.0",
+        "dataset": "carOBD (Toyota Etios)",
+        "license": "Open / cite author",
+    },
+    {
+        "seed_file": "public_obd_opel_corsa_1p2l.csv",
+        "source_file": "dataset.csv (Opel Corsa 2012)",
+        "label": "Mixed Roads Log",
+        "vehicle": VehicleMetadata(
+            vin=None,
+            make="Opel",
+            model="Corsa 1.2L",
+            year=2012,
+            engine="4-FI 1.2L",
+            notes="Public OBD2 panel Opel 2012 dataset (Kaggle pedro2025); A12XER 1.2L.",
+        ),
+        "dataset": "OBD2 panel Opel 2012",
+        "license": "see Kaggle data card",
     },
 ]
 
@@ -113,7 +96,7 @@ def main() -> None:
                 notes="Synthetic Torque/Car Scanner style CSV for offline development.",
             ),
         )
-        insert_demo_baselines(conn, csv_result.vehicle_id)
+        insert_demo_baselines(conn, csv_result.vehicle_id, vehicle.engine)
 
         emulator_result = ingest_emulator_csv(
             conn,
@@ -121,7 +104,7 @@ def main() -> None:
             vehicle,
             notes="Synthetic ELM327-emulator scenario exported as CSV.",
         )
-        insert_demo_baselines(conn, emulator_result.vehicle_id)
+        insert_demo_baselines(conn, emulator_result.vehicle_id, vehicle.engine)
 
         public_results = []
         for source in PUBLIC_DRIVE_SOURCES:
@@ -142,7 +125,7 @@ def main() -> None:
                     ),
                 ),
             )
-            insert_reference_baselines(conn, public_result.vehicle_id)
+            insert_reference_baselines(conn, public_result.vehicle_id, source["vehicle"].engine)
             public_results.append(public_result)
         conn.commit()
 

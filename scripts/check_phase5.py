@@ -23,10 +23,10 @@ def main() -> None:
         raise SystemExit("Dashboard payload is missing public data source attribution")
 
     licenses = {source["license"] for source in payload["dataSource"]["sources"]}
-    if "CC BY 4.0" not in licenses or "Apache-2.0" not in licenses:
+    if "CC BY 4.0" not in licenses:
         raise SystemExit("Dashboard payload is missing expected public data licenses")
 
-    if len(payload["dataSource"].get("entries", [])) < 4:
+    if len(payload["dataSource"].get("entries", [])) < 3:
         raise SystemExit("Dashboard payload is missing exact public source entries")
 
     if any(session["source"] != "public" for session in payload["sessions"]):
@@ -55,7 +55,7 @@ def main() -> None:
     if "healthGuide" not in payload or "title" not in payload["healthGuide"]:
         raise SystemExit("Dashboard payload is missing health guide")
 
-    if "sessionViews" not in payload or len(payload["sessionViews"]) < 4:
+    if "sessionViews" not in payload or len(payload["sessionViews"]) < 3:
         raise SystemExit("Dashboard payload is missing interactive session views")
 
     inspiration_path = ROOT / "frontend/public" / payload["inspiration"]["image"]

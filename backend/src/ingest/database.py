@@ -4,6 +4,8 @@ import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
 
+from .baseline_profiles import baseline_source, engine_load_band
+
 
 @dataclass(frozen=True)
 class VehicleMetadata:
@@ -81,17 +83,24 @@ def insert_session(
     return int(cur.lastrowid)
 
 
-def insert_demo_baselines(conn: sqlite3.Connection, vehicle_id: int) -> None:
-    insert_reference_baselines(conn, vehicle_id)
+def insert_demo_baselines(
+    conn: sqlite3.Connection, vehicle_id: int, engine: str | None = None
+) -> None:
+    insert_reference_baselines(conn, vehicle_id, engine)
 
 
-def insert_reference_baselines(conn: sqlite3.Connection, vehicle_id: int) -> None:
-    """Fixed OBD reference bands (warm coolant, cruise trims) for scoring real logs."""
+def insert_reference_baselines(
+    conn: sqlite3.Connection,
+    vehicle_id: int,
+    engine: str | None = None,
+) -> None:
+    """Reference bands for scoring real logs. engine_load is VED-derived per class."""
+    lo, hi = engine_load_band(engine)
     rows = [
         ("coolant_temp_c", "warm", 82.0, 105.0, "C", "manual"),
         ("ltft_b1_pct", "cruise", -10.0, 10.0, "%", "manual"),
         ("stft_b1_pct", "cruise", -10.0, 10.0, "%", "manual"),
-        ("engine_load_pct", "idle", 12.0, 35.0, "%", "manual"),
+        ("engine_load_pct", "class", lo, hi, "%", baseline_source(engine)),
         ("timing_adv_deg", "cruise", 10.0, 45.0, "deg", "manual"),
     ]
     conn.executemany(

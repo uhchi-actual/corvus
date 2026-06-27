@@ -57,9 +57,9 @@ def main() -> None:
     data_source = dashboard["dataSource"]
     licenses = {source["license"] for source in data_source.get("sources", [])}
     if "CC BY 4.0" not in licenses:
-        raise SystemExit("Frontend public data attribution is missing KIT/RADAR license")
-    if "Apache-2.0" not in licenses:
-        raise SystemExit("Frontend public data attribution is missing VED license")
+        raise SystemExit("Frontend public data attribution is missing CC BY 4.0 license")
+    if len(data_source.get("sources", [])) < 3:
+        raise SystemExit("Frontend public data attribution is missing a public archive source")
 
     compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")
     if "disk=40GB" not in compose:

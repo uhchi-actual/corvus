@@ -1,6 +1,6 @@
 # Corvus
 
-SQL-first OBD-II performance and maintenance analyzer.
+SQL OBD-II performance and maintenance analyzer.
 
 **Live demo:** https://uhchi-actual.github.io/corvus/
 
